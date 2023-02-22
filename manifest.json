@@ -1,0 +1,40 @@
+{
+  "name": "AI-Assistant",
+  "version": "1.0",
+  "manifest_version": 3,
+  "key": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQOhUi4z9hUJjfCKUVZmKamIbiBoSY1V8tcxLzpJEynPIO31MaaR+y4sR444H42AXYVXWU4TsERhHz1bFznkT37LGSzru9tBiM0i7pKgk3x7M2DsOVWb0w0F0DdjIfPUpJM2r+UcgjE7rpd6Bv2ygZVz1kww//HvuNLS8YvYVtOcVmtK1v7Cf5SUjJ5Ai6oYAzJpc98AsnAzN4wEJqlwQkqBQbqvw8sU+V4lPC8KGKX9mXW8HaZy34L14AH68CVmdZxl+kfrZDL2ab9OmNT8qRZwL1VbSJ4QBa5GNE2KZbRWu0mM/VDwu96B+lfUECQ1jCEFRlvyuUaNr49kFAri0BAgMBAAECggEAAgYRfOUAYYDN9ot0BsfnpQze0Tkq3l0jA1shI9XtbRRwSA+YtDrRsnxwmEPuSEHJt0E33wQ8HYnUjHYPByKSdSYjUOviUFj87NfxWaXlYGnYAppMwXGlhIEe6UzjlnEDHQBjXaDD+R7MyA54BERJEMt7stQwPmyRuWzXLoZvgrjqtUHv1ljG38BY039Hmhzy3emATJFhwrWPPpKuZbCpYbQ5d83FnnPfWOLs4fRgOCSDTs0D6jxZE7siQd1A97Ujf8y8qKHesjkcXcx0oPAm7/tAe56yoGY+/MwrppnCoxyyNEbG+LJcb9Lnqs6r7Xul1KHFxVbLUHXlilsacre0QQKBgQDzFGqKutpe0ZZQn+zWg3+GiZzg+TmVYEY49UgEc+Z2xtSpEo+JPNGb+eyGZLFqXQWFbOIM4wDtjGfjKOjdK5bwtfouvIdEB4kzpNZC23ncJgk8B/lx+dc3B/W2abnKod1YyOmZ5rfl9PpxsRMTpnRQIzTIU2/HkrluDxo4s9jxYQKBgQDbS2x8rKIpzmiOq+UetwZAJ76hd1uRmRd67M2wFhD1uDdG85u+eIeVw0oSpc+cp8VPfjjPXgkOOWdf6Z9wAt3TdWf6Zcg9Krhs7cvb6rh3EeMt/yXzmI4QjB4l5tZQ6TogpbT9OFYjrQIUqUt2EdmCI+C8YhDUd8QS6CTPX4e/oQKBgQCJXzda0YBJZ67IP6kMDeKK+MhEx/QH/BGTbOLXSVysMW/LYObnSwy2VkaaKNuu3YUaQ094su06Ukf/s4XuQA0cWetacEcNZijem8BOplQ22vQLDgKlq+k5e3EcNqG95z39SAXkaOPyvECw8b5zM3W2OD9DGwwnwD60+Sn7c4Ad4QKBgEtWfx/Z4yA/tDYHogBKWpBh1yD7s26yzJlDj2qGOi9gqUTr3j6yg8oUvHbplgi4rpWfxH6hTLUhTX1q8oZ1xaWm+SDSJNe2vINXsqiL2/G0KHsd4/jrGStgJ99XjZtgdMLQivxPhXBeOI/GlZErkrEeCFBP1H5Z4ven3zWLGUThAoGAIxFLIRbGdTICRSCJax63SdzNeOJPWtOPG3f1/8ecktV5qn6A+eoNYxLSgTDqx8cjIUrrNj9wnjXAOwTM8qwQaFwM8/m3Hk/jCh+pwxPwWwm9eeTCWZfkmCau0ANVWfRSljDopV/nA4+c0N1oyQya28UJbw5ZbvO+PLkhxkui7iQ=",
+  "oauth2": {
+        "client_id": "439650513621-s0jsacq05j2v0gsputlni283g0257quv.apps.googleusercontent.com",
+        "scopes": ["profile email", "https://www.googleapis.com/auth/gmail.readonly"]
+  },
+  
+  "content_scripts": [
+	{
+		"matches":["<all_urls>"], 
+		"all_frames": true,
+		"js": ["script.js", "gpt_gmail_integration.js"]
+  	}
+  ],
+  "background": {
+     "service_worker": "background.js"
+  },
+  
+  "permissions": ["activeTab", "scripting", "storage", "identity", "downloads", "contextMenus", "alarms"],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline' https://apis.google.com;"
+  },
+  
+  "action": {
+    "default_title": "Click to view a popup",
+	"default_popup": "popup.html"
+  },
+  "host_permissions": ["*://*/*"],
+    
+  "commands": {
+    "_execute_action": {
+      "suggested_key": "Ctrl+Shift+Space"	
+    }
+  }
+
+}
