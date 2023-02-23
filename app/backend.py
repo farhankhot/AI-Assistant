@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 # import asyncio
 # from EdgeGPT import Chatbot
 
-# app = Flask(__name__)
+app = Flask(__name__)
 
 # async def UseBingAI(prompt):
     
