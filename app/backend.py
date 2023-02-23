@@ -403,7 +403,9 @@ def linkedin_login():
     text = session.get(SEED_URL).text
     soup = BeautifulSoup(text, 'html.parser')
     
-    # print("soup", soup)
+    print("soup", soup)
+    
+    soup.find('input')
     
     payload = {'session_key': email,
                'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
@@ -412,7 +414,7 @@ def linkedin_login():
     r = session.post(LOGIN_URL, data=payload)
     print(r)
     soup = BeautifulSoup(r.text, 'html.parser')
-    print(soup)
+    # print(soup)
     
     
     # pin = input('Check the PIN in your inbox and enter here:\n')
