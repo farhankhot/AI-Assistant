@@ -436,9 +436,13 @@ def linkedin_login():
     print(soup)
     
     from selenium import webdriver
-    from selenium.webdriver.common.keys import Keys
-    
-    driver = webdriver.Chrome('./chromedriver.exe')
+    import os
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+    driver = webdriver.Chrome(executable_path=os.environ.get('chromedriver'), chrome_options=chrome_options)
     
     driver.get(r.url)
     print(driver)
