@@ -217,7 +217,7 @@ def receive_link():
         data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
     # print(data)
     # time.sleep(150)
-    job_id = str(data.get_id())
+    job_id = data.get_id()
     print(job_id)
     return jsonify(success=True, message=job_id)
     

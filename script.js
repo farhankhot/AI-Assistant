@@ -141,10 +141,10 @@ window.onload = async function() {
 			.then(response => response.json())
 			.then(data => {
 
-				console.log("Successfully sent link to server", data.job_id);
+				console.log("Successfully sent link to server", data.message);
 				
 				// Keep polling until we get a proper answer
-				resultArray = checkJobStatus(data.job_id);
+				resultArray = checkJobStatus(data.message);
 				
 				document.getElementById("linkedin-search-page").style.display = "none";
 				document.getElementById("linkedin-page").style.display = "block";
