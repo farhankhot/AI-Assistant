@@ -446,7 +446,14 @@ def linkedin_login():
     driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
     
     driver.get(r.url)
-    print(driver.page_source)
+    wait = WebDriverWait(driver, 25)
+    body_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+
+    # get the HTML source code of the page
+    html = driver.page_source
+
+    # print the HTML source code to the console
+    print(html)
         
     # pin = input('Check the PIN in your inbox and enter here:\n')
     
