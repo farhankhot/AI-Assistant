@@ -14,7 +14,7 @@ window.onload = async function() {
 		// alert(email);
 		// alert(password);
 
-		fetch("http://167.99.250.232:3000/linkedin-login", {
+		fetch("https://ai-assistant.herokuapp.com/linkedin-login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
