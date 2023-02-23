@@ -202,8 +202,6 @@ def receive_link():
     email = request.json['email']
     password = request.json['password']
     
-    login(email, password)
-    
     api = Linkedin(email, password)
     # print(email, password)
     title = request.json
@@ -363,8 +361,8 @@ def get_convo_messages():
     
     email = request.json['email']
     password = request.json['password']
-    # api = Linkedin(email, password)
-    login(email, password)
+    api = Linkedin(email, password)
+    
 
     profile_urn = request.json['profileUrn']
     # print(profile_urn)
@@ -409,7 +407,32 @@ def linkedin_login():
     # result = Linkedin(email, password, debug=True)
     # print(result)
     
-    login(email, password)
+    import sys
+    import requests
+    from bs4 import BeautifulSoup
+
+    SEED_URL = 'https://www.linkedin.com/uas/login'
+    LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
+    VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+
+    session = requests.Session()    
+    
+    session.get(SEED_URL)
+    text = session.get(SEED_URL).text
+    soup = BeautifulSoup(text, 'html.parser')
+    
+    # print("soup", soup)
+    
+    loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
+    
+    payload = {'session_key': email,
+               'loginCsrfParam': loginCsrfParam,
+               'session_password': password}
+
+    r = session.post(LOGIN_URL, data=payload)
+    # print(r)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    print(soup)
     
     
     # pin = input('Check the PIN in your inbox and enter here:\n')
@@ -446,33 +469,5 @@ def linkedin_login():
 @app.route("/")
 def home_view():
     return "<h1>Welcome to Geeks for Geeks</h1>"
-    
-    
-def login(email, password):
-    import sys
-    import requests
-    from bs4 import BeautifulSoup
-
-    SEED_URL = 'https://www.linkedin.com/uas/login'
-    LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
-    VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-
-    session = requests.Session()    
-    
-    session.get(SEED_URL)
-    text = session.get(SEED_URL).text
-    soup = BeautifulSoup(text, 'html.parser')
-    
-    # print("soup", soup)
-    
-    loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
-    
-    payload = {'session_key': email,
-               'loginCsrfParam': loginCsrfParam,
-               'session_password': password}
-
-    r = session.post(LOGIN_URL, data=payload)
-    # print(r)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    print(soup)
+   
     
