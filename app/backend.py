@@ -218,6 +218,7 @@ def receive_link():
     # print(data)
     # time.sleep(150)
     job_id = data.get_id()
+    print(job_id)
     return jsonify(success=True, message=job_id)
     
 
