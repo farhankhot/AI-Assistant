@@ -1,6 +1,5 @@
 beautifulsoup4==4.11.2
 Flask==2.2.2
-goodbyecaptcha==2.4.2
 linkedin_api==2.0.0a5
 redis==4.5.1
 requests==2.28.1
