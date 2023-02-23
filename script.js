@@ -141,8 +141,11 @@ window.onload = async function() {
 			.then(response => response.json())
 			.then(data => {
 
-				console.log("Successfully sent link to server", data.message);
-
+				console.log("Successfully sent link to server", data.job_id);
+				
+				// Keep polling until we get a proper answer
+				resultArray = checkJobStatus(data.job_id);
+				
 				document.getElementById("linkedin-search-page").style.display = "none";
 				document.getElementById("linkedin-page").style.display = "block";
 
@@ -669,3 +672,31 @@ window.onload = async function() {
 // chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
 
 // });
+
+function checkJobStatus(jobId) {
+	fetch("https://ai-assistant.herokuapp.com/job-status", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			jobId: jobId
+		})
+	})
+	
+		.then(response => response.json())
+		.then(data => {
+			const status = data.status;
+			if (status === 'finished') {
+				// The job is finished, do something with the result
+				// For example:
+		
+				const result = data.result;
+				console.log(result);
+				
+			} else {
+				// The job is not finished yet, check again in 1 second
+				setTimeout(() => checkJobStatus(jobId), 1000);
+			}
+		});
+}

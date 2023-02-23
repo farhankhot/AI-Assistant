@@ -111,7 +111,7 @@ def GetProfile(api, search_params, location, mutual_connections_boolean):
         
         full_profile_list.append(prof)
         
-    print(full_profile_list)
+    # print(full_profile_list)
     
     return full_profile_list
     
@@ -216,7 +216,18 @@ def receive_link():
         data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
     # print(data)
     # time.sleep(150)
-    return jsonify(success=True, message=data)
+    job_id = data.get_id()
+    return jsonify(success=True, message=job_id)
+    
+
+@app.route('/job-status', methods=['POST'])
+def job_status():
+
+    job_id = request.json['jobId']
+
+    job = q.fetch_job(job_id)
+
+    return jsonify(success=True, message=job)
     
 # @app.route('/get-interests', methods=['POST'])
 # def get_interests():
