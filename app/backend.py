@@ -410,6 +410,26 @@ def linkedin_login():
     soup = BeautifulSoup(r.text, 'html.parser')
     print(soup)
     
+    
+    pin = input('Check the PIN in your inbox and enter here:\n')
+    
+    payload = {
+        'csrfToken': soup.find('input', {'name': 'csrfToken'})['value'],
+        'pageInstance': soup.find('input', {'name': 'pageInstance'})['value'],
+        'resendUrl': soup.find('input', {'name': 'resendUrl'})['value'],
+        'challengeId': soup.find('input', {'name': 'challengeId'})['value'],
+        'language': 'en-US',
+        'displayTime': soup.find('input', {'name': 'displayTime'})['value'],
+        'challengeSource': soup.find('input', {'name': 'challengeSource'})['value'],
+        'requestSubmissionId': soup.find('input', {'name': 'requestSubmissionId'})['value'],
+        'challengeType': soup.find('input', {'name': 'challengeType'})['value'],
+        'challengeData': soup.find('input', {'name': 'challengeData'})['value'],
+        'challengeDetails': soup.find('input', {'name': 'challengeDetails'})['value'],
+        'failureRedirectUri': soup.find('input', {'name': 'failureRedirectUri'})['value'],
+        'pin': pin
+    }
+    session.post(VERIFY_URL, data=payload)
+    
     # try:
         # result = Linkedin(email, password)
         # # print(result.get_user_profile())
