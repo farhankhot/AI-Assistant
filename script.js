@@ -14,7 +14,7 @@ window.onload = async function() {
 		// alert(email);
 		// alert(password);
 
-		fetch("http://167.99.250.232:3000/linkedin-login", {
+		fetch("https://ai-assistant.herokuapp.com/linkedin-login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -124,7 +124,7 @@ window.onload = async function() {
 		var currentCompany = document.getElementById("CurrentCompany").value;
 		var mutualConnectionsBoolean = document.getElementById("MutualConnectionsBoolean").checked;
 
-		fetch("http://167.99.250.232:3000/receive-link", {
+		fetch("https://ai-assistant.herokuapp.com/receive-link", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
