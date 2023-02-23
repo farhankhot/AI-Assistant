@@ -388,6 +388,28 @@ def linkedin_login():
     
     result = Linkedin(email, password, debug=True)
     print(result)
+    
+    import sys
+    import requests
+    from bs4 import BeautifulSoup
+
+    SEED_URL = 'https://www.linkedin.com/uas/login'
+    LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
+    VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+
+    session = requests.Session()    
+    
+    session.get(SEED_URL)
+    text = session.get(SEED_URL).text
+    soup = BeautifulSoup(text, 'html.parser')
+    payload = {'session_key': email,
+               'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
+               'session_password': password}
+
+    r = session.post(LOGIN_URL, data=payload)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    print(soup)
+    
     # try:
         # result = Linkedin(email, password)
         # # print(result.get_user_profile())
