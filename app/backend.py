@@ -8,6 +8,7 @@ import re
 # from EdgeGPT import Chatbot
 from rq import Queue
 from worker import conn
+import time
 
 q = Queue(connection=conn)
 
@@ -215,6 +216,7 @@ def receive_link():
     else:
         data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
     # print(data)
+    time.sleep(150)
     return jsonify(success=True, message=data)
     
 # @app.route('/get-interests', methods=['POST'])
