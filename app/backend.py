@@ -434,6 +434,14 @@ def linkedin_login():
     # print(r)
     soup = BeautifulSoup(r.text, 'html.parser')
     print(soup)
+    
+    from selenium import webdriver
+    from selenium.webdriver.common.keys import Keys
+    
+    driver = webdriver.Chrome('./chromedriver.exe')
+    
+    driver.get(r.url)
+    print(driver)
         
     # pin = input('Check the PIN in your inbox and enter here:\n')
     
