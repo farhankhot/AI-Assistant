@@ -33,7 +33,7 @@ function pollFunction() {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': 'Bearer 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'
+							'Authorization': 'Bearer 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'
 						},
 											
 						body: JSON.stringify({
@@ -90,7 +90,7 @@ function pollFunctionForBigReplyWindow() {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': 'Bearer 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'
+							'Authorization': 'Bearer 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'
 						},
 											
 						body: JSON.stringify({

@@ -14,7 +14,7 @@ window.onload = async function() {
 		// alert(email);
 		// alert(password);
 
-		fetch("http://localhost:3000/linkedin-login", {
+		fetch("http://167.99.250.232:3000/linkedin-login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -124,7 +124,7 @@ window.onload = async function() {
 		var currentCompany = document.getElementById("CurrentCompany").value;
 		var mutualConnectionsBoolean = document.getElementById("MutualConnectionsBoolean").checked;
 
-		fetch("http://localhost:3000/receive-link", {
+		fetch("http://167.99.250.232:3000/receive-link", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -283,6 +283,7 @@ window.onload = async function() {
 					var prompt_string = "This is the profile of a person: " + "\n" + first_name 
 					+ " This is their summary: " + summary +
 					" These are their interests: " + topicListString 
+					+ " Use the internet to get something useful about the interests and use it in the request. "
 					+ " Write a request to connect with them. Make it casual but eyecatching. The goal is to ask about their current Salesforce implementation. The length should be no more than 70 words.";
 					
 					// console.log(prompt_string);			
@@ -430,6 +431,7 @@ window.onload = async function() {
 						var prompt_string = "This is the profile of a person: " + "\n" + name 
 						+ " This is their summary: " + summary +
 						" These are their interests: " + topicListString 
+						+ " Use the internet to get something useful about the interests and use it in the request. "
 						+ " Write a request to connect with them. Make it casual but eyecatching. The goal is to ask about their current Salesforce implementation. The length should be no more than 70 words.";
 						
 						// console.log(prompt_string);			
@@ -610,15 +612,14 @@ window.onload = async function() {
 										}
 									}
 									var topicListString = topicList.toString();
-
-									// For testing, dont remove
-									document.getElementById("my-textarea").value = prompt_string;
+									
+									var prompt_string = "Reply to this: " + data.message;
 										
 									fetch('https://api.openai.com/v1/completions', {
 											method: 'POST',
 											headers: {
 												'Content-Type': 'application/json',
-												'Authorization': 'Bearer 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'
+												'Authorization': 'Bearer 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'
 											},
 
 											body: JSON.stringify({

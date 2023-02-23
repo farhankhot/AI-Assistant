@@ -1,7 +1,7 @@
 from linkedin_api import Linkedin
 import json
 from flask import Flask, request, jsonify
-from bertopic import BERTopic
+# from bertopic import BERTopic
 import emoji
 import re
 import asyncio
@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 async def UseBingAI(prompt):
     
+    # Get actual location of cookie.json here
     bot = Chatbot(cookiePath='./cookie.json')
 
     ans_json = await bot.ask(prompt=prompt)    
@@ -197,7 +198,7 @@ def receive_link():
     email = request.json['email']
     password = request.json['password']
     api = Linkedin(email, password)
-
+    print(email, password)
     title = request.json
     # print("title", title)
     
@@ -218,6 +219,8 @@ def get_interests():
     email = request.json['email']
     password = request.json['password']
     api = Linkedin(email, password)
+    
+    
 
     public_id = request.json
     # print("get_interests", public_id['publicId'])
@@ -382,7 +385,6 @@ def linkedin_login():
     # print(request.json)
     email = request.json['email']
     password = request.json['password']
-    print(email, password)
     
     result = Linkedin(email, password, debug=True)
     print(result)
@@ -397,4 +399,4 @@ def linkedin_login():
     
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    app.run(host= '0.0.0.0', port=3000, debug=True)
