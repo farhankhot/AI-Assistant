@@ -405,7 +405,7 @@ def linkedin_login():
     
     # print("soup", soup)
     
-    print(soup.find('input', {'name': 'loginCsrfParam'}))
+    print(soup.find('input', {'name': 'loginCsrfParam'})['value'])
     
     # payload = {'session_key': email,
                # 'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
