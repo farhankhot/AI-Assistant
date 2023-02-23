@@ -402,11 +402,15 @@ def linkedin_login():
     session.get(SEED_URL)
     text = session.get(SEED_URL).text
     soup = BeautifulSoup(text, 'html.parser')
+    
+    print("soup", soup)
+    
     payload = {'session_key': email,
                'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
                'session_password': password}
 
     r = session.post(LOGIN_URL, data=payload)
+    
     soup = BeautifulSoup(r.text, 'html.parser')
     print(soup)
     
