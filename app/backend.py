@@ -411,8 +411,6 @@ def linkedin_login():
     import requests
     from bs4 import BeautifulSoup
     
-    from goodbyecaptcha.solver import Solver
-
     SEED_URL = 'https://www.linkedin.com/uas/login'
     LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
     VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
