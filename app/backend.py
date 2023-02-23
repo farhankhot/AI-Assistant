@@ -228,8 +228,8 @@ def job_status():
     job_id = request.json['jobId']
 
     job = q.fetch_job(job_id)
-    
-    return jsonify(success=True, status=job.get_status, result=job.result)
+    job_status = job.get_status()
+    return jsonify(success=True, status=job_status, result=job.result)
     
 # @app.route('/get-interests', methods=['POST'])
 # def get_interests():
