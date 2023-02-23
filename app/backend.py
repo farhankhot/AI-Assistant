@@ -6,6 +6,10 @@ from flask import Flask, request, jsonify
 import re
 # import asyncio
 # from EdgeGPT import Chatbot
+from rq import Queue
+from worker import conn
+
+q = Queue(connection=conn)
 
 app = Flask(__name__)
 
@@ -193,7 +197,7 @@ def get_conversation_messages(conversation_id):
 
 
 @app.route('/receive-link', methods=['POST'])
-def async receive_link():
+def receive_link():
 
     email = request.json['email']
     password = request.json['password']
@@ -207,9 +211,9 @@ def async receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        data = await GetProfile(api, title, location_geo_urn, mutual_connections_boolean)
+        data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
     else:
-        data = await GetProfile(api, title, '', mutual_connections_boolean)
+        data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
     # print(data)
     return jsonify(success=True, message=data)
     
