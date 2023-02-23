@@ -433,7 +433,7 @@ def linkedin_login():
     r = session.post(LOGIN_URL, data=payload)
     # print(r)
     soup = BeautifulSoup(r.text, 'html.parser')
-    print(soup)
+    # print(soup)
     
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -449,7 +449,7 @@ def linkedin_login():
     driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
     
     driver.get(r.url)
-    wait = WebDriverWait(driver, 25)
+    wait = WebDriverWait(driver, 200)
     body_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
     # get the HTML source code of the page
