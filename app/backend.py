@@ -111,9 +111,8 @@ def GetProfile(api, search_params, location, mutual_connections_boolean):
         
         full_profile_list.append(prof)
         
-    # Return the profile_urn of every profile, store it in the frontend
-    # When Get people interests or company interests of profile is clicked, send the urn to backend
-        
+    print(full_profile_list)
+    
     return full_profile_list
     
 def SendConnect(api, profile_id, text):
@@ -216,7 +215,7 @@ def receive_link():
     else:
         data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
     # print(data)
-    time.sleep(150)
+    # time.sleep(150)
     return jsonify(success=True, message=data)
     
 # @app.route('/get-interests', methods=['POST'])
