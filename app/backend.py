@@ -407,13 +407,13 @@ def linkedin_login():
     
     print(soup.find('input', {'name': 'loginCsrfParam'}))
     
-    payload = {'session_key': email,
-               'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
-               'session_password': password}
+    # payload = {'session_key': email,
+               # 'loginCsrfParam': soup.find('input', {'name': 'loginCsrfParam'})['value'],
+               # 'session_password': password}
 
-    r = session.post(LOGIN_URL, data=payload)
-    # print(r)
-    soup = BeautifulSoup(r.text, 'html.parser')
+    # r = session.post(LOGIN_URL, data=payload)
+    # # print(r)
+    # soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup)
     
     
