@@ -430,7 +430,7 @@ def linkedin_login():
                'session_password': password}
 
     r = session.post(LOGIN_URL, data=payload)
-    # print(r)
+    print(r)
     soup = BeautifulSoup(r.text, 'html.parser')
     print(soup)
     
