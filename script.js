@@ -143,13 +143,32 @@ window.onload = async function() {
 
 				console.log("Successfully sent link to server", data.message);
 				
-				// Keep polling until we get a proper answer
-				resultArray = checkJobStatus(data.message);
-				
-				document.getElementById("linkedin-search-page").style.display = "none";
+				function checkJobStatus(jobId) {
+					fetch("https://ai-assistant.herokuapp.com/job-status", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							jobId: jobId
+						})
+					})
+					
+						.then(response => response.json())
+						.then(data => {
+							const status = data.status;
+							if (status === 'finished') {
+								// The job is finished, do something with the result
+								// For example:
+						
+								const resultArray = data.result;
+								// console.log(result);
+								// return result;
+												document.getElementById("linkedin-search-page").style.display = "none";
 				document.getElementById("linkedin-page").style.display = "block";
 
-				var myArray = data.message;
+				var myArray = resultArray;
+				// var myArray = data.message;
 				var pageSize = 1;
 				var currentPage = 0;
 
@@ -356,6 +375,19 @@ window.onload = async function() {
 							console.log("Successfully sent connect to server", data.message);
 						});
 				}
+								
+							} else {
+								// The job is not finished yet, check again in 1 second
+								setTimeout(() => checkJobStatus(jobId), 1000);
+							}
+						});
+				}
+				
+				// Keep polling until we get a proper answer
+				checkJobStatus(data.message);
+
+				
+
 
 				var nextButton = document.getElementById("next-button");
 				nextButton.addEventListener("click", function() {
@@ -673,30 +705,31 @@ window.onload = async function() {
 
 // });
 
-function checkJobStatus(jobId) {
-	fetch("https://ai-assistant.herokuapp.com/job-status", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			jobId: jobId
-		})
-	})
+// function checkJobStatus(jobId) {
+	// fetch("https://ai-assistant.herokuapp.com/job-status", {
+		// method: "POST",
+		// headers: {
+			// "Content-Type": "application/json"
+		// },
+		// body: JSON.stringify({
+			// jobId: jobId
+		// })
+	// })
 	
-		.then(response => response.json())
-		.then(data => {
-			const status = data.status;
-			if (status === 'finished') {
-				// The job is finished, do something with the result
-				// For example:
+		// .then(response => response.json())
+		// .then(data => {
+			// const status = data.status;
+			// if (status === 'finished') {
+				// // The job is finished, do something with the result
+				// // For example:
 		
-				const result = data.result;
-				console.log(result);
+				// const result = data.result;
+				// console.log(result);
+				// return result;
 				
-			} else {
-				// The job is not finished yet, check again in 1 second
-				setTimeout(() => checkJobStatus(jobId), 1000);
-			}
-		});
-}
+			// } else {
+				// // The job is not finished yet, check again in 1 second
+				// setTimeout(() => checkJobStatus(jobId), 1000);
+			// }
+		// });
+// }
