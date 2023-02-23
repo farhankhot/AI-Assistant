@@ -193,7 +193,7 @@ def get_conversation_messages(conversation_id):
 
 
 @app.route('/receive-link', methods=['POST'])
-def receive_link():
+def async receive_link():
 
     email = request.json['email']
     password = request.json['password']
@@ -207,9 +207,9 @@ def receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        data = GetProfile(api, title, location_geo_urn, mutual_connections_boolean)
+        data = await GetProfile(api, title, location_geo_urn, mutual_connections_boolean)
     else:
-        data = GetProfile(api, title, '', mutual_connections_boolean)
+        data = await GetProfile(api, title, '', mutual_connections_boolean)
     # print(data)
     return jsonify(success=True, message=data)
     
