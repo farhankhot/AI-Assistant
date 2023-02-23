@@ -3,7 +3,7 @@ from linkedin_api import Linkedin
 from flask import Flask, request, jsonify
 # from bertopic import BERTopic
 # import emoji
-# import re
+import re
 # import asyncio
 # from EdgeGPT import Chatbot
 
@@ -20,14 +20,14 @@ app = Flask(__name__)
     # await bot.close()
     # return ans
 
-# def get_values_for_key(key, dictionary):
-    # values = []
-    # for k, v in dictionary.items():
-        # if k == key:
-            # values.append(v)
-        # elif isinstance(v, dict):
-            # values.extend(get_values_for_key(key, v))
-    # return values    
+def get_values_for_key(key, dictionary):
+    values = []
+    for k, v in dictionary.items():
+        if k == key:
+            values.append(v)
+        elif isinstance(v, dict):
+            values.extend(get_values_for_key(key, v))
+    return values    
 
 # def GenerateCorpus(api, profile):
     
@@ -81,55 +81,55 @@ app = Flask(__name__)
     
     # return final_topics
 
-# def GetProfile(api, search_params, location, mutual_connections_boolean):
-    # print("location", location)
+def GetProfile(api, search_params, location, mutual_connections_boolean):
+    print("location", location)
     
-    # list_of_people = api.search_people(keyword_title = search_params['title'],
-    # regions = [location if location != '' else ''],
-    # keyword_company = search_params['currentCompany'],
-    # network_depth = "S" if mutual_connections_boolean == True else "O")
+    list_of_people = api.search_people(keyword_title = search_params['title'],
+    regions = [location if location != '' else ''],
+    keyword_company = search_params['currentCompany'],
+    network_depth = "S" if mutual_connections_boolean == True else "O")
     
-    # # print(list_of_people)
+    # print(list_of_people)
     
-    # full_profile_list = []
-    # for person in list_of_people[0:3]:
-        # prof = api.get_profile(person['public_id'])
+    full_profile_list = []
+    for person in list_of_people[0:3]:
+        prof = api.get_profile(person['public_id'])
         
-        # # print(prof)
+        # print(prof)
         
-        # prof_skills = api.get_profile_skills(person['public_id'])
-        # prof['skills'] = prof_skills
-        # prof['public_id'] = person['public_id']
-        # prof['profile_urn'] = person['urn_id']
+        prof_skills = api.get_profile_skills(person['public_id'])
+        prof['skills'] = prof_skills
+        prof['public_id'] = person['public_id']
+        prof['profile_urn'] = person['urn_id']
         
-        # # Get mutual connections
+        # Get mutual connections
         
-        # full_profile_list.append(prof)
+        full_profile_list.append(prof)
         
-    # # Return the profile_urn of every profile, store it in the frontend
-    # # When Get people interests or company interests of profile is clicked, send the urn to backend
+    # Return the profile_urn of every profile, store it in the frontend
+    # When Get people interests or company interests of profile is clicked, send the urn to backend
         
-    # return full_profile_list
+    return full_profile_list
     
 # def SendConnect(api, profile_id, text):
     # error_boolean = api.add_connection(profile_id, text)
     # print(error_boolean)
 
-# def get_geo_urn(api, location):
-    # url_params = {
-        # "accept": "application/vnd.linkedin.normalized+json+2.1",
-        # "accept-language": "en-US,en;q=0.9,ml;q=0.8",
-        # "csrf-token": "ajax:5885116779205486121",
-        # "x-restli-protocol-version": "2.0.0"
-    # }
-    # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
-    # # , params = url_params)
+def get_geo_urn(api, location):
+    url_params = {
+        "accept": "application/vnd.linkedin.normalized+json+2.1",
+        "accept-language": "en-US,en;q=0.9,ml;q=0.8",
+        "csrf-token": "ajax:5885116779205486121",
+        "x-restli-protocol-version": "2.0.0"
+    }
+    res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+    # , params = url_params)
 
-    # # res = api._fetch(f"/me")
-    # # print(res.json()['elements'][0]['targetUrn'])
-    # geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
-    # geo_urn = re.search("\d+", geo_urn).group()
-    # return geo_urn
+    # res = api._fetch(f"/me")
+    # print(res.json()['elements'][0]['targetUrn'])
+    geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+    geo_urn = re.search("\d+", geo_urn).group()
+    return geo_urn
 
 # def get_conversation_threads(email, password):
     # print("nn", email)
@@ -192,26 +192,26 @@ app = Flask(__name__)
     # return jsonify(success=True, message=ans)
 
 
-# @app.route('/receive-link', methods=['POST'])
-# def receive_link():
+@app.route('/receive-link', methods=['POST'])
+def receive_link():
 
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
-    # print(email, password)
-    # title = request.json
-    # # print("title", title)
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
+    print(email, password)
+    title = request.json
+    # print("title", title)
     
-    # location = request.json['location']
-    # mutual_connections_boolean = request.json['mutualConnections']
+    location = request.json['location']
+    mutual_connections_boolean = request.json['mutualConnections']
     
-    # if location != '':
-        # location_geo_urn = get_geo_urn(api, location)
-        # data = GetProfile(api, title, location_geo_urn, mutual_connections_boolean)
-    # else:
-        # data = GetProfile(api, title, '', mutual_connections_boolean)
-    # # print(data)
-    # return jsonify(success=True, message=data)
+    if location != '':
+        location_geo_urn = get_geo_urn(api, location)
+        data = GetProfile(api, title, location_geo_urn, mutual_connections_boolean)
+    else:
+        data = GetProfile(api, title, '', mutual_connections_boolean)
+    # print(data)
+    return jsonify(success=True, message=data)
     
 # @app.route('/get-interests', methods=['POST'])
 # def get_interests():
