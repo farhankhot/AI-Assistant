@@ -411,7 +411,7 @@ def linkedin_login():
     print(soup)
     
     
-    pin = input('Check the PIN in your inbox and enter here:\n')
+    # pin = input('Check the PIN in your inbox and enter here:\n')
     
     payload = {
         'csrfToken': soup.find('input', {'name': 'csrfToken'})['value'],
