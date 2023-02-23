@@ -412,9 +412,9 @@ def linkedin_login():
                'session_password': password}
 
     r = session.post(LOGIN_URL, data=payload)
-    print(r)
-    # soup = BeautifulSoup(r.text, 'html.parser')
-    # print(soup)
+    # print(r)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    print(soup)
     
     
     # pin = input('Check the PIN in your inbox and enter here:\n')
