@@ -92,7 +92,7 @@ def GetProfile(api, search_params, location, mutual_connections_boolean):
     # print(list_of_people)
     
     full_profile_list = []
-    for person in list_of_people[0:3]:
+    for person in list_of_people[0:1]:
         prof = api.get_profile(person['public_id'])
         
         # print(prof)
