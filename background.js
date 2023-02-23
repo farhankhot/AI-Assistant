@@ -20,12 +20,12 @@
 // ================ RESET FOR TESTING =====================
 // function resetCount(){chrome.storage.local.set({'LatestMailCount': '0'});}
 // resetCount();
-// chrome.storage.local.clear(function() {
-    // var error = chrome.runtime.lastError;
-    // if (error) {
-        // console.error(error);
-    // }
-// });
+chrome.storage.local.clear(function() {
+    var error = chrome.runtime.lastError;
+    if (error) {
+        console.error(error);
+    }
+});
 // ================ RESET FOR TESTING =====================
 
 // ===================== ON POPUP CLICK ==========================
