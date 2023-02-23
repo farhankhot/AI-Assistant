@@ -386,8 +386,8 @@ def linkedin_login():
     email = request.json['email']
     password = request.json['password']
     
-    result = Linkedin(email, password, debug=True)
-    print(result)
+    # result = Linkedin(email, password, debug=True)
+    # print(result)
     
     import sys
     import requests
