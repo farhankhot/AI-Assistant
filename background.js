@@ -91,7 +91,7 @@ chrome.storage.local.clear(function() {
 	contexts:["editable"]
 });*/
 
-/*chrome.contextMenus.onClicked.addListener( (info, tab) => {
+chrome.contextMenus.onClicked.addListener( (info, tab) => {
 
   	//console.log(info);
 	
@@ -167,7 +167,7 @@ chrome.storage.local.clear(function() {
 		}).catch(error => console.error(error));
 	});
 	
-});*/
+});
 
 // function GetProfileInfoFromList() {
 	// const ulElement = document.getElementsByClassName("reusable-search__entity-result-list list-style-none")[1];
@@ -226,7 +226,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		// });
     // }
 	
-	// /*else if (request.message === 'linkedin_get_auth_token'){
+	// else if (request.message === 'linkedin_get_auth_token'){
 		// var client_secret = "FzVZDL3m577jtI2u";
 		// var client_id = "784sbgo24n1suv";
 		// chrome.identity.launchWebAuthFlow({
@@ -251,7 +251,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 				// console.log(data);
 			// }).catch(error => console.error(error));
 		// });		
-	// }*/
+	// }
 	
 	// /*else if(request.message === "getPeople") {
 

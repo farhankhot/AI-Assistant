@@ -433,41 +433,6 @@ def linkedin_login():
     # print(r)
     soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup)
-    
-    from selenium import webdriver
-    import time
-    import requests
-
-    # initialize the Chrome driver
-    driver = webdriver.Chrome()
-
-    # navigate to the webpage with the download button
-    driver.get(r.url)
-    print(r.url)
-
-    # find the download button using its XPath or CSS selector
-    download_button = driver.find_element_by_xpath("//button[@id='audio_download']")
-    # alternatively, you can use CSS selector like this
-    # download_button = driver.find_element_by_css_selector("#download-button")
-
-    # click the download button
-    download_button.click()
-
-    # wait for the file to download
-    time.sleep(5) # adjust the waiting time as needed
-
-    # get the URL of the downloaded file from the browser's current URL
-    download_url = driver.current_url
-    print(download_url)
-
-    # load the downloaded file into memory as a byte stream
-    response = requests.get(download_url)
-    print(response)
-    content = response.content
-    print(content)
-
-    # close the browser window
-    driver.quit()
         
     # pin = input('Check the PIN in your inbox and enter here:\n')
     
