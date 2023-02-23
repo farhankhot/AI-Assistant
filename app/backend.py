@@ -204,7 +204,7 @@ def receive_link():
     
     login(email, password)
     
-    # api = Linkedin(email, password)
+    api = Linkedin(email, password)
     # print(email, password)
     title = request.json
     # print("title", title)
