@@ -170,7 +170,7 @@ window.onload = async function() {
 
 				document.getElementById("InterestsButton").onclick = function() {
 
-					fetch("http://localhost:3000/get-interests", {
+					fetch("https://ai-assistant.herokuapp.com/get-interests", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
@@ -203,7 +203,7 @@ window.onload = async function() {
 				
 				document.getElementById("PeopleInterestsButton").onclick = function() {
 
-					fetch("http://localhost:3000/get-people-interests", {
+					fetch("https://ai-assistant.herokuapp.com/get-people-interests", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
@@ -237,7 +237,7 @@ window.onload = async function() {
 				
 				document.getElementById("CompanyInterestsButton").onclick = function() {
 
-					fetch("http://localhost:3000/get-company-interests", {
+					fetch("https://ai-assistant.herokuapp.com/get-company-interests", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
@@ -288,7 +288,7 @@ window.onload = async function() {
 					
 					// console.log(prompt_string);			
 									
-					fetch("http://localhost:3000/use-bingai", {
+					fetch("https://ai-assistant.herokuapp.com/use-bingai", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json"
@@ -336,7 +336,7 @@ window.onload = async function() {
 				document.getElementById("send-button").onclick = function() {
 
 					// fetch to server.js, with profileId and text
-					fetch("http://localhost:3000/send-connect", {
+					fetch("https://ai-assistant.herokuapp.com/send-connect", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
@@ -379,7 +379,7 @@ window.onload = async function() {
 
 					document.getElementById("InterestsButton").onclick = function() {
 
-						fetch("http://localhost:3000/get-interests", {
+						fetch("https://ai-assistant.herokuapp.com/get-interests", {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json"
@@ -436,7 +436,7 @@ window.onload = async function() {
 						
 						// console.log(prompt_string);			
 										
-						fetch("http://localhost:3000/use-bingai", {
+						fetch("https://ai-assistant.herokuapp.com/use-bingai", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
@@ -460,7 +460,7 @@ window.onload = async function() {
 
 					document.getElementById("send-button").onclick = function() {
 
-						fetch("http://localhost:3000/send-connect", {
+						fetch("https://ai-assistant.herokuapp.com/send-connect", {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json"
@@ -488,7 +488,7 @@ window.onload = async function() {
 
 		// console.log(email);
 
-		fetch("http://localhost:3000/get-convo-threads", {
+		fetch("https://ai-assistant.herokuapp.com/get-convo-threads", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -530,7 +530,7 @@ window.onload = async function() {
 						msg_container.appendChild(new_h1);
 
 						// Display the messages, create a textarea with "Get Interests" and "Generate Message" button
-						fetch("http://localhost:3000/get-convo-messages", {
+						fetch("https://ai-assistant.herokuapp.com/get-convo-messages", {
 
 								method: "POST",
 								headers: {
@@ -569,7 +569,7 @@ window.onload = async function() {
 
 								generate_interests_button.onclick = function() {
 
-									fetch("http://localhost:3000/get-interests-from-thread", {
+									fetch("https://ai-assistant.herokuapp.com/get-interests-from-thread", {
 											method: "POST",
 											headers: {
 												"Content-Type": "application/json"
@@ -642,7 +642,7 @@ window.onload = async function() {
 
 								send_message_button.onclick = function() {
 
-									fetch("http://localhost:3000/send-message", {
+									fetch("https://ai-assistant.herokuapp.com/send-message", {
 											method: "POST",
 											headers: {
 												"Content-Type": "application/json"

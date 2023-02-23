@@ -111,9 +111,9 @@ def GetProfile(api, search_params, location, mutual_connections_boolean):
         
     return full_profile_list
     
-# def SendConnect(api, profile_id, text):
-    # error_boolean = api.add_connection(profile_id, text)
-    # print(error_boolean)
+def SendConnect(api, profile_id, text):
+    error_boolean = api.add_connection(profile_id, text)
+    print(error_boolean)
 
 def get_geo_urn(api, location):
     url_params = {
@@ -131,55 +131,55 @@ def get_geo_urn(api, location):
     geo_urn = re.search("\d+", geo_urn).group()
     return geo_urn
 
-# def get_conversation_threads(email, password):
-    # print("nn", email)
+def get_conversation_threads(email, password):
+    print("nn", email)
     
-    # api = Linkedin(email, password)
-    # print(api)
+    api = Linkedin(email, password)
+    print(api)
     
-    # convo_list=[]
-    # yay = api.get_conversations()
-    # print(yay)
-    # for thread_idx in range(0, len(yay)):
-        # first_name = get_values_for_key('firstName', yay['elements'][thread_idx]['participants'][0])
-        # last_name = get_values_for_key('lastName', yay['elements'][thread_idx]['participants'][0])
-        # full_name = first_name[0] + " " + last_name[0]
+    convo_list=[]
+    yay = api.get_conversations()
+    print(yay)
+    for thread_idx in range(0, len(yay)):
+        first_name = get_values_for_key('firstName', yay['elements'][thread_idx]['participants'][0])
+        last_name = get_values_for_key('lastName', yay['elements'][thread_idx]['participants'][0])
+        full_name = first_name[0] + " " + last_name[0]
         
-        # profile_urn = get_values_for_key('dashEntityUrn', yay['elements'][thread_idx]['participants'][0])
-        # # print(profile_urn)
-        # regex = r"profile:(.+)"
-        # match = re.search(regex, profile_urn[0])
-        # if match:
-            # result = match.group(1)
-            # # print(result)
-            # # uu = api.get_conversation(result)
-            # # print(uu)
+        profile_urn = get_values_for_key('dashEntityUrn', yay['elements'][thread_idx]['participants'][0])
+        # print(profile_urn)
+        regex = r"profile:(.+)"
+        match = re.search(regex, profile_urn[0])
+        if match:
+            result = match.group(1)
+            # print(result)
+            # uu = api.get_conversation(result)
+            # print(uu)
         
-            # convo_list.append([full_name, result])
+            convo_list.append([full_name, result])
         
-        # # for message_idx in range(0, len(yay['elements'][thread_idx]['events'])):
-            # # cleaned_up_convo = get_values_for_key('text', yay['elements'][thread_idx]['events'][message_idx])
-            # # print(cleaned_up_convo) 
+        # for message_idx in range(0, len(yay['elements'][thread_idx]['events'])):
+            # cleaned_up_convo = get_values_for_key('text', yay['elements'][thread_idx]['events'][message_idx])
+            # print(cleaned_up_convo) 
             
-    # return convo_list
+    return convo_list
 
-# def get_conversation_messages(conversation_id):
+def get_conversation_messages(conversation_id):
     
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
 
-    # convo_list=[]
-    # convo = api.get_conversation_details(conversation_id)
+    convo_list=[]
+    convo = api.get_conversation_details(conversation_id)
     
-    # print(convo)
+    print(convo)
         
-    # for message_idx in range(0, len(convo['events'])):
-        # cleaned_up_convo = get_values_for_key('text',convo['events'][message_idx])
-        # convo_list.append(cleaned_up_convo)
-        # # print(cleaned_up_convo)
+    for message_idx in range(0, len(convo['events'])):
+        cleaned_up_convo = get_values_for_key('text',convo['events'][message_idx])
+        convo_list.append(cleaned_up_convo)
+        # print(cleaned_up_convo)
             
-    # return convo_list
+    return convo_list
     
     
 # @app.route('/use-bingai', methods=['POST'])
@@ -324,61 +324,61 @@ def receive_link():
     
     # return jsonify(success=True, message=data)
     
-# @app.route('/get-convo-threads', methods=['POST'])
-# def get_convo_threads():
+@app.route('/get-convo-threads', methods=['POST'])
+def get_convo_threads():
 
-    # email = request.json['email']
-    # password = request.json['password']
-    # print(email)
+    email = request.json['email']
+    password = request.json['password']
+    print(email)
     
-    # # api = Linkedin(email, password)
-    # # print("api", api)
-    # data = get_conversation_threads(email, password)
-    # print("da", data)
-    
-    # return jsonify(success=True, message=data)
-
-# @app.route('/get-convo-messages', methods=['POST'])
-# def get_convo_messages():
-
-    
-    # email = request.json['email']
-    # password = request.json['password']
     # api = Linkedin(email, password)
-
-    # profile_urn = request.json['profileUrn']
-    # # print(profile_urn)
-    # data = get_conversation_messages(profile_urn)
-    # # print(data)
+    # print("api", api)
+    data = get_conversation_threads(email, password)
+    print("da", data)
     
-    # return jsonify(success=True, message=data)
+    return jsonify(success=True, message=data)
 
-# @app.route('/send-connect', methods=['POST'])
-# def send_connect():
+@app.route('/get-convo-messages', methods=['POST'])
+def get_convo_messages():
 
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
+    
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
 
-    # profile_id = request.json['profileId']
-    # text = request.json['text']
-    # data = SendConnect(api, profile_id, text)
-    # return jsonify(success=True, message='sent connect note')
-
-# @app.route('/send-message', methods=['POST'])
-# def send_message():
-
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
-
-    # profile_id = request.json['profileId']
-    # print(profile_id)
-    # text = request.json['text']
-    # print(text)
-    # data = api.send_message(message_body = text, recipients=[profile_id])
+    profile_urn = request.json['profileUrn']
+    # print(profile_urn)
+    data = get_conversation_messages(profile_urn)
     # print(data)
-    # return jsonify(success=True, message='sent message')
+    
+    return jsonify(success=True, message=data)
+
+@app.route('/send-connect', methods=['POST'])
+def send_connect():
+
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
+
+    profile_id = request.json['profileId']
+    text = request.json['text']
+    data = SendConnect(api, profile_id, text)
+    return jsonify(success=True, message='sent connect note')
+
+@app.route('/send-message', methods=['POST'])
+def send_message():
+
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
+
+    profile_id = request.json['profileId']
+    print(profile_id)
+    text = request.json['text']
+    print(text)
+    data = api.send_message(message_body = text, recipients=[profile_id])
+    print(data)
+    return jsonify(success=True, message='sent message')
     
 @app.route('/linkedin-login', methods=['POST'])
 def linkedin_login():
