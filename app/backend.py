@@ -437,10 +437,10 @@ def linkedin_login():
     # except:
         # return jsonify(success=False, message='Invalid login info')
     
-    result = Linkedin(email, password, debug=True)
-    print(result)
+    # result = Linkedin(email, password, debug=True)
+    # print(result)
     
-    return jsonify(success=True, message="success")
+    # return jsonify(success=True, message="success")
     
 @app.route("/")
 def home_view():
