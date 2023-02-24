@@ -247,12 +247,13 @@ def job_status():
     # return jsonify(success=True, message=data)
     
 def GetPeopleInterests(request_json):
-    email = request.json['email']
-    password = request.json['password']
+
+    email = request_json['email']
+    password = request_json['password']
+    
     api = Linkedin(email, password)
 
-    profile_urn = request.json['profileUrn']
-
+    profile_urn = request_json['profileUrn']
     # print(profile_urn)
 
     person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
