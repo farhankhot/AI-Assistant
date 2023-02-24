@@ -456,13 +456,13 @@ def linkedin_login():
     # soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup)
     
-    email_field = driver.find_element_by_name("session_key")
-    password_field = driver.find_element_by_name("session_password")
+    email_field = driver.find_element(By.NAME, "session_key")
+    password_field = driver.find_element(By.NAME, "session_password")
     
     email_field.send_keys(email)
     password_field.send_keys(password)
     
-    submit_button = driver.find_element_by_css_selector(".btn__primary--large")
+    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
     
     wait = WebDriverWait(driver, 40)
