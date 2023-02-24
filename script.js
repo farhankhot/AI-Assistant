@@ -240,7 +240,9 @@ window.onload = async function() {
 										})
 										.then(response => response.json())
 										.then(data => {
-											var jobId = data.message;
+											// var jobId = data.message;
+											// console.log(jobId);
+											console.log(data.message);
 											function checkJobStatus(jobId) {
 												fetch("https://ai-assistant.herokuapp.com/job-status", {
 													method: "POST",
@@ -260,7 +262,7 @@ window.onload = async function() {
 														
 														if (status === 'finished') {
 														
-															// console.log("Successfully gotten people interests", data.message);
+															console.log("Successfully gotten people interests", data.result);
 															
 															const words = data.result;
 
