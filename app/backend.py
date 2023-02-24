@@ -411,18 +411,13 @@ def send_message():
 def linkedin_login():
     # print(request.json)
     email = request.json['email']
-    password = request.json['password']
-    
-    # result = Linkedin(email, password, debug=True)
-    # print(result)
-    
+    password = request.json['password']    
+
     import sys
     import requests
     from bs4 import BeautifulSoup
     
     SEED_URL = 'https://www.linkedin.com/login'
-    LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
-    VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
     
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -438,31 +433,12 @@ def linkedin_login():
     chrome_options.add_argument('--headless')
     chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
     driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
-    
-    # driver.get(r.url)
-    # wait = WebDriverWait(driver, 200)
-    # body_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "button")))
-    # # get the HTML source code of the page
-    # html = driver.page_source
-    # # print the HTML source code to the console
-    # print(html)
-    
-    # session.get(SEED_URL)
-    # text = session.get(SEED_URL).text
-    # soup = BeautifulSoup(text, 'html.parser')
-
+   
     driver.get(SEED_URL)
-    
-    # loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
-    
+        
     payload = {'session_key': email,
                # 'loginCsrfParam': loginCsrfParam,
                'session_password': password}
-
-    # r = session.post(LOGIN_URL, data=payload)
-    # print(r.text)
-    # soup = BeautifulSoup(r.text, 'html.parser')
-    # print(soup)
     
     email_field = driver.find_element(By.NAME, "session_key")
     password_field = driver.find_element(By.NAME, "session_password")
@@ -473,40 +449,13 @@ def linkedin_login():
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
     
-    wait = WebDriverWait(driver, 40)
+    wait = WebDriverWait(driver, 100)
+
+    captcha_iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe#CaptchaFrame")))
     page_source = driver.page_source
     print(page_source)
+    print(captcha_iframe)
          
-    # pin = input('Check the PIN in your inbox and enter here:\n')
-    # payload = {
-        # 'csrfToken': soup.find('input', {'name': 'csrfToken'})['value'],
-        # 'pageInstance': soup.find('input', {'name': 'pageInstance'})['value'],
-        # # 'resendUrl': soup.find('input', {'name': 'resendUrl'})['value'],
-        # 'challengeId': soup.find('input', {'name': 'challengeId'})['value'],
-        # 'language': 'en-US',
-        # 'displayTime': soup.find('input', {'name': 'displayTime'})['value'],
-        # 'challengeSource': soup.find('input', {'name': 'challengeSource'})['value'],
-        # 'requestSubmissionId': soup.find('input', {'name': 'requestSubmissionId'})['value'],
-        # 'challengeType': soup.find('input', {'name': 'challengeType'})['value'],
-        # 'challengeData': soup.find('input', {'name': 'challengeData'})['value'],
-        # 'challengeDetails': soup.find('input', {'name': 'challengeDetails'})['value'],
-        # 'captchaFid': soup.find('input', {'name': 'captchaFid'})['value'],
-        # 'captchaSid': soup.find('input', {'name': 'captchaSid'})['value'],
-        # 'failureRedirectUri': soup.find('input', {'name': 'failureRedirectUri'})['value'],
-        # # 'pin': pin
-    # }
-    # rr = session.post(VERIFY_URL, data=payload)
-    # print(rr)
-    
-    # try:
-        # result = Linkedin(email, password)
-        # # print(result.get_user_profile())
-        # return jsonify(success=True, message="success")
-    # except:
-        # return jsonify(success=False, message='Invalid login info')
-    
-    # result = Linkedin(email, password, debug=True)
-    # print(result)
     
     return jsonify(success=True, message="success")
     
