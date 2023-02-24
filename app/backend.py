@@ -469,9 +469,11 @@ def linkedin_login():
     
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
+    
     print(driver.current_url)
-    # wait = WebDriverWait(driver, timeout=29)  
-    # captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
+    
+    wait = WebDriverWait(driver, timeout=29)  
+    captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
     # print(captcha_iframe)
     
     # job = q.enqueue(load_linkedin_page)
