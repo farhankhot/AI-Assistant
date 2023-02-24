@@ -449,7 +449,7 @@ def linkedin_login():
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
     
-    job = queue.enqueue(load_linkedin_page, driver)
+    job = q.enqueue(load_linkedin_page, driver)
 
     # wait for the task to complete and return the result
     page_source = job.result(timeout=25)
