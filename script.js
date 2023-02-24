@@ -240,22 +240,50 @@ window.onload = async function() {
 										})
 										.then(response => response.json())
 										.then(data => {
-											console.log("Successfully gotten people interests", data.message);
+											
+											function checkJobStatus(jobId) {
+												fetch("https://ai-assistant.herokuapp.com/job-status", {
+													method: "POST",
+													headers: {
+														"Content-Type": "application/json"
+													},
+													body: JSON.stringify({
+														jobId: jobId
+													})
+												})
+												
+													.then(response => response.json())
+													.then(data => {
+														
+														const status = data.status;
+														
+														if (status === 'finished') {
+														
+															console.log("Successfully gotten people interests", data.message);
 
-											var words = data.message;
-											var container = document.getElementById('PeopleInterestsContainer');
+															var words = data.message;
+															var container = document.getElementById('PeopleInterestsContainer');
 
-											for (var i = 0; i < words.length; i++) {
+															for (var i = 0; i < words.length; i++) {
 
-												var checkbox = document.createElement('input');
-												checkbox.type = 'checkbox';
-												checkbox.value = words[i][0];
-												checkbox.id = words[i][1];
-												var label = document.createElement('label');
-												label.textContent = words[i][0];
-												label.appendChild(checkbox);
-												container.appendChild(label);
+																var checkbox = document.createElement('input');
+																checkbox.type = 'checkbox';
+																checkbox.value = words[i][0];
+																checkbox.id = words[i][1];
+																var label = document.createElement('label');
+																label.textContent = words[i][0];
+																label.appendChild(checkbox);
+																container.appendChild(label);
+															}
+															
+															
+														} else {
+															// The job is not finished yet, check again in 1 second
+															setTimeout(() => checkJobStatus(jobId), 1000);
+														}
+													});
 											}
+												
 										});
 								}
 								
@@ -384,10 +412,7 @@ window.onload = async function() {
 					document.getElementById("CheckboxContainer").innerHTML = "";
 					document.getElementById("InterestsContainer").innerHTML = "";
 					document.getElementById("PeopleInterestsContainer").innerHTML = "";
-					document.getElementById("CompanyInterestsContainer").innerHTML = "";
-					
-					
-					
+					document.getElementById("CompanyInterestsContainer").innerHTML = "";					
 					
 		
 					// Increment the current page index

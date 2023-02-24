@@ -245,10 +245,8 @@ def job_status():
     # # print(data)
     
     # return jsonify(success=True, message=data)
- 
-@app.route('/get-people-interests', methods=['POST'])
-def get_people_interests():
-
+    
+def GetPeopleInterests(request_json):
     email = request.json['email']
     password = request.json['password']
     api = Linkedin(email, password)
@@ -287,7 +285,17 @@ def get_people_interests():
     print(len(final_people_the_profile_is_interested_in))
     # ============= Getting interests of People =============================
     
-    return jsonify(success=True, message=final_people_the_profile_is_interested_in)
+    return final_people_the_profile_is_interested_in
+
+ 
+@app.route('/get-people-interests', methods=['POST'])
+def get_people_interests():
+
+    data = q.enqueue(GetPeopleInterests, request.json)
+    
+    job_id = data.get_id()
+    
+    return jsonify(success=True, message=job_id)
 
 @app.route('/get-company-interests', methods=['POST'])
 def get_company_interests():
