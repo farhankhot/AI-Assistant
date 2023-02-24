@@ -470,11 +470,15 @@ def linkedin_login():
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
     
-    job = q.enqueue(load_linkedin_page)
+    wait = WebDriverWait(driver, 1)  
+    captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
+    print(captcha_iframe)
+    
+    # job = q.enqueue(load_linkedin_page)
 
-    # wait for the task to complete and return the result
-    page_source = job.result(timeout=25)
-    print(page_source)           
+    # # wait for the task to complete and return the result
+    # page_source = job.result(timeout=25)
+    # print(page_source)           
     
     return jsonify(success=True, message="success")
 
