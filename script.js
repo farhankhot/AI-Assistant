@@ -241,14 +241,14 @@ window.onload = async function() {
 										.then(response => response.json())
 										.then(data => {
 											
-											function checkJobStatus(jobId) {
+											function checkJobStatus(data.message) {
 												fetch("https://ai-assistant.herokuapp.com/job-status", {
 													method: "POST",
 													headers: {
 														"Content-Type": "application/json"
 													},
 													body: JSON.stringify({
-														jobId: jobId
+														jobId: data.message
 													})
 												})
 												
