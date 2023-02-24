@@ -412,7 +412,7 @@ def linkedin_login():
     import requests
     from bs4 import BeautifulSoup
     
-    SEED_URL = 'https://www.linkedin.com/uas/login'
+    SEED_URL = 'https://www.linkedin.com/login'
     LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
     VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
     
@@ -439,9 +439,11 @@ def linkedin_login():
     # # print the HTML source code to the console
     # print(html)
     
-    session.get(SEED_URL)
-    text = session.get(SEED_URL).text
-    soup = BeautifulSoup(text, 'html.parser')
+    # session.get(SEED_URL)
+    # text = session.get(SEED_URL).text
+    # soup = BeautifulSoup(text, 'html.parser')
+
+    driver.get(SEED_URL)
     
     loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
     
@@ -449,11 +451,23 @@ def linkedin_login():
                'loginCsrfParam': loginCsrfParam,
                'session_password': password}
 
-    r = session.post(LOGIN_URL, data=payload)
-    print(session.prepare_request(r))
-
+    # r = session.post(LOGIN_URL, data=payload)
+    # print(r.text)
     # soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup)
+    
+    email_field = driver.find_element_by_name("session_key")
+    password_field = driver.find_element_by_name("session_password")
+    
+    email_field.send_keys(email)
+    password_field.send_keys(password)
+    
+    submit_button = driver.find_element_by_css_selector(".btn__primary--large")
+    submit_button.click()
+    
+    wait = WebDriverWait(driver, 40)
+    page_source = driver.page_source
+    print(page_source)
          
     # pin = input('Check the PIN in your inbox and enter here:\n')
     # payload = {
