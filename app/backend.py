@@ -407,6 +407,14 @@ def send_message():
     print(data)
     return jsonify(success=True, message='sent message')
     
+def load_linkedin_page(driver):
+
+    wait = WebDriverWait(driver, 4)  
+    captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
+    print(captcha_iframe)
+
+    return captcha_iframe
+
 @app.route('/linkedin-login', methods=['POST'])
 def linkedin_login():
     # print(request.json)
@@ -456,14 +464,6 @@ def linkedin_login():
     print(page_source)           
     
     return jsonify(success=True, message="success")
-    
-def load_linkedin_page(driver):
-
-    wait = WebDriverWait(driver, 4)  
-    captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
-    print(captcha_iframe)
-
-    return captcha_iframe
 
 @app.route("/")
 def home_view():
