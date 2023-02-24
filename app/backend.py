@@ -421,6 +421,8 @@ def linkedin_login():
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
     import os
+    
+    session = requests.Session() 
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--disable-gpu')
