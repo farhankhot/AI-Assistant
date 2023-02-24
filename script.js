@@ -156,240 +156,228 @@ window.onload = async function() {
 					
 						.then(response => response.json())
 						.then(data => {
+							
 							const status = data.status;
+							
 							if (status === 'finished') {
-								// The job is finished, do something with the result
-								// For example:
-						
+								
 								const resultArray = data.result;
+								
 								// console.log(result);
 								// return result;
-												document.getElementById("linkedin-search-page").style.display = "none";
-				document.getElementById("linkedin-page").style.display = "block";
-
-				var myArray = resultArray;
-				// var myArray = data.message;
-				var pageSize = 1;
-				var currentPage = 0;
-
-				// Divide the array into pages
-				var pages = [];
-				for (var i = 0; i < myArray.length; i += pageSize) {
-					pages.push(myArray.slice(i, i + pageSize));
-				}
-
-				var copyProfile = JSON.parse(JSON.stringify(pages[currentPage]));
-				var first_name = copyProfile[0]['firstName'] + " " + copyProfile[0]['lastName'];
-				var first_title = copyProfile[0]['headline'];
-				var profileId = copyProfile[0]['profile_id'];
-				var summary = copyProfile[0]['summary'];
-				var skills = copyProfile[0]['skills'];
-				var public_id = copyProfile[0]['public_id'];
-				var profileUrn = copyProfile[0]['profile_urn'];
-
-				document.getElementById("name").innerHTML = first_name;
-				document.getElementById("title").innerHTML = first_title;
-
-				document.getElementById("InterestsButton").onclick = function() {
-
-					fetch("https://ai-assistant.herokuapp.com/get-interests", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								email: email,
-								password: password,
-								publicId: publicId
-							})
-						})
-						.then(response => response.json())
-						.then(data => {
-							console.log("Successfully gotten interests", data.message);
-
-							var words = data.message;
-							var container = document.getElementById('CheckboxContainer');
-
-							for (var i = 0; i < words.length; i++) {
-
-								var checkbox = document.createElement('input');
-								checkbox.type = 'checkbox';
-								checkbox.value = words[i];
-								var label = document.createElement('label');
-								label.textContent = words[i];
-								label.appendChild(checkbox);
-								container.appendChild(label);
-							}
-						});
-				}
-				
-				document.getElementById("PeopleInterestsButton").onclick = function() {
-
-					fetch("https://ai-assistant.herokuapp.com/get-people-interests", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								email: email,
-								password: password,
-								profileUrn: profileUrn
-							})
-						})
-						.then(response => response.json())
-						.then(data => {
-							console.log("Successfully gotten people interests", data.message);
-
-							var words = data.message;
-							var container = document.getElementById('PeopleInterestsContainer');
-
-							for (var i = 0; i < words.length; i++) {
-
-								var checkbox = document.createElement('input');
-								checkbox.type = 'checkbox';
-								checkbox.value = words[i][0];
-								checkbox.id = words[i][1];
-								var label = document.createElement('label');
-								label.textContent = words[i][0];
-								label.appendChild(checkbox);
-								container.appendChild(label);
-							}
-						});
-				}
-				
-				document.getElementById("CompanyInterestsButton").onclick = function() {
-
-					fetch("https://ai-assistant.herokuapp.com/get-company-interests", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								email: email,
-								password: password,
-								profileUrn: profileUrn
-							})
-						})
-						.then(response => response.json())
-						.then(data => {
-							console.log("Successfully gotten company interests", data.message);
-
-							var words = data.message;
-							var container = document.getElementById('CompanyInterestsContainer');
-
-							for (var i = 0; i < words.length; i++) {
-
-								var checkbox = document.createElement('input');
-								checkbox.type = 'checkbox';
-								checkbox.value = words[i][0];
-								checkbox.id = words[i][1];
-								var label = document.createElement('label');
-								label.textContent = words[i][0];
-								label.appendChild(checkbox);
-								container.appendChild(label);
-							}
-						});
-				}
-
-				document.getElementById("GenerateConnectNoteButton").onclick = function() {
-					var checkboxes = document.querySelectorAll('input[type=checkbox]');
-					var topicList = [];
-					for (var i = 0; i < checkboxes.length; i++) {
-						if (checkboxes[i].checked) {
-							var topic = checkboxes[i].value;
-							topicList.push(topic);
-						}
-					}
-					var topicListString = topicList.toString();
-
-					var prompt_string = "This is the profile of a person: " + "\n" + first_name 
-					+ " This is their summary: " + summary +
-					" These are their interests: " + topicListString 
-					+ " Use the internet to get something useful about the interests and use it in the request. "
-					+ " Write a request to connect with them. Make it casual but eyecatching. The goal is to ask about their current Salesforce implementation. The length should be no more than 70 words.";
-					
-					// console.log(prompt_string);			
-									
-					fetch("https://ai-assistant.herokuapp.com/use-bingai", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({
-							prompt: prompt_string
-						})
-					})
-					.then(response => response.json())
-					.then(data => {
-						
-						console.log(data.message);
-						
-						document.getElementById("my-textarea").value = data.message;
-						
-
-					}).catch(error => console.error(error));
-					
-					// fetch('https://api.openai.com/v1/completions', {
-							// method: 'POST',
-							// headers: {
-								// 'Content-Type': 'application/json',
-								// 'Authorization': 'Bearer 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'
-							// },
-
-							// body: JSON.stringify({
-								// model: 'text-davinci-003',
-								// prompt: prompt_string,
-								// max_tokens: 80,
-								// temperature: 0.7
-							// })
-						// })
-						// .then(response => response.json())
-						// .then(data => {
-							// console.log(JSON.stringify(data));
-							// console.log(data.choices[0].text);
-							// document.getElementById("my-textarea").value = data.choices[0].text;
-
-						// }).catch(error => console.error(error));
-
-					// For testing, dont remove
-					// document.getElementById("my-textarea").value = prompt_string;
-				}
-
-				document.getElementById("send-button").onclick = function() {
-
-					// fetch to server.js, with profileId and text
-					fetch("https://ai-assistant.herokuapp.com/send-connect", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								email: email,
-								password: password,
-								profileId: profileId,
-								text: document.getElementById("my-textarea").value
-							})
-						})
-						.then(response => response.json())
-						.then(data => {
-							console.log("Successfully sent connect to server", data.message);
-						});
-				}
 								
-							} else {
-								// The job is not finished yet, check again in 1 second
-								setTimeout(() => checkJobStatus(jobId), 1000);
-							}
-						});
-				}
-				
-				// Keep polling until we get a proper answer
-				checkJobStatus(data.message);
+								document.getElementById("linkedin-search-page").style.display = "none";
+								document.getElementById("linkedin-page").style.display = "block";
 
-				
+								var myArray = resultArray;
+								// var myArray = data.message;
+								var pageSize = 1;
+								var currentPage = 0;
 
+								// Divide the array into pages
+								var pages = [];
+								for (var i = 0; i < myArray.length; i += pageSize) {
+									pages.push(myArray.slice(i, i + pageSize));
+								}
 
-				var nextButton = document.getElementById("next-button");
+								var copyProfile = JSON.parse(JSON.stringify(pages[currentPage]));
+								var first_name = copyProfile[0]['firstName'] + " " + copyProfile[0]['lastName'];
+								var first_title = copyProfile[0]['headline'];
+								var profileId = copyProfile[0]['profile_id'];
+								var summary = copyProfile[0]['summary'];
+								var skills = copyProfile[0]['skills'];
+								var public_id = copyProfile[0]['public_id'];
+								var profileUrn = copyProfile[0]['profile_urn'];
+
+								document.getElementById("name").innerHTML = first_name;
+								document.getElementById("title").innerHTML = first_title;
+
+								document.getElementById("InterestsButton").onclick = function() {
+
+									fetch("https://ai-assistant.herokuapp.com/get-interests", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json"
+											},
+											body: JSON.stringify({
+												email: email,
+												password: password,
+												publicId: publicId
+											})
+										})
+										.then(response => response.json())
+										.then(data => {
+											console.log("Successfully gotten interests", data.message);
+
+											var words = data.message;
+											var container = document.getElementById('CheckboxContainer');
+
+											for (var i = 0; i < words.length; i++) {
+
+												var checkbox = document.createElement('input');
+												checkbox.type = 'checkbox';
+												checkbox.value = words[i];
+												var label = document.createElement('label');
+												label.textContent = words[i];
+												label.appendChild(checkbox);
+												container.appendChild(label);
+											}
+										});
+								}
+								
+								document.getElementById("PeopleInterestsButton").onclick = function() {
+
+									fetch("https://ai-assistant.herokuapp.com/get-people-interests", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json"
+											},
+											body: JSON.stringify({
+												email: email,
+												password: password,
+												profileUrn: profileUrn
+											})
+										})
+										.then(response => response.json())
+										.then(data => {
+											console.log("Successfully gotten people interests", data.message);
+
+											var words = data.message;
+											var container = document.getElementById('PeopleInterestsContainer');
+
+											for (var i = 0; i < words.length; i++) {
+
+												var checkbox = document.createElement('input');
+												checkbox.type = 'checkbox';
+												checkbox.value = words[i][0];
+												checkbox.id = words[i][1];
+												var label = document.createElement('label');
+												label.textContent = words[i][0];
+												label.appendChild(checkbox);
+												container.appendChild(label);
+											}
+										});
+								}
+								
+								document.getElementById("CompanyInterestsButton").onclick = function() {
+
+									fetch("https://ai-assistant.herokuapp.com/get-company-interests", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json"
+											},
+											body: JSON.stringify({
+												email: email,
+												password: password,
+												profileUrn: profileUrn
+											})
+										})
+										.then(response => response.json())
+										.then(data => {
+											console.log("Successfully gotten company interests", data.message);
+
+											var words = data.message;
+											var container = document.getElementById('CompanyInterestsContainer');
+
+											for (var i = 0; i < words.length; i++) {
+
+												var checkbox = document.createElement('input');
+												checkbox.type = 'checkbox';
+												checkbox.value = words[i][0];
+												checkbox.id = words[i][1];
+												var label = document.createElement('label');
+												label.textContent = words[i][0];
+												label.appendChild(checkbox);
+												container.appendChild(label);
+											}
+										});
+								}
+
+								document.getElementById("GenerateConnectNoteButton").onclick = function() {
+									var checkboxes = document.querySelectorAll('input[type=checkbox]');
+									var topicList = [];
+									for (var i = 0; i < checkboxes.length; i++) {
+										if (checkboxes[i].checked) {
+											var topic = checkboxes[i].value;
+											topicList.push(topic);
+										}
+									}
+									var topicListString = topicList.toString();
+
+									var prompt_string = "This is the profile of a person: " + "\n" + first_name 
+									+ " This is their summary: " + summary +
+									" These are their interests: " + topicListString 
+									+ " Use the internet to get something useful about the interests and use it in the request. "
+									+ " Write a request to connect with them. Make it casual but eyecatching. The goal is to ask about their current Salesforce implementation. The length should be no more than 70 words.";
+									
+									// console.log(prompt_string);			
+													
+									fetch("https://ai-assistant.herokuapp.com/use-bingai", {
+										method: "POST",
+										headers: {
+											"Content-Type": "application/json"
+										},
+										body: JSON.stringify({
+											prompt: prompt_string
+										})
+									})
+									.then(response => response.json())
+									.then(data => {
+										
+										console.log(data.message);
+										
+										document.getElementById("my-textarea").value = data.message;
+										
+
+									}).catch(error => console.error(error));
+									
+									// fetch('https://api.openai.com/v1/completions', {
+											// method: 'POST',
+											// headers: {
+												// 'Content-Type': 'application/json',
+												// 'Authorization': 'Bearer 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'
+											// },
+
+											// body: JSON.stringify({
+												// model: 'text-davinci-003',
+												// prompt: prompt_string,
+												// max_tokens: 80,
+												// temperature: 0.7
+											// })
+										// })
+										// .then(response => response.json())
+										// .then(data => {
+											// console.log(JSON.stringify(data));
+											// console.log(data.choices[0].text);
+											// document.getElementById("my-textarea").value = data.choices[0].text;
+
+										// }).catch(error => console.error(error));
+
+									// For testing, dont remove
+									// document.getElementById("my-textarea").value = prompt_string;
+								}
+
+								document.getElementById("send-button").onclick = function() {
+
+									// fetch to server.js, with profileId and text
+									fetch("https://ai-assistant.herokuapp.com/send-connect", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json"
+											},
+											body: JSON.stringify({
+												email: email,
+												password: password,
+												profileId: profileId,
+												text: document.getElementById("my-textarea").value
+											})
+										})
+										.then(response => response.json())
+										.then(data => {
+											console.log("Successfully sent connect to server", data.message);
+										});
+								}
+												var nextButton = document.getElementById("next-button");
 				nextButton.addEventListener("click", function() {
 					// clear
 					document.getElementById("my-textarea").value = "";
@@ -397,6 +385,10 @@ window.onload = async function() {
 					document.getElementById("InterestsContainer").innerHTML = "";
 					document.getElementById("PeopleInterestsContainer").innerHTML = "";
 					document.getElementById("CompanyInterestsContainer").innerHTML = "";
+					
+					
+					
+					
 		
 					// Increment the current page index
 					currentPage = (currentPage + 1) % pages.length;
@@ -514,6 +506,18 @@ window.onload = async function() {
 					}
 
 				});
+								
+								
+							} else {
+								// The job is not finished yet, check again in 1 second
+								setTimeout(() => checkJobStatus(jobId), 1000);
+							}
+						});
+				}
+				
+				// Keep polling until we get a proper answer
+				checkJobStatus(data.message);				
+
 			});
 	}
 

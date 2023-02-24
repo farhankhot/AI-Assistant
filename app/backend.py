@@ -2,10 +2,10 @@ from linkedin_api import Linkedin
 # import json
 from flask import Flask, request, jsonify
 # from bertopic import BERTopic
-# import emoji
+import emoji
 import re
-# import asyncio
-# from EdgeGPT import Chatbot
+import asyncio
+from EdgeGPT import Chatbot
 from rq import Queue
 from worker import conn
 import time
@@ -14,16 +14,16 @@ q = Queue(connection=conn)
 
 app = Flask(__name__)
 
-# async def UseBingAI(prompt):
+async def UseBingAI(prompt):
     
-    # # Get actual location of cookie.json here
-    # bot = Chatbot(cookiePath='./cookie.json')
+    # Get actual location of cookie.json here
+    bot = Chatbot(cookiePath='./cookie.json')
 
-    # ans_json = await bot.ask(prompt=prompt)    
-    # ans = ans_json['item']['messages'][1]['text']
+    ans_json = await bot.ask(prompt=prompt)    
+    ans = ans_json['item']['messages'][1]['text']
     
-    # await bot.close()
-    # return ans
+    await bot.close()
+    return ans
 
 def get_values_for_key(key, dictionary):
     values = []
@@ -97,7 +97,7 @@ def GetProfile(api, search_params, location, mutual_connections_boolean):
     # print(list_of_people)
     
     full_profile_list = []
-    for person in list_of_people[0:1]:
+    for person in list_of_people[0:3]:
         prof = api.get_profile(person['public_id'])
         
         # print(prof)
@@ -186,15 +186,14 @@ def get_conversation_messages(conversation_id):
     return convo_list
     
     
-# @app.route('/use-bingai', methods=['POST'])
-# def use_bingai():
+@app.route('/use-bingai', methods=['POST'])
+def use_bingai():
 
-    # prompt = request.json['prompt']    
-    # ans = asyncio.run(UseBingAI(prompt))
-    # print(ans)
+    prompt = request.json['prompt']    
+    ans = asyncio.run(UseBingAI(prompt))
+    print(ans)
 
-    # return jsonify(success=True, message=ans)
-
+    return jsonify(success=True, message=ans)
 
 @app.route('/receive-link', methods=['POST'])
 def receive_link():
@@ -247,85 +246,85 @@ def job_status():
     
     # return jsonify(success=True, message=data)
  
-# @app.route('/get-people-interests', methods=['POST'])
-# def get_people_interests():
+@app.route('/get-people-interests', methods=['POST'])
+def get_people_interests():
 
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
 
-    # profile_urn = request.json['profileUrn']
+    profile_urn = request.json['profileUrn']
 
-    # # print(profile_urn)
+    # print(profile_urn)
 
-    # person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
-    # person_interests = person_interests.json()
-    # person_interests_json = json.dumps(person_interests)
+    person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
+    person_interests = person_interests.json()
+    person_interests_json = json.dumps(person_interests)
 
-    # # print(type(person_interests))
-    # # print(person_interests_json)
+    # print(type(person_interests))
+    # print(person_interests_json)
 
-    # # ============= Getting interests of People =============================
-    # pattern = re.compile(r'"(urn:li:fsd_profile:[^"]*)"')
-    # matches = re.findall(pattern, person_interests_json)
-    # # print(matches)
-    # people_the_profile_is_interested_in_set = set(matches)
-    # people_the_profile_is_interested_in = [s.split(':')[-1] for s in people_the_profile_is_interested_in_set]
+    # ============= Getting interests of People =============================
+    pattern = re.compile(r'"(urn:li:fsd_profile:[^"]*)"')
+    matches = re.findall(pattern, person_interests_json)
+    # print(matches)
+    people_the_profile_is_interested_in_set = set(matches)
+    people_the_profile_is_interested_in = [s.split(':')[-1] for s in people_the_profile_is_interested_in_set]
 
-    # print(people_the_profile_is_interested_in)
+    print(people_the_profile_is_interested_in)
 
-    # # Get the profile urn, get the name and store in another list
-    # final_people_the_profile_is_interested_in = []
-    # for profile_urn in people_the_profile_is_interested_in:
+    # Get the profile urn, get the name and store in another list
+    final_people_the_profile_is_interested_in = []
+    for profile_urn in people_the_profile_is_interested_in:
     
-        # temp = api.get_profile(profile_urn)
-        # first_name = temp['firstName']
-        # last_name = temp['lastName']
-        # full_name = first_name + " " + last_name 
-        # final_people_the_profile_is_interested_in.append([full_name, profile_urn])
+        temp = api.get_profile(profile_urn)
+        first_name = temp['firstName']
+        last_name = temp['lastName']
+        full_name = first_name + " " + last_name 
+        final_people_the_profile_is_interested_in.append([full_name, profile_urn])
 
-    # print(final_people_the_profile_is_interested_in)
-    # print(len(final_people_the_profile_is_interested_in))
-    # # ============= Getting interests of People =============================
+    print(final_people_the_profile_is_interested_in)
+    print(len(final_people_the_profile_is_interested_in))
+    # ============= Getting interests of People =============================
     
-    # return jsonify(success=True, message=final_people_the_profile_is_interested_in)
+    return jsonify(success=True, message=final_people_the_profile_is_interested_in)
 
-# @app.route('/get-company-interests', methods=['POST'])
-# def get_company_interests():
+@app.route('/get-company-interests', methods=['POST'])
+def get_company_interests():
 
-    # email = request.json['email']
-    # password = request.json['password']
-    # api = Linkedin(email, password)
+    email = request.json['email']
+    password = request.json['password']
+    api = Linkedin(email, password)
 
-    # public_id = request.json
-    # profile_urn = request.json['profileUrn']
+    public_id = request.json
+    profile_urn = request.json['profileUrn']
     
-    # person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
-    # person_interests = person_interests.json()
-    # person_interests_json = json.dumps(person_interests)
+    person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
+    person_interests = person_interests.json()
+    person_interests_json = json.dumps(person_interests)
     
-    # # ============= Getting first 20 interests of Companies =============================
-    # pattern_for_company = re.compile(r'"(urn:li:fsd_company:[^"]*)"')
-    # matches_for_company = re.findall(pattern_for_company, person_interests_json)
+    # ============= Getting first 20 interests of Companies =============================
+    pattern_for_company = re.compile(r'"(urn:li:fsd_company:[^"]*)"')
+    matches_for_company = re.findall(pattern_for_company, person_interests_json)
     
-    # # print(matches)
+    # print(matches)
     
-    # companies_the_profile_is_interested_in_set = set(matches_for_company)
-    # companies_the_profile_is_interested_in = [s.split(':')[-1] for s in companies_the_profile_is_interested_in_set]
+    companies_the_profile_is_interested_in_set = set(matches_for_company)
+    companies_the_profile_is_interested_in = [s.split(':')[-1] for s in companies_the_profile_is_interested_in_set]
     
-    # # get the profile urn, get the name and store in another list
-    # final_companies_the_profile_is_interested_in = []
-    # for company_id in companies_the_profile_is_interested_in:
-        # temp = api.get_company(company_id)
-        # # print(temp)
-        # company_name = temp['universalName']
-        # final_companies_the_profile_is_interested_in.append([company_name, company_id])
+    # get the profile urn, get the name and store in another list
+    final_companies_the_profile_is_interested_in = []
+    for company_id in companies_the_profile_is_interested_in:
+        temp = api.get_company(company_id)
+        # print(temp)
+        company_name = temp['universalName']
+        final_companies_the_profile_is_interested_in.append([company_name, company_id])
 
-    # print(final_companies_the_profile_is_interested_in)
-    # print(len(final_companies_the_profile_is_interested_in))
-    # # ============= Getting first 20 interests of Companies =============================
+    print(final_companies_the_profile_is_interested_in)
+    print(len(final_companies_the_profile_is_interested_in))
+    # ============= Getting first 20 interests of Companies =============================
     
-    # return jsonify(success=True, message=final_companies_the_profile_is_interested_in)
+    return jsonify(success=True, message=final_companies_the_profile_is_interested_in)
  
 # @app.route('/get-interests-from-thread', methods=['POST'])
 # def get_interests_from_thread():
