@@ -240,15 +240,15 @@ window.onload = async function() {
 										})
 										.then(response => response.json())
 										.then(data => {
-											
-											function checkJobStatus(data.message) {
+											var jobId = data.message;
+											function checkJobStatus(jobId) {
 												fetch("https://ai-assistant.herokuapp.com/job-status", {
 													method: "POST",
 													headers: {
 														"Content-Type": "application/json"
 													},
 													body: JSON.stringify({
-														jobId: data.message
+														jobId: jobId
 													})
 												})
 												
