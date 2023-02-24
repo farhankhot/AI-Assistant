@@ -475,11 +475,15 @@ def linkedin_login():
     wait = WebDriverWait(driver, timeout=29)  
     captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
     
-    wait = WebDriverWait(driver, timeout=29) 
-    xx = wait.until(EC.presence_of_element_located((By.ID, "CaptchaFrame")))
-    print("dd", xx)
+    driver.switch_to.frame(captcha_iframe)
     
-    # final_captcha = captcha_iframe.find_element(By.TAG_NAME, "iframe")[-1]
+    # wait = WebDriverWait(driver, timeout=29) 
+    # xx = wait.until(EC.presence_of_element_located((By.ID, "CaptchaFrame")))
+    # print("dd", xx)
+    
+    final_captcha = driver.find_element(By.TAG_NAME, "iframe")
+    
+    print(final_captcha.get_attribute("id"))
     
     # final_captcha = final_captch.get_attribute("id")
     # print(final_captcha)
