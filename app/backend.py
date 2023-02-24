@@ -451,7 +451,7 @@ def linkedin_login():
     
     wait = WebDriverWait(driver, 40)
 
-    captcha_iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe#CaptchaFrame")))
+    captcha_iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe#captcha-internal")))
     page_source = driver.page_source
     print(page_source)
     print(captcha_iframe)
