@@ -449,8 +449,8 @@ def linkedin_login():
                'loginCsrfParam': loginCsrfParam,
                'session_password': password}
 
-    r = driver.post(LOGIN_URL, data=payload)
-    print(r)
+    r = session.post(LOGIN_URL, data=payload)
+    print(session.prepare_request(r))
 
     # soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup)
