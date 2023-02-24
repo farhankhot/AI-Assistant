@@ -445,10 +445,10 @@ def linkedin_login():
 
     driver.get(SEED_URL)
     
-    loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
+    # loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
     
     payload = {'session_key': email,
-               'loginCsrfParam': loginCsrfParam,
+               # 'loginCsrfParam': loginCsrfParam,
                'session_password': password}
 
     # r = session.post(LOGIN_URL, data=payload)
