@@ -475,12 +475,12 @@ def linkedin_login():
     wait = WebDriverWait(driver, timeout=29)  
     captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
     
-    print(captcha_iframe.find_element(By.TAG_NAME, "iframe")[-1])
+    print(captcha_iframe.get_attribute("innerHTML"))
     
-    final_captcha = captcha_iframe.find_element(By.TAG_NAME, "iframe")[-1]
+    # final_captcha = captcha_iframe.find_element(By.TAG_NAME, "iframe")[-1]
     
-    final_captcha = final_captch.get_attribute("id")
-    print(final_captcha)
+    # final_captcha = final_captch.get_attribute("id")
+    # print(final_captcha)
     
     # job = q.enqueue(load_linkedin_page)
 
