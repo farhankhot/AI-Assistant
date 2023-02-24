@@ -452,14 +452,14 @@ def linkedin_login():
     job = queue.enqueue(load_linkedin_page, driver)
 
     # wait for the task to complete and return the result
-    page_source = job.result(timeout=30)
+    page_source = job.result(timeout=25)
     print(page_source)           
     
     return jsonify(success=True, message="success")
     
 def load_linkedin_page(driver):
 
-    wait = WebDriverWait(driver, 40)  
+    wait = WebDriverWait(driver, 4)  
     captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
     print(captcha_iframe)
 
