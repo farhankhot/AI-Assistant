@@ -1,5 +1,5 @@
 from linkedin_api import Linkedin
-# import json
+import json
 from flask import Flask, request, jsonify
 # from bertopic import BERTopic
 import emoji
