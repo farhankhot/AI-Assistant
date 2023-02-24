@@ -415,25 +415,6 @@ def linkedin_login():
     SEED_URL = 'https://www.linkedin.com/uas/login'
     LOGIN_URL = 'https://www.linkedin.com/checkpoint/lg/login-submit'
     VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-
-    session = requests.Session()    
-    
-    session.get(SEED_URL)
-    text = session.get(SEED_URL).text
-    soup = BeautifulSoup(text, 'html.parser')
-    
-    # print("soup", soup)
-    
-    loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
-    
-    payload = {'session_key': email,
-               'loginCsrfParam': loginCsrfParam,
-               'session_password': password}
-
-    r = session.post(LOGIN_URL, data=payload)
-    # print(r)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    # print(soup)
     
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -448,18 +429,31 @@ def linkedin_login():
     chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
     driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
     
-    driver.get(r.url)
-    wait = WebDriverWait(driver, 200)
-    body_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "button")))
-
-    # get the HTML source code of the page
-    html = driver.page_source
-
-    # print the HTML source code to the console
-    print(html)
-        
-    # pin = input('Check the PIN in your inbox and enter here:\n')
+    # driver.get(r.url)
+    # wait = WebDriverWait(driver, 200)
+    # body_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "button")))
+    # # get the HTML source code of the page
+    # html = driver.page_source
+    # # print the HTML source code to the console
+    # print(html)
     
+    session.get(SEED_URL)
+    text = session.get(SEED_URL).text
+    soup = BeautifulSoup(text, 'html.parser')
+    
+    loginCsrfParam = soup.find('input', {'name': 'loginCsrfParam'})['value']
+    
+    payload = {'session_key': email,
+               'loginCsrfParam': loginCsrfParam,
+               'session_password': password}
+
+    r = driver.post(LOGIN_URL, data=payload)
+    print(r)
+
+    # soup = BeautifulSoup(r.text, 'html.parser')
+    # print(soup)
+         
+    # pin = input('Check the PIN in your inbox and enter here:\n')
     # payload = {
         # 'csrfToken': soup.find('input', {'name': 'csrfToken'})['value'],
         # 'pageInstance': soup.find('input', {'name': 'pageInstance'})['value'],
