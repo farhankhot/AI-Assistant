@@ -407,7 +407,20 @@ def send_message():
     print(data)
     return jsonify(success=True, message='sent message')
     
-def load_linkedin_page(driver):
+def load_linkedin_page():
+
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    import os
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+    driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
 
     wait = WebDriverWait(driver, 4)  
     captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
@@ -457,7 +470,7 @@ def linkedin_login():
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
     
-    job = q.enqueue(load_linkedin_page, driver)
+    job = q.enqueue(load_linkedin_page)
 
     # wait for the task to complete and return the result
     page_source = job.result(timeout=25)
