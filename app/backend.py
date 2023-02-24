@@ -474,25 +474,28 @@ def linkedin_login():
     
     wait = WebDriverWait(driver, timeout=29)  
     captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-    
     driver.switch_to.frame(captcha_iframe)
     
-    # wait = WebDriverWait(driver, timeout=29) 
-    # xx = wait.until(EC.presence_of_element_located((By.ID, "CaptchaFrame")))
-    # print("dd", xx)
+    second_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    driver.switch_to.frame(second_iframe)
     
-    final_captcha = driver.find_element(By.TAG_NAME, "iframe")
+    third_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    driver.switch_to.frame(third_iframe)
     
-    print(final_captcha.get_attribute("id"))
+    # third iframe contains button to download wav file
+    # wav_download_button = driver.find_element(By.ID, "audio_download")
+    # wav_download_button.click()
     
-    # final_captcha = final_captch.get_attribute("id")
-    # print(final_captcha)
-    
-    # job = q.enqueue(load_linkedin_page)
+    # time.sleep(10)  # Wait for 10 seconds, adjust as needed
 
-    # # wait for the task to complete and return the result
-    # page_source = job.result(timeout=25)
-    # print(page_source)           
+    # Get the content of the downloaded file from browser memory
+    # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
+        
+    final_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    driver.switch_to.frame(final_iframe)    
+    pics = final_captcha.find_element(By.ID, "game_children_challenge")
+    
+    print(pics)
     
     return jsonify(success=True, message="success")
 
