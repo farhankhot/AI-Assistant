@@ -260,9 +260,12 @@ window.onload = async function() {
 														
 														if (status === 'finished') {
 														
-															console.log("Successfully gotten people interests", data.message);
+															// console.log("Successfully gotten people interests", data.message);
+															
+															const words = data.result;
 
-															var words = data.message;
+															// var words = data.message;
+															
 															var container = document.getElementById('PeopleInterestsContainer');
 
 															for (var i = 0; i < words.length; i++) {
