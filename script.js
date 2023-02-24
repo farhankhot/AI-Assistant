@@ -256,6 +256,7 @@ window.onload = async function() {
 													.then(data => {
 														
 														const status = data.status;
+														console.log(status);
 														
 														if (status === 'finished') {
 														
