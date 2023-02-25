@@ -472,30 +472,30 @@ def linkedin_login():
     
     print(driver.current_url)
     
-    wait = WebDriverWait(driver, timeout=29)  
-    captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-    driver.switch_to.frame(captcha_iframe)
+    # wait = WebDriverWait(driver, timeout=29)  
+    # captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+    # driver.switch_to.frame(captcha_iframe)
     
-    second_iframe = driver.find_element(By.TAG_NAME, "iframe")
-    driver.switch_to.frame(second_iframe)
+    # second_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    # driver.switch_to.frame(second_iframe)
     
-    third_iframe = driver.find_element(By.TAG_NAME, "iframe")
-    driver.switch_to.frame(third_iframe)
+    # third_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    # driver.switch_to.frame(third_iframe)
     
-    # third iframe contains button to download wav file
-    # wav_download_button = driver.find_element(By.ID, "audio_download")
-    # wav_download_button.click()
+    # # third iframe contains button to download wav file
+    # # wav_download_button = driver.find_element(By.ID, "audio_download")
+    # # wav_download_button.click()
     
-    # time.sleep(10)  # Wait for 10 seconds, adjust as needed
+    # # time.sleep(10)  # Wait for 10 seconds, adjust as needed
 
-    # Get the content of the downloaded file from browser memory
-    # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
+    # # Get the content of the downloaded file from browser memory
+    # # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
         
-    final_iframe = driver.find_element(By.TAG_NAME, "iframe")
-    driver.switch_to.frame(final_iframe)    
-    pics = final_captcha.find_element(By.ID, "game_children_challenge")
+    # final_iframe = driver.find_element(By.TAG_NAME, "iframe")
+    # driver.switch_to.frame(final_iframe)    
+    # pics = final_captcha.find_element(By.ID, "game_children_challenge")
     
-    print(pics)
+    # print(pics)
     
     return jsonify(success=True, message="success")
 
