@@ -400,8 +400,9 @@ def send_connect():
 
     profile_id = request.json['profileId']
     text = request.json['text']
-    data = SendConnect(api, profile_id, text)
-    return jsonify(success=True, message='sent connect note')
+    # data = SendConnect(api, profile_id, text)
+    error_boolean = api.add_connection(profile_id, text)
+    return jsonify(success=True, message=error_boolean)
 
 @app.route('/send-message', methods=['POST'])
 def send_message():
