@@ -297,16 +297,17 @@ def get_people_interests():
     job_id = data.get_id()
     
     return jsonify(success=True, message=job_id)
+    
+    
+    
+def GetCompanyInterests(request_json):
 
-@app.route('/get-company-interests', methods=['POST'])
-def get_company_interests():
-
-    email = request.json['email']
-    password = request.json['password']
+    email = request_json['email']
+    password = request_json['password']
     api = Linkedin(email, password)
 
-    public_id = request.json
-    profile_urn = request.json['profileUrn']
+    public_id = request_json
+    profile_urn = request_json['profileUrn']
     
     person_interests = api._fetch(f"/graphql?includeWebMetadata=true&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
     person_interests = person_interests.json()
@@ -333,7 +334,17 @@ def get_company_interests():
     print(len(final_companies_the_profile_is_interested_in))
     # ============= Getting first 20 interests of Companies =============================
     
-    return jsonify(success=True, message=final_companies_the_profile_is_interested_in)
+    return final_companies_the_profile_is_interested_in
+    
+
+@app.route('/get-company-interests', methods=['POST'])
+def get_company_interests():
+
+    data = q.enqueue(GetCompanyInterests, request.json)
+    
+    job_id = data.get_id()
+    
+    return jsonify(success=True, message=job_id)
  
 # @app.route('/get-interests-from-thread', methods=['POST'])
 # def get_interests_from_thread():
