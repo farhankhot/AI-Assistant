@@ -360,6 +360,66 @@ window.onload = async function() {
 									});
 								
 								}
+								document.getElementById("GenerateConnectNoteButton").onclick = function() {
+									var checkboxes = document.querySelectorAll('input[type=checkbox]');
+									var topicList = [];
+									for (var i = 0; i < checkboxes.length; i++) {
+										if (checkboxes[i].checked) {
+											var topic = checkboxes[i].value;
+											topicList.push(topic);
+										}
+									}
+									var topicListString = topicList.toString();
+
+									var prompt_string = "This is the profile of a person: " + "\n" + name 
+									+ " This is their summary: " + summary +
+									" These are their interests: " + topicListString 
+									+ " Use the internet to get something useful about the interests and use it in the request. "
+									+ " Write a request to connect with them. Make it casual but eyecatching. The goal is to ask about their current Salesforce implementation. The length should be no more than 70 words.";
+									
+									// console.log(prompt_string);			
+													
+									fetch("https://ai-assistant.herokuapp.com/use-bingai", {
+										method: "POST",
+										headers: {
+											"Content-Type": "application/json"
+										},
+										body: JSON.stringify({
+											prompt: prompt_string
+										})
+									})
+									.then(response => response.json())
+									.then(data => {
+										
+										console.log(data.message);
+										
+										document.getElementById("my-textarea").value = data.message;
+										
+
+									}).catch(error => console.error(error));
+					
+								}
+
+								document.getElementById("send-button").onclick = function() {
+
+									// fetch to server.js, with profileId and text
+									fetch("https://ai-assistant.herokuapp.com/send-connect", {
+											method: "POST",
+											headers: {
+												"Content-Type": "application/json"
+											},
+											body: JSON.stringify({
+												email: email,
+												password: password,
+												profileId: profileId,
+												text: document.getElementById("my-textarea").value
+											})
+										})
+										.then(response => response.json())
+										.then(data => {
+											console.log("Successfully sent connect to server", data.message);
+										});
+								}
 								
 								
 							});
