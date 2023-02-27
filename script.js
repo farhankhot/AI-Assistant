@@ -142,7 +142,8 @@ window.onload = async function() {
 			.then(data => {
 
 				console.log("Successfully sent link to server", data.message);
-				
+
+				var jobId = data.message;
 				function checkJobStatus(jobId) {
 					fetch("https://ai-assistant.herokuapp.com/job-status", {
 						method: "POST",
@@ -240,9 +241,11 @@ window.onload = async function() {
 										})
 										.then(response => response.json())
 										.then(data => {
-											// var jobId = data.message;
-											// console.log(jobId);
-											console.log("job of people interests", data.message);
+											
+											var jobId = data.message;
+											
+											console.log("job of people interests", jobId);
+											
 											function checkJobStatus(jobId) {
 												fetch("https://ai-assistant.herokuapp.com/job-status", {
 													method: "POST",
