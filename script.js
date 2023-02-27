@@ -242,7 +242,7 @@ window.onload = async function() {
 										.then(data => {
 											// var jobId = data.message;
 											// console.log(jobId);
-											console.log(data.message);
+											console.log("job of people interests", data.message);
 											function checkJobStatus(jobId) {
 												fetch("https://ai-assistant.herokuapp.com/job-status", {
 													method: "POST",
