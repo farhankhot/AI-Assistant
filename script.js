@@ -192,18 +192,8 @@ window.onload = async function() {
 
 								document.getElementById("name").innerHTML = first_name;
 								document.getElementById("title").innerHTML = first_title;
-																
 								
-							} else {
-								// The job is not finished yet, check again in 1 second
-								setTimeout(() => checkJobStatus(jobId), 1000);
-							}
-						});
-				}
-				
-				// Keep polling until we get a proper answer
-				checkJobStatus(data.message);				
-											document.getElementById("InterestsButton").onclick = function() {
+								document.getElementById("InterestsButton").onclick = function() {
 
 									fetch("https://ai-assistant.herokuapp.com/get-interests", {
 											method: "POST",
@@ -554,7 +544,17 @@ window.onload = async function() {
 				});
 
 			});
-
+																
+								
+							} else {
+								// The job is not finished yet, check again in 1 second
+								setTimeout(() => checkJobStatus(jobId), 1000);
+							}
+						});
+				}
+				
+				// Keep polling until we get a proper answer
+				checkJobStatus(data.message);				
 	}
 
 	document.getElementById("MessagesButton").onclick = function() {
