@@ -539,7 +539,7 @@ window.onload = async function() {
 							.then(data => {
 								console.log("Successfully sent connect to server", data.message);
 							});
-					}
+					
 
 				});
 
