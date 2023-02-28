@@ -602,12 +602,14 @@ def linkedin_login():
                 print(driver.current_url)
                 # data = q.enqueue(SendCode, driver, code=None)
                 # job_id = data.get_id()
+                api = Linkedin(email, password)
+                # if driver.current_url.startswith("https://www.linkedin.com/feed"):
+                    # api = Linkedin(email, password)
+                    # return jsonify(success=True, message="success")
+                # else:
+                    # return jsonify(success=False, message="success")
                 
-                if driver.current_url.startswith("https://www.linkedin.com/feed"):
-                    api = Linkedin(email, password)
-                    return jsonify(success=True, message="success")
-                else:
-                    return jsonify(success=False, message="success")
+                return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')    
