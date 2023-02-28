@@ -574,6 +574,7 @@ def linkedin_login():
                 audio_response_textbox.send_keys(text)
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
+                print(driver.current_url)
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')            
