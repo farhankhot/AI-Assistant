@@ -516,12 +516,10 @@ def linkedin_login():
         # third iframe contains button to download wav file
         switch_to_audio_button = driver.find_element(By.ID, "fc_meta_audio_btn")
         switch_to_audio_button.click()
-        
         # print("after clicking audio button", driver.page_source)
         
         download_audio_button = driver.find_element(By.ID, "audio_download")
         download_audio_button.click()
-        
         # print(driver.page_source)
         
         # print("new", driver.current_url)
@@ -529,12 +527,31 @@ def linkedin_login():
         # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
         # print(game)
         # screenshot = driver.get_screenshot_as_base64()
-        
-        download_url = driver.execute_script('return chrome.downloads.search({}, function(downloadItems) {{ return downloadItems[0].url; }});'.format({}))
-
-        # Print the URL of the downloaded file
-        print(download_url)
         # return jsonify(success=False, message=screenshot)
+        
+        # Wait for the file to finish downloading
+        downloads_folder = os.path.expanduser('~/Downloads')
+        downloaded_file = None
+        timeout = 10  # maximum time to wait for download to complete (in seconds)
+        start_time = time.time()
+        while time.time() < start_time + timeout:
+            # Check for any new files in the downloads folder
+            files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            if files:
+                # Assume the most recent file is the one we want
+                downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                break
+            else:
+                # Wait a bit before checking again
+                time.sleep(1)
+
+        # Get the URL of the downloaded file
+        if downloaded_file:
+            url = 'file://' + os.path.abspath(downloaded_file)
+            print('Downloaded file URL:', url)
+        else:
+            print('File not found in downloads folder')
+
     
     
     return jsonify(success=True, message="success")
