@@ -573,7 +573,7 @@ def linkedin_login():
                 text = text.replace(" ", "")
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
-                print(audio_response_textbox.text)
+                print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
                 print(driver.current_url)
