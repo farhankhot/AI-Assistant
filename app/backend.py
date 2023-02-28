@@ -522,14 +522,18 @@ def linkedin_login():
         download_audio_button = driver.find_element(By.ID, "audio_download")
         download_audio_button.click()
         
-        print(driver.page_source)
+        # print(driver.page_source)
         
-        print("new", driver.current_url)
+        # print("new", driver.current_url)
         
         # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
         # print(game)
         # screenshot = driver.get_screenshot_as_base64()
         
+        download_url = browser.execute_script('return window.chrome.downloads.search({}, function(downloadItems) {{ return downloadItems[0].url; }});'.format({}))
+
+        # Print the URL of the downloaded file
+        print(download_url)
         # return jsonify(success=False, message=screenshot)
     
     
