@@ -571,7 +571,7 @@ def linkedin_login():
                 text = r.recognize_google(audio_data)
                 print('Transcription:', text)
                 text = text.replace(" ", "")
-                audio_response_textbox.text = text
+                audio_response_textbox.send_keys(text)
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
                 
