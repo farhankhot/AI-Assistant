@@ -23,23 +23,6 @@ q = Queue(connection=conn)
 
 app = Flask(__name__)
 
-SEED_URL = 'https://www.linkedin.com/login'
-
-session = requests.Session() 
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--headless')
-
-prefs = {"download.default_directory": r"~/",
-        "directory_upgrade": True}
-
-chrome_options.add_experimental_option("prefs", prefs)
-
-chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
-driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
-
 async def UseBingAI(prompt):
     
     # Get actual location of cookie.json here
@@ -489,6 +472,23 @@ def linkedin_login():
     # print(request.json)
     email = request.json['email']
     password = request.json['password']    
+    
+    SEED_URL = 'https://www.linkedin.com/login'
+
+    session = requests.Session() 
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+
+    prefs = {"download.default_directory": r"~/",
+            "directory_upgrade": True}
+
+    chrome_options.add_experimental_option("prefs", prefs)
+
+    chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
+    driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
    
     driver.get(SEED_URL)
         
