@@ -499,7 +499,7 @@ def linkedin_login():
         
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
-        print("driver", driver.page_source)
+        # print("driver", driver.page_source)
         
         # third iframe contains button to download wav file
         # wav_download_button = driver.find_element(By.ID, "audio_download")
@@ -510,10 +510,10 @@ def linkedin_login():
         # Get the content of the downloaded file from browser memory
         # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
             
-        final_iframe = driver.find_element(By.TAG_NAME, "iframe")
-        print("final iframe", final_iframe)
+        final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(final_iframe)    
-        pics = final_captcha.find_element(By.ID, "game_children_challenge")
+        print("final iframe source", driver.page_source)
+        pics = driver.find_element(By.ID, "home_children_button")
         
         print(pics)
     
