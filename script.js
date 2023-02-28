@@ -42,21 +42,44 @@ window.onload = async function() {
 					});
 				} else {
 					
-					const img = new Image();
-					var screenshot = data.message; 
-					console.log("screenshot", data.message);
-					img.src = `data:image/png;base64,${screenshot}`;
+					// const img = new Image();
+					// var screenshot = data.message; 
+					// console.log("screenshot", data.message);
+					// img.src = `data:image/png;base64,${screenshot}`;
 					
-					// document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
-					console.log(data.success);
-					document.getElementById("ErrorContainer").appendChild(img);
+					// // document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
+					// console.log(data.success);
+					// document.getElementById("ErrorContainer").appendChild(img);
 					
-					var f = document.createElement("textbox");
-					var captchaSubmitButton = document.createElement("button");
-					document.getElementById("ErrorContainer").appendChild(f);
+					// var f = document.createElement("textbox");
+					// var captchaSubmitButton = document.createElement("button");
+					// document.getElementById("ErrorContainer").appendChild(f);
 					
+					var codeInputBox = document.createElement("textbox");
+					document.getElementById("ErrorContainer").appendChild(codeInputBox);
+					var codeSubmitButton = document.createElement("button");
+					codeSubmitButton.innerHTML = "Submit code";
+					codeSubmitButton.id = "CodeSubmitButton";
+					document.getElementById("ErrorContainer").appendChild(codeSubmitButton);
 					
-
+					document.getElementById("CodeSubmitButton").onclick = function() {
+						fetch("https://ai-assistant.herokuapp.com/send-code", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								code: codeInputBox.value
+							})
+						})
+						.then(response => response.json())
+						.then(data => {
+							
+							console.log(data);
+							
+						});
+					}
+					
 				}
 			});
 	});
