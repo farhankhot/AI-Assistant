@@ -499,7 +499,7 @@ def linkedin_login():
         
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
-        print("driver", driver.page_source)
+        # print("driver", driver.page_source)
             
         # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         # driver.switch_to.frame(final_iframe) 
@@ -517,7 +517,12 @@ def linkedin_login():
         switch_to_audio_button = driver.find_element(By.ID, "fc_meta_audio_btn")
         switch_to_audio_button.click()
         
-        print("after clicking audio button", driver.page_source)
+        # print("after clicking audio button", driver.page_source)
+        
+        download_audio_button = driver.find_element(By.ID, "audio_download")
+        download_audio_button.click()
+        
+        print(driver.page_source)
         
         print("new", driver.current_url)
         
