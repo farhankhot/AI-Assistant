@@ -593,10 +593,10 @@ def linkedin_login():
                 print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
-                time.sleep(5)
+                # time.sleep(5)
                 # d = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 # print(driver.page_source)
-                print(driver.current_url)
+                # print(driver.current_url)
                 # data = q.enqueue(SendCode, driver, code=None)
                 # job_id = data.get_id()
                 
