@@ -596,17 +596,20 @@ def linkedin_login():
                 time.sleep(5)
                 # d = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 # print(driver.page_source)
-                # print(driver.current_url)
+                print(driver.current_url)
                 # data = q.enqueue(SendCode, driver, code=None)
                 # job_id = data.get_id()
                 
                 return jsonify(success=False, message="success")
                 
             except sr.UnknownValueError:
-                print('Unable to transcribe audio')            
+                print('Unable to transcribe audio')    
+
+            
         
         else:
             print('File not found in downloads folder')
+            
 
     
     
