@@ -504,13 +504,14 @@ def linkedin_login():
         final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(final_iframe) 
         time.sleep(10)        
-        print("final iframe source", driver.page_source)
+        # print("final iframe source", driver.page_source)
         
         verify_button = driver.find_element(By.ID, "home_children_button")
         # print("verify button", verify_button)
         verify_button.click()
         
         time.sleep(3)
+        print("html after verify_button clicked", driver.page_source)
         
         # third iframe contains button to download wav file
         wav_download_button = driver.find_element(By.ID, "audio_download")
