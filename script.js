@@ -55,7 +55,8 @@ window.onload = async function() {
 					// var captchaSubmitButton = document.createElement("button");
 					// document.getElementById("ErrorContainer").appendChild(f);
 					
-					var codeInputBox = document.createElement("textbox");
+					var codeInputBox = document.createElement("input");
+					codeInputBox.type = "text";
 					document.getElementById("ErrorContainer").appendChild(codeInputBox);
 					var codeSubmitButton = document.createElement("button");
 					codeSubmitButton.innerHTML = "Submit code";
