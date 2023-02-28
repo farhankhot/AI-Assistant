@@ -599,7 +599,7 @@ def linkedin_login():
 
                 # print(driver.page_source)
                 print(driver.current_url)
-                cookies = driver.manage().getCookies();
+                cookies = driver.get_cookies();
                 
                 if driver.current_url.startswith("https://www.linkedin.com/feed"):
                     api = Linkedin("", "", cookies)
