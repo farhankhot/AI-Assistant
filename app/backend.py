@@ -499,7 +499,12 @@ def linkedin_login():
         
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
-        print("driver", driver.page_source)
+        # print("driver", driver.page_source)
+            
+        final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(final_iframe) 
+        time.sleep(10)        
+        print("final iframe source", driver.page_source)
         
         verify_button = driver.find_element(By.ID, "home_children_button")
         # print("verify button", verify_button)
@@ -513,23 +518,8 @@ def linkedin_login():
         
         print("new", driver.current_url)
         
-        # time.sleep(10)  # Wait for 10 seconds, adjust as needed
-
-        # Get the content of the downloaded file from browser memory
-        # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
-            
-        # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(final_iframe) 
-        # time.sleep(10)        
-        # # print("final iframe source", driver.page_source)
-        
-        # pics = driver.find_element(By.ID, "home_children_button")
-        # # print("verify button", pics)
-        # pics.click()
-        
         # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
         # print(game)
-        
         # screenshot = driver.get_screenshot_as_base64()
         
         # return jsonify(success=False, message=screenshot)
