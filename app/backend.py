@@ -38,7 +38,7 @@ prefs = {"download.default_directory": r"~/",
 chrome_options.add_experimental_option("prefs", prefs)
 
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
-driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
+driver = webdriver.Chrome(executable_path='./chromedriver', options=chrome_options)
 
 async def UseBingAI(prompt):
     
