@@ -571,6 +571,7 @@ def linkedin_login():
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
                 print(audio_response_textbox.get_attribute('value'))
+           
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 
                 driver.switch_to.default_content()
@@ -588,7 +589,7 @@ def linkedin_login():
                     'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
                     'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
                     'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
-                    'pin': audio_response_textbox.get_attribute('value')
+                    'pin': text
                 }
                 
                 VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
