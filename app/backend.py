@@ -495,11 +495,11 @@ def linkedin_login():
         second_iframe = driver.find_element(By.TAG_NAME, "iframe")
         driver.switch_to.frame(second_iframe)
         
-        print("second driver", driver.page_source)
+        # print("second driver", driver.page_source)
         
-        third_iframe = driver.find_element(By.TAG_NAME, "iframe")
+        third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
-        print("driver", driver)
+        print("driver", driver.page_source)
         
         # third iframe contains button to download wav file
         # wav_download_button = driver.find_element(By.ID, "audio_download")
