@@ -472,6 +472,12 @@ def send_code():
     code = request.json['code']
     print(code)
     
+    code_textbox = driver.find_element(By.ID, "input__email_verification_pin")
+    code_textbox.send_keys(code)
+    
+    code_submit_button = driver.find_element(By.ID, "email-pin-submit-button")
+    code_submit_button.click()
+    
     return jsonify(success=True, message="success")
 
 # def SendCode(driver, code=None):
