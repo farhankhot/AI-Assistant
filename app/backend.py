@@ -513,10 +513,15 @@ def linkedin_login():
         final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(final_iframe) 
         time.sleep(10)        
-        print("final iframe source", driver.page_source)
-        pics = driver.find_element(By.ID, "home_children_button")
+        # print("final iframe source", driver.page_source)
         
-        print(pics)
+        pics = driver.find_element(By.ID, "home_children_button")
+        # print("verify button", pics)
+        pics.click()
+        
+        game = wait.until(EC.presence_of_element_located((By.ID, "game")))
+        print(game)
+    
     
     return jsonify(success=True, message="success")
 
