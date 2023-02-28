@@ -510,7 +510,7 @@ def linkedin_login():
             
         # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         # driver.switch_to.frame(final_iframe) 
-        time.sleep(10)        
+        # time.sleep(10)        
         # print("final iframe source", driver.page_source)
         
         # verify_button = driver.find_element(By.ID, "home_children_button")
@@ -577,7 +577,7 @@ def linkedin_login():
                 print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
-                # # time.sleep(10)
+                time.sleep(20)
                 print(driver.current_url)
                 
             except sr.UnknownValueError:
