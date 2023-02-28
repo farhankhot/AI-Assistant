@@ -572,7 +572,27 @@ def linkedin_login():
                 audio_response_textbox.send_keys(text)
                 print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
-                audio_submit_button.click()
+                
+                payload = {
+                    'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
+                    'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
+                    'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
+                    'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
+                    'language': 'en-US',
+                    'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
+                    'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
+                    'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
+                    'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
+                    'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
+                    'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
+                    'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
+                    'pin': audio_response_textbox.get_attribute('value')
+                }
+                
+                VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                session.post(VERIFY_URL, data=payload)
+                
+                # audio_submit_button.click()
                 time.sleep(5)
                 # d = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 # print(driver.page_source)
