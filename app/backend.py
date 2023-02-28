@@ -577,7 +577,9 @@ def linkedin_login():
                 print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 audio_submit_button.click()
-                d = wait.until(EC.presence_of_element_located((By.ID, "global-nav-search")))
+                time.sleep(3)
+                # d = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+                print(driver.page_source)
                 print(driver.current_url)
                 
             except sr.UnknownValueError:
