@@ -578,7 +578,7 @@ def linkedin_login():
                 payload = {
                     'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
                     'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
-                    'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
+                    # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
                     'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
                     'language': 'en-US',
                     'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
