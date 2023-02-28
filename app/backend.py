@@ -457,6 +457,7 @@ def linkedin_login():
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
     import os
+    import speech_recognition as sr
     
     session = requests.Session() 
 
@@ -528,16 +529,13 @@ def linkedin_login():
         download_audio_button.click()
         # print(driver.page_source)
         
-        # print("new", driver.current_url)
-        
         # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
         # print(game)
         # screenshot = driver.get_screenshot_as_base64()
         # return jsonify(success=False, message=screenshot)
         
         # Wait for the file to finish downloading
-        
-        print(os.getcwd())
+        # print(os.getcwd())
         
         downloads_folder = os.path.expanduser('~/')
         downloaded_file = None
@@ -556,8 +554,22 @@ def linkedin_login():
 
         # Get the URL of the downloaded file
         if downloaded_file:
-            url = 'file://' + os.path.abspath(downloaded_file)
-            print('Downloaded file URL:', url)
+            # url = 'file://' + os.path.abspath(downloaded_file)
+            # print('Downloaded file URL:', url)
+            
+            r = sr.Recognizer()
+
+            # Load the audio file
+            with sr.AudioFile(downloaded_file) as source:
+                audio_data = r.record(source)
+
+            # Perform speech-to-text conversion
+            try:
+                text = r.recognize_google(audio_data)
+                print('Transcription:', text)
+            except sr.UnknownValueError:
+                print('Unable to transcribe audio')            
+        
         else:
             print('File not found in downloads folder')
 
