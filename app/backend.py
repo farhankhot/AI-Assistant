@@ -445,27 +445,6 @@ def send_message():
     data = api.send_message(message_body = text, recipients=[profile_id])
     print(data)
     return jsonify(success=True, message='sent message')
-    
-# def load_linkedin_page():
-
-    # from selenium import webdriver
-    # from selenium.webdriver.common.by import By
-    # from selenium.webdriver.support.ui import WebDriverWait
-    # from selenium.webdriver.support import expected_conditions as EC
-    # import os
-
-    # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.add_argument('--disable-gpu')
-    # chrome_options.add_argument('--no-sandbox')
-    # chrome_options.add_argument('--headless')
-    # chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
-    # driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
-
-    # wait = WebDriverWait(driver, 4)  
-    # captcha_iframe = wait.until(EC.presence_of_element_located((By.ID, "captcha-internal")))
-    # print(captcha_iframe)
-
-    # return captcha_iframe
 
 @app.route('/send-code', methods=['POST'])
 def send_code():
@@ -602,6 +581,7 @@ def linkedin_login():
                 # job_id = data.get_id()
                 
                 if driver.current_url.startswith("https://www.linkedin.com/feed"):
+                    api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
                     return jsonify(success=False, message="success")
