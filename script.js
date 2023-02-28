@@ -27,7 +27,7 @@ window.onload = async function() {
 			.then(response => response.json())
 			.then(data => {
 
-				if (data.success == true) {
+				if (data.success === true) {
 
 					// show the messages part
 					document.getElementById("login-page").style.display = "none";
@@ -41,8 +41,16 @@ window.onload = async function() {
 						'LinkedinPassword': password
 					});
 				} else {
-					document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
+					
+					const img = new Image();
+					var screenshot = data.message; 
+					console.log("screenshot", data.message);
+					img.src = `data:image/png;base64,${screenshot}`;
+					
+					// document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
 					console.log(data.success);
+					document.getElementById("ErrorContainer").innerHTML = img;
+
 				}
 			});
 	});

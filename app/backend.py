@@ -521,6 +521,14 @@ def linkedin_login():
         
         game = wait.until(EC.presence_of_element_located((By.ID, "game")))
         print(game)
+        
+        screenshot = driver.get_screenshot_as_png()
+        
+        import base64
+        # Convert the screenshot to base64
+        base64_encoded_image = base64.b64encode(screenshot).decode('utf-8')
+        
+        return jsonify(success=False, message=base64_encoded_image)
     
     
     return jsonify(success=True, message="success")
