@@ -31,6 +31,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--headless')
+chrome_options.add_argument('disable-dev-shm-usage')
 
 prefs = {"download.default_directory": r"~/",
         "directory_upgrade": True}
@@ -38,7 +39,7 @@ prefs = {"download.default_directory": r"~/",
 chrome_options.add_experimental_option("prefs", prefs)
 
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
-driver = webdriver.Chrome(executable_path='./chromedriver', options=chrome_options)
+driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
 
 async def UseBingAI(prompt):
     
