@@ -527,6 +527,9 @@ def linkedin_login():
         
         download_audio_button = driver.find_element(By.ID, "audio_download")
         download_audio_button.click()
+        
+        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
+        
         # print(driver.page_source)
         
         # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
@@ -567,6 +570,11 @@ def linkedin_login():
             try:
                 text = r.recognize_google(audio_data)
                 print('Transcription:', text)
+                text = text.replace(" ", "")
+                audio_response_textbox.text = text
+                audio_submit_button = driver.find_element(By.ID, "audio_submit")
+                audio_submit_button.click()
+                
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')            
         
