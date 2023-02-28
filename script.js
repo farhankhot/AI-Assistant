@@ -49,7 +49,13 @@ window.onload = async function() {
 					
 					// document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
 					console.log(data.success);
-					document.getElementById("ErrorContainer").innerHTML = img;
+					document.getElementById("ErrorContainer").appendChild(img);
+					
+					var f = document.createElement("textbox");
+					var captchaSubmitButton = document.createElement("button");
+					document.getElementById("ErrorContainer").appendChild(f);
+					
+					
 
 				}
 			});

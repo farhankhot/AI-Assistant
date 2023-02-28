@@ -499,7 +499,7 @@ def linkedin_login():
         
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
-        # print("driver", driver.page_source)
+        print("driver", driver.page_source)
         
         # third iframe contains button to download wav file
         # wav_download_button = driver.find_element(By.ID, "audio_download")
@@ -510,25 +510,21 @@ def linkedin_login():
         # Get the content of the downloaded file from browser memory
         # file_content = driver.execute_script("return window.localStorage.getItem('downloaded_file_content')")
             
-        final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        driver.switch_to.frame(final_iframe) 
-        time.sleep(10)        
-        # print("final iframe source", driver.page_source)
+        # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # driver.switch_to.frame(final_iframe) 
+        # time.sleep(10)        
+        # # print("final iframe source", driver.page_source)
         
-        pics = driver.find_element(By.ID, "home_children_button")
-        # print("verify button", pics)
-        pics.click()
+        # pics = driver.find_element(By.ID, "home_children_button")
+        # # print("verify button", pics)
+        # pics.click()
         
-        game = wait.until(EC.presence_of_element_located((By.ID, "game")))
-        print(game)
+        # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
+        # print(game)
         
-        screenshot = driver.get_screenshot_as_png()
+        # screenshot = driver.get_screenshot_as_base64()
         
-        import base64
-        # Convert the screenshot to base64
-        base64_encoded_image = base64.b64encode(screenshot).decode('utf-8')
-        
-        return jsonify(success=False, message=base64_encoded_image)
+        # return jsonify(success=False, message=screenshot)
     
     
     return jsonify(success=True, message="success")
