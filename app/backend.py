@@ -464,6 +464,12 @@ def linkedin_login():
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
+    
+    prefs = {"download.default_directory": r"~/",
+            "directory_upgrade": True}
+    
+    chrome_options.add_experimental_option("prefs", prefs)
+    
     chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
     driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
    
@@ -530,7 +536,10 @@ def linkedin_login():
         # return jsonify(success=False, message=screenshot)
         
         # Wait for the file to finish downloading
-        downloads_folder = os.path.expanduser('~/Downloads')
+        
+        print(os.getcwd())
+        
+        downloads_folder = os.path.expanduser('~/')
         downloaded_file = None
         timeout = 10  # maximum time to wait for download to complete (in seconds)
         start_time = time.time()
