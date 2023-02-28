@@ -530,7 +530,7 @@ def linkedin_login():
         # print(game)
         # screenshot = driver.get_screenshot_as_base64()
         
-        download_url = driver.execute_script('return window.chrome.downloads.search({}, function(downloadItems) {{ return downloadItems[0].url; }});'.format({}))
+        download_url = driver.execute_script('return chrome.downloads.search({}, function(downloadItems) {{ return downloadItems[0].url; }});'.format({}))
 
         # Print the URL of the downloaded file
         print(download_url)
