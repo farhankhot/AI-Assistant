@@ -573,6 +573,8 @@ def linkedin_login():
                 print(audio_response_textbox.get_attribute('value'))
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 
+                driver.switch_to.default_content()
+                
                 payload = {
                     'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
                     'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
