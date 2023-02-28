@@ -502,8 +502,10 @@ def linkedin_login():
         print("driver", driver.page_source)
         
         # third iframe contains button to download wav file
-        # wav_download_button = driver.find_element(By.ID, "audio_download")
-        # wav_download_button.click()
+        wav_download_button = driver.find_element(By.ID, "audio_download")
+        wav_download_button.click()
+        
+        print("new", driver.current_url)
         
         # time.sleep(10)  # Wait for 10 seconds, adjust as needed
 
