@@ -469,8 +469,6 @@ def linkedin_login():
     # print(request.json)
     email = request.json['email']
     password = request.json['password']    
-    
-    api = Linkedin(email, password)
    
     driver.get(SEED_URL)
         
