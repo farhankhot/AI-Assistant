@@ -601,6 +601,10 @@ def linkedin_login():
                 print("cssq", driver.current_url)
                 cookies = driver.get_cookies();
                 
+                jsession_cookie = {
+                    "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
+                } 
+                
                 # print(driver.get_cookie("JSESSIONID")["value"])
                 
                 if driver.current_url == "https://www.linkedin.com/feed/":
@@ -611,7 +615,7 @@ def linkedin_login():
                         proxies={},
                         cookies_dir=None,
                     )
-                    client._set_session_cookies(cookies)
+                    client._set_session_cookies(jsession_cookie)
                     api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
