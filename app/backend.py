@@ -601,7 +601,7 @@ def linkedin_login():
                 print(driver.current_url)
                 cookies = driver.get_cookies();
                 
-                if driver.current_url.startswith("https://www.linkedin.com/feed"):
+                if driver.current_url == "https://www.linkedin.com/feed/"):
                     print("uuu3")
                     api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
