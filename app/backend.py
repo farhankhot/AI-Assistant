@@ -486,6 +486,7 @@ def linkedin_login():
     submit_button.click()
     
     print(driver.current_url)
+    api = Linkedin(email, password)
     
     url = driver.current_url
     
@@ -602,7 +603,6 @@ def linkedin_login():
                 cookies = driver.get_cookies();
                 
                 if driver.current_url == "https://www.linkedin.com/feed/":
-                    print("uuu3")
                     api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
