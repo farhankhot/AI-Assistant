@@ -600,7 +600,9 @@ def linkedin_login():
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
                 cookies = driver.get_cookies();
-                print(cookies)
+                
+                print(driver.get_cookie("JSESSIONID"))
+                
                 if driver.current_url == "https://www.linkedin.com/feed/":
                     from linkedin_api.client import Client
                     client = Client(
