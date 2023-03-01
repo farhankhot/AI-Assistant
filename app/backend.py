@@ -598,7 +598,7 @@ def linkedin_login():
                 time.sleep(5)
 
                 # print(driver.page_source)
-                print(driver.current_url)
+                print("cssq", driver.current_url)
                 cookies = driver.get_cookies();
                 
                 if driver.current_url == "https://www.linkedin.com/feed/":
