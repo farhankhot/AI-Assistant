@@ -613,11 +613,12 @@ def linkedin_login():
                 
                 cookie_dict = {}
                 for single_dict in driver.get_cookies():
-                    cookie_dict[single_dict["name"]] = single_dict["value"] 
+                    temp = single_dict["value"].strip('"')
+                    cookie_dict[single_dict["name"]] = temp
                     
-                cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
-                
                 print(cookie_dict)
+                # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
+                
                 if driver.current_url == "https://www.linkedin.com/feed/":
                     # from linkedin_api.client import Client
                     # client = Client(
