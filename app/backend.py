@@ -599,9 +599,10 @@ def linkedin_login():
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
-                cookies = driver.get_cookies();
-                
-                print(cookies)
+                # cookies = driver.get_cookies();
+                res_cookies = requests.get(driver.current_url)
+                cookies = res_cookies.cookies
+                print("DDSWF", cookies)
                 
                 jsession_cookie = {
                     "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
