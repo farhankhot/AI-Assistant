@@ -614,7 +614,7 @@ def linkedin_login():
                 cookie_dict = {}
                 for single_dict in driver.get_cookies():
                     cookie_dict[single_dict["name"]] = single_dict["value"] 
-                
+                print(cookie_dict)
                 if driver.current_url == "https://www.linkedin.com/feed/":
                     # from linkedin_api.client import Client
                     # client = Client(
