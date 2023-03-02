@@ -472,7 +472,7 @@ def linkedin_login():
     
     # api = Linkedin(email, password)
    
-    # driver.get(SEED_URL)
+    driver.get(SEED_URL)
         
     payload = {'session_key': email,
                # 'loginCsrfParam': loginCsrfParam,
