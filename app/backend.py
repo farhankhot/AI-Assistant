@@ -616,7 +616,7 @@ def linkedin_login():
                         cookies_dir=None,
                     )
                     client._set_session_cookies(jsession_cookie)
-                    api = Linkedin(email, password)
+                    # api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
                     return jsonify(success=False, message="success")
