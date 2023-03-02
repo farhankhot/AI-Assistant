@@ -608,7 +608,8 @@ def linkedin_login():
                     "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
                 } 
                 
-                # print(driver.get_cookie("JSESSIONID")["value"])
+                print(driver.get_cookie("JSESSIONID")["value"])
+                
                 
                 if driver.current_url == "https://www.linkedin.com/feed/":
                     from linkedin_api.client import Client
@@ -618,7 +619,9 @@ def linkedin_login():
                         proxies={},
                         cookies_dir=None,
                     )
-                    client._set_session_cookies(jsession_cookie)
+                    u = client._request_session_cookies()
+                    print("u", u)
+                    # client._set_session_cookies(jsession_cookie)
                     api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
