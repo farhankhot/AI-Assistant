@@ -600,9 +600,9 @@ def linkedin_login():
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
                 # cookies = driver.get_cookies();
-                res_cookies = requests.get(driver.current_url)
-                cookies = res_cookies.cookies
-                print("DDSWF", cookies)
+                # res_cookies = requests.get(driver.current_url)
+                # cookies = res_cookies.cookies
+                # print("DDSWF", cookies)
                 
                 jsession_cookie = {
                     "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
@@ -620,8 +620,8 @@ def linkedin_login():
                         cookies_dir=None,
                     )
                     u = client._request_session_cookies()
-                    print("u", u)
-                    # client._set_session_cookies(jsession_cookie)
+                    # print("u", u)
+                    client._set_session_cookies(jsession_cookie)
                     api = Linkedin(email, password)
                     return jsonify(success=True, message="success")
                 else:
