@@ -470,163 +470,163 @@ def linkedin_login():
     email = request.json['email']
     password = request.json['password']    
     
-    api = Linkedin(email, password)
+    # api = Linkedin(email, password)
    
     # driver.get(SEED_URL)
         
-    # payload = {'session_key': email,
-               # # 'loginCsrfParam': loginCsrfParam,
-               # 'session_password': password}
+    payload = {'session_key': email,
+               # 'loginCsrfParam': loginCsrfParam,
+               'session_password': password}
     
-    # email_field = driver.find_element(By.NAME, "session_key")
-    # password_field = driver.find_element(By.NAME, "session_password")
+    email_field = driver.find_element(By.NAME, "session_key")
+    password_field = driver.find_element(By.NAME, "session_password")
     
-    # payload = {
-            # 'JSESSIONID': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
-            # # 'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
-            # # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
-            # # 'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
-            # # 'language': 'en-US',
-            # # 'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
-            # # 'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
-            # # 'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
-            # # 'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
-            # # 'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
-            # # 'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
-            # # 'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value')
-    # }
+    email_field.send_keys(email)
+    password_field.send_keys(password)
     
-    # email_field.send_keys(email)
-    # password_field.send_keys(password)
+    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    submit_button.click()
     
-    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    # submit_button.click()
+    print(driver.current_url)
     
-    # print(driver.current_url)
+    url = driver.current_url
     
-    # url = driver.current_url
+    if (url.startswith("https://www.linkedin.com/checkpoint")):
     
-    # if (url.startswith("https://www.linkedin.com/checkpoint")):
+        payload = {
+            'JSESSIONID': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
+            'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
+            # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
+            'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
+            'language': 'en-US',
+            'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
+            'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
+            'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
+            'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
+            'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
+            'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
+            'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value')
+        }   
     
-        # wait = WebDriverWait(driver, timeout=29)  
-        # captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(captcha_iframe)
+        wait = WebDriverWait(driver, timeout=29)  
+        captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(captcha_iframe)
         
-        # second_iframe = driver.find_element(By.TAG_NAME, "iframe")
-        # driver.switch_to.frame(second_iframe)
+        second_iframe = driver.find_element(By.TAG_NAME, "iframe")
+        driver.switch_to.frame(second_iframe)
         
-        # # print("second driver", driver.page_source)
+        # print("second driver", driver.page_source)
         
-        # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(third_iframe)
-        # # print("driver", driver.page_source)
+        third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(third_iframe)
+        # print("driver", driver.page_source)
             
-        # # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # # driver.switch_to.frame(final_iframe) 
-        # time.sleep(10)        
-        # # print("final iframe source", driver.page_source)
+        # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # driver.switch_to.frame(final_iframe) 
+        time.sleep(10)        
+        # print("final iframe source", driver.page_source)
         
-        # # verify_button = driver.find_element(By.ID, "home_children_button")
-        # # # print("verify button", verify_button)
-        # # verify_button.click()
+        # verify_button = driver.find_element(By.ID, "home_children_button")
+        # # print("verify button", verify_button)
+        # verify_button.click()
         
-        # # time.sleep(3)
-        # # print("html after verify_button clicked", driver.page_source)
+        # time.sleep(3)
+        # print("html after verify_button clicked", driver.page_source)
         
-        # # third iframe contains button to download wav file
-        # switch_to_audio_button = driver.find_element(By.ID, "fc_meta_audio_btn")
-        # switch_to_audio_button.click()
-        # # print("after clicking audio button", driver.page_source)
+        # third iframe contains button to download wav file
+        switch_to_audio_button = driver.find_element(By.ID, "fc_meta_audio_btn")
+        switch_to_audio_button.click()
+        # print("after clicking audio button", driver.page_source)
         
-        # download_audio_button = driver.find_element(By.ID, "audio_download")
-        # download_audio_button.click()
+        download_audio_button = driver.find_element(By.ID, "audio_download")
+        download_audio_button.click()
         
-        # audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
+        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
         
-        # # print(driver.page_source)
+        # print(driver.page_source)
         
-        # # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
-        # # print(game)
-        # # screenshot = driver.get_screenshot_as_base64()
-        # # return jsonify(success=False, message=screenshot)
+        # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
+        # print(game)
+        # screenshot = driver.get_screenshot_as_base64()
+        # return jsonify(success=False, message=screenshot)
         
-        # # Wait for the file to finish downloading
-        # # print(os.getcwd())
+        # Wait for the file to finish downloading
+        # print(os.getcwd())
         
-        # downloads_folder = os.path.expanduser('~/')
-        # downloaded_file = None
-        # timeout = 10  # maximum time to wait for download to complete (in seconds)
-        # start_time = time.time()
-        # while time.time() < start_time + timeout:
-            # # Check for any new files in the downloads folder
-            # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
-            # if files:
-                # # Assume the most recent file is the one we want
-                # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
-                # break
-            # else:
-                # # Wait a bit before checking again
-                # time.sleep(1)
+        downloads_folder = os.path.expanduser('~/')
+        downloaded_file = None
+        timeout = 10  # maximum time to wait for download to complete (in seconds)
+        start_time = time.time()
+        while time.time() < start_time + timeout:
+            # Check for any new files in the downloads folder
+            files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            if files:
+                # Assume the most recent file is the one we want
+                downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                break
+            else:
+                # Wait a bit before checking again
+                time.sleep(1)
 
-        # # Get the URL of the downloaded file
-        # if downloaded_file:
-            # # url = 'file://' + os.path.abspath(downloaded_file)
-            # # print('Downloaded file URL:', url)
+        # Get the URL of the downloaded file
+        if downloaded_file:
+            # url = 'file://' + os.path.abspath(downloaded_file)
+            # print('Downloaded file URL:', url)
             
-            # r = sr.Recognizer()
+            r = sr.Recognizer()
 
-            # # Load the audio file
-            # with sr.AudioFile(downloaded_file) as source:
-                # audio_data = r.record(source)
+            # Load the audio file
+            with sr.AudioFile(downloaded_file) as source:
+                audio_data = r.record(source)
 
-            # # Perform speech-to-text conversion
-            # try:
-                # text = r.recognize_google(audio_data)
-                # print('Transcription:', text)
-                # text = text.replace("-", "")
-                # text = text.replace(" ", "")
-                # print("final text", text)
-                # audio_response_textbox.send_keys(text)
-                # print(audio_response_textbox.get_attribute('value'))
+            # Perform speech-to-text conversion
+            try:
+                text = r.recognize_google(audio_data)
+                print('Transcription:', text)
+                text = text.replace("-", "")
+                text = text.replace(" ", "")
+                print("final text", text)
+                audio_response_textbox.send_keys(text)
+                print(audio_response_textbox.get_attribute('value'))
            
-                # audio_submit_button = driver.find_element(By.ID, "audio_submit")
+                audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 
-                # # driver.switch_to.default_content()
-                # # payload = {
-                    # # 'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
-                    # # 'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
-                    # # # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
-                    # # 'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
-                    # # 'language': 'en-US',
-                    # # 'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
-                    # # 'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
-                    # # 'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
-                    # # 'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
-                    # # 'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
-                    # # 'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
-                    # # 'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
-                    # # 'pin': text
-                # # }
+                # driver.switch_to.default_content()
+                # payload = {
+                    # 'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
+                    # 'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
+                    # # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
+                    # 'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
+                    # 'language': 'en-US',
+                    # 'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
+                    # 'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
+                    # 'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
+                    # 'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
+                    # 'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
+                    # 'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
+                    # 'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
+                    # 'pin': text
+                # }
                 
-                # # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                # # session.post(VERIFY_URL, data=payload)
+                # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                # session.post(VERIFY_URL, data=payload)
                 
-                # audio_submit_button.click()
-                # time.sleep(5)
+                audio_submit_button.click()
+                time.sleep(5)
 
-                # # print(driver.page_source)
-                # print("cssq", driver.current_url)
-                # # cookies = driver.get_cookies();
-                # # res_cookies = requests.get(driver.current_url)
-                # # cookies = res_cookies.cookies
-                # # print("DDSWF", cookies)
+                # print(driver.page_source)
+                print("cssq", driver.current_url)
+                # cookies = driver.get_cookies();
+                # res_cookies = requests.get(driver.current_url)
+                # cookies = res_cookies.cookies
+                # print("DDSWF", cookies)
                 
-                # # jsession_cookie = {
-                    # # "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
-                # # } 
+                # jsession_cookie = {
+                    # "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
+                # } 
                 
-                # # print(driver.get_cookie("JSESSIONID")["value"])
-                # # jsession_cookie = driver.get_cookie("JSESSIONID")["value"]
+                # print(driver.get_cookie("JSESSIONID")["value"])
+                # jsession_cookie = driver.get_cookie("JSESSIONID")["value"]
                 
                 # cookie_dict = {}
                 # for single_dict in driver.get_cookies():
@@ -634,33 +634,33 @@ def linkedin_login():
                     # cookie_dict[single_dict["name"]] = temp
                     
                 # print(cookie_dict)
-                # # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
+                # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
                 
-                # if driver.current_url == "https://www.linkedin.com/feed/":
-                    # # from linkedin_api.client import Client
-                    # # client = Client(
-                        # # refresh_cookies=False,
-                        # # debug=False,
-                        # # proxies={},
-                        # # cookies_dir=None,
-                    # # )
-                    # # u = client._request_session_cookies()
-                    # # print("u", u)
-                    # # client._set_session_cookies(jsession_cookie)
-                    # api = Linkedin(email, password, payload)
-                    # return jsonify(success=True, message="success")
-                # else:
-                    # return jsonify(success=False, message="success")
+                if driver.current_url == "https://www.linkedin.com/feed/":
+                    # from linkedin_api.client import Client
+                    # client = Client(
+                        # refresh_cookies=False,
+                        # debug=False,
+                        # proxies={},
+                        # cookies_dir=None,
+                    # )
+                    # u = client._request_session_cookies()
+                    # print("u", u)
+                    # client._set_session_cookies(jsession_cookie)
+                    api = Linkedin(email, password, payload)
+                    return jsonify(success=True, message="success")
+                else:
+                    return jsonify(success=False, message="success")
                 
-                # # return jsonify(success=True, message="success")
+                # return jsonify(success=True, message="success")
                 
-            # except sr.UnknownValueError:
-                # print('Unable to transcribe audio')    
+            except sr.UnknownValueError:
+                print('Unable to transcribe audio')    
 
             
         
-        # else:
-            # print('File not found in downloads folder')
+        else:
+            print('File not found in downloads folder')
             
 
     
