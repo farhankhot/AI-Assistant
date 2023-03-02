@@ -479,19 +479,7 @@ def linkedin_login():
     email_field = driver.find_element(By.NAME, "session_key")
     password_field = driver.find_element(By.NAME, "session_password")
     
-    email_field.send_keys(email)
-    password_field.send_keys(password)
-    
-    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    submit_button.click()
-    
-    print(driver.current_url)
-    
-    url = driver.current_url
-    
-    if (url.startswith("https://www.linkedin.com/checkpoint")):
-    
-        payload = {
+    payload = {
             'JSESSIONID': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
             'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
             # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
@@ -504,7 +492,19 @@ def linkedin_login():
             'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
             'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
             'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value')
-        }
+    }
+    
+    email_field.send_keys(email)
+    password_field.send_keys(password)
+    
+    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    submit_button.click()
+    
+    print(driver.current_url)
+    
+    url = driver.current_url
+    
+    if (url.startswith("https://www.linkedin.com/checkpoint")):
     
         wait = WebDriverWait(driver, timeout=29)  
         captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
