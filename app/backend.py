@@ -626,15 +626,15 @@ def linkedin_login():
                     # 'pin': text
                 # }
                 
-                VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                payload["pin"] = text
-                r = session.post(VERIFY_URL, data=payload)
-                print(payload)
-                print(r.status_code)
+                # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                # payload["pin"] = text
+                # r = session.post(VERIFY_URL, data=payload)
+                # print(payload)
+                # print(r.status_code)
                 
-                # audio_submit_button.click()
+                audio_submit_button.click()
                 
-                # time.sleep(10)
+                time.sleep(10)
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
@@ -642,24 +642,17 @@ def linkedin_login():
                 # cookies = driver.get_cookies();
                 # res_cookies = requests.get(driver.current_url)
                 # cookies = res_cookies.cookies
-                # print("DDSWF", cookies)
-                
-                # jsession_cookie = {
-                    # "JSESSIONID": driver.get_cookie("JSESSIONID")["value"]
-                # } 
-                
-                # print(driver.get_cookie("JSESSIONID")["value"])
-                # jsession_cookie = driver.get_cookie("JSESSIONID")["value"]
-                
-                # cookie_dict = {}
-                # for single_dict in driver.get_cookies():
-                    # temp = single_dict["value"].strip('"')
-                    # cookie_dict[single_dict["name"]] = temp
+                # print("DDSWF", cookies) 
+                                
+                cookie_dict = {}
+                for single_dict in driver.get_cookies():
+                    temp = single_dict["value"].strip('"')
+                    cookie_dict[single_dict["name"]] = temp
                     
                 # print(cookie_dict)
                 # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
                 
-                api = Linkedin(email, password)
+                api = Linkedin(email, password, cookies=cookie_dict)
                 
                 # if driver.current_url == "https://www.linkedin.com/feed/":
                     # # from linkedin_api.client import Client
