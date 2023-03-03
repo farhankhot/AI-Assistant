@@ -625,7 +625,7 @@ def linkedin_login():
                 print(r.status_code)
                 # audio_submit_button.click()
                 
-                time.sleep(5)
+                time.sleep(15)
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
