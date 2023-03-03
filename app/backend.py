@@ -593,7 +593,7 @@ def linkedin_login():
                 text = text.replace("-", "")
                 text = text.replace(",", "")
                 text = text.replace(" ", "")
-                text = text+"."
+
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
                 print(audio_response_textbox.get_attribute('value'))
