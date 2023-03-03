@@ -573,11 +573,11 @@ def linkedin_login():
             # url = 'file://' + os.path.abspath(downloaded_file)
             # print('Downloaded file URL:', url)
             
-            r = sr.Recognizer()
+            # r = sr.Recognizer()
 
-            # Load the audio file
-            with sr.AudioFile(downloaded_file) as source:
-                audio_data = r.record(source)
+            # # Load the audio file
+            # with sr.AudioFile(downloaded_file) as source:
+                # audio_data = r.record(source)
 
             # Perform speech-to-text conversion
             key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
@@ -590,9 +590,9 @@ def linkedin_login():
                 text = text["text"]
                 # text = r.recognize_google(audio_data)
                 print('Transcription:', text)
-                text = text.replace("-", "")
+                # text = text.replace("-", "")
                 text = text.replace(",", "")
-                text = text.replace(" ", "")
+                # text = text.replace(" ", "")
 
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
