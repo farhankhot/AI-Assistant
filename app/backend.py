@@ -628,10 +628,10 @@ def linkedin_login():
                 
                 VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
                 payload["pin"] = text
-                # r = session.post(VERIFY_URL, data=payload)
-                r = session.post("https://www.linkedin.com/uas/verify", data=payload)
-                
+                r = session.post(VERIFY_URL, data=payload)
+                print(payload)
                 print(r.status_code)
+                
                 # audio_submit_button.click()
                 
                 # time.sleep(10)
