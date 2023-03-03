@@ -617,6 +617,7 @@ def linkedin_login():
                 # }
                 
                 # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                from requests.auth import HTTPBasicAuth
                 auth = HTTPBasicAuth('farhan.crazyeyes@gmail.com', 'farhanss4M')
                 r = session.post(driver.current_url, data=payload, auth=auth)
                 print(r.status_code)
