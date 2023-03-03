@@ -473,19 +473,24 @@ def linkedin_login():
     # api = Linkedin(email, password)
    
     driver.get(SEED_URL)
-    print(driver.get_cookies())    
+    
+    # print(driver.get_cookies())    
+    
+    login_csrf_param = driver.find_element(By.NAME, "loginCsrfParam").get_attribute('value')   
+
     payload = {'session_key': email,
-               # 'loginCsrfParam': loginCsrfParam,
+               'loginCsrfParam': login_csrf_param,
                'session_password': password}
                    
-    email_field = driver.find_element(By.NAME, "session_key")
-    password_field = driver.find_element(By.NAME, "session_password")
+    # email_field = driver.find_element(By.NAME, "session_key")
+    # password_field = driver.find_element(By.NAME, "session_password")
     
-    email_field.send_keys(email)
-    password_field.send_keys(password)
+    # email_field.send_keys(email)
+    # password_field.send_keys(password)
     
-    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     # submit_button.click()
+    
     r = session.post(driver.current_url, data=payload)
     print(r.status_code)
     
