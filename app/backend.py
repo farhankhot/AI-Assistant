@@ -494,7 +494,7 @@ def linkedin_login():
     if (url.startswith("https://www.linkedin.com/checkpoint")):
     
         payload = {
-            'JSESSIONID': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
+            'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
             'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
             # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
             'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
