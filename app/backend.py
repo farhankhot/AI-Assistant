@@ -624,7 +624,7 @@ def linkedin_login():
                 time.sleep(5)
 
                 # print(driver.page_source)
-                # print("cssq", driver.current_url)
+                print("cssq", driver.current_url)
                 
                 # cookies = driver.get_cookies();
                 # res_cookies = requests.get(driver.current_url)
