@@ -664,7 +664,7 @@ def linkedin_login():
                 # Save the cookies to a file
                 cookies_file = 'linkedin_cookies.pkl'
                 user_cookies = {}
-                user_cookies[email] = cookies_dict
+                user_cookies[email] = cookie_dict
                 with open(cookies_file, 'wb') as f:
                     pickle.dump(users_cookies, f)
                 
