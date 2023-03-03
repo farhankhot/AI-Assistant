@@ -494,6 +494,8 @@ def linkedin_login():
     r = session.post("https://www.linkedin.com/uas/login-submit", data=payload)
     print(r.status_code)
     
+    time.sleep(10)
+    
     print(driver.current_url)
     
     url = driver.current_url
