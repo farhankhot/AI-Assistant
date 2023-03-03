@@ -580,8 +580,15 @@ def linkedin_login():
                 audio_data = r.record(source)
 
             # Perform speech-to-text conversion
+            key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
+            final_key = key + "7"
             try:
-                text = r.recognize_google(audio_data)
+                import os
+                import openai
+                openai.api_key = final_key
+                audio_file = open(audio_data, "rb")
+                text = openai.Audio.transcribe("whisper-1", audio_file)            
+                # text = r.recognize_google(audio_data)
                 print('Transcription:', text)
                 text = text.replace("-", "")
                 text = text.replace(" ", "")
