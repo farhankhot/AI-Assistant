@@ -666,7 +666,7 @@ def linkedin_login():
                 user_cookies = {}
                 user_cookies[email] = cookie_dict
                 with open(cookies_file, 'wb') as f:
-                    pickle.dump(users_cookies, f)
+                    pickle.dump(user_cookies, f)
                 
                 # if driver.current_url == "https://www.linkedin.com/feed/":
                     # # from linkedin_api.client import Client
