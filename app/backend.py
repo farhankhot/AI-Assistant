@@ -233,26 +233,26 @@ def receive_link():
     with open(cookies_file, 'rb') as f:
         users_cookies = pickle.load(f)
     
-    if email in user_cookies:
-        api = Linkedin(email, password)
-    
-    # print(email, password)
-    title = request.json
-    # print("title", title)
-    
-    location = request.json['location']
-    mutual_connections_boolean = request.json['mutualConnections']
-    
-    if location != '':
-        location_geo_urn = get_geo_urn(api, location)
-        data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
-    else:
-        data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
-    # print(data)
-    # time.sleep(150)
-    job_id = data.get_id()
-    print(job_id)
-    return jsonify(success=True, message=job_id)
+        if email in user_cookies:
+            api = Linkedin(email, password)
+        
+        # print(email, password)
+        title = request.json
+        # print("title", title)
+        
+        location = request.json['location']
+        mutual_connections_boolean = request.json['mutualConnections']
+        
+        if location != '':
+            location_geo_urn = get_geo_urn(api, location)
+            data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
+        else:
+            data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
+        # print(data)
+        # time.sleep(150)
+        job_id = data.get_id()
+        print(job_id)
+        return jsonify(success=True, message=job_id)
     
 
 @app.route('/job-status', methods=['POST'])
