@@ -617,9 +617,9 @@ def linkedin_login():
                 # }
                 
                 # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                # r = session.post(driver.current_url, data=payload)
-                # print(r.status_code)
-                audio_submit_button.click()
+                r = session.post(driver.current_url, data=payload)
+                print(r.status_code)
+                # audio_submit_button.click()
                 
                 time.sleep(5)
 
