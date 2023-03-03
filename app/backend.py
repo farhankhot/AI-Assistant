@@ -585,7 +585,7 @@ def linkedin_login():
             try:
                 import openai
                 openai.api_key = final_key
-                audio_file = open(audio_data, "rb")
+                audio_file = open(os.path.abspath(downloaded_file), "rb")
                 text = openai.Audio.transcribe("whisper-1", audio_file) 
                 text = text["text"]
                 # text = r.recognize_google(audio_data)
