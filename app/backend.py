@@ -18,6 +18,7 @@ import speech_recognition as sr
 import sys
 import requests
 from bs4 import BeautifulSoup
+import pickle
 
 q = Queue(connection=conn)
 
@@ -228,7 +229,13 @@ def receive_link():
     email = request.json['email']
     password = request.json['password']
     
-    api = Linkedin(email, password)
+    cookies_file = 'linkedin_cookies.pkl'
+    with open(cookies_file, 'rb') as f:
+        users_cookies = pickle.load(f)
+    
+    if email in user_cookies:
+        api = Linkedin(email, password)
+    
     # print(email, password)
     title = request.json
     # print("title", title)
@@ -654,6 +661,13 @@ def linkedin_login():
                 
                 api = Linkedin(email, password, cookies=cookie_dict)
                 
+                # Save the cookies to a file
+                cookies_file = 'linkedin_cookies.pkl'
+                user_cookies = {}
+                user_cookies[email] = cookies_dict
+                with open(cookies_file, 'wb') as f:
+                    pickle.dump(users_cookies, f)
+                
                 # if driver.current_url == "https://www.linkedin.com/feed/":
                     # # from linkedin_api.client import Client
                     # # client = Client(
@@ -670,7 +684,7 @@ def linkedin_login():
                 # else:
                     # return jsonify(success=False, message="success")
                 
-                # return jsonify(success=True, message="success")
+                return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')

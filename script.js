@@ -76,8 +76,10 @@ window.onload = async function() {
 						.then(response => response.json())
 						.then(data => {
 							if (data.success === true) {
+													
 								// show the messages part
 								console.log(data);
+					
 								document.getElementById("login-page").style.display = "none";
 								document.getElementById("linkedin-search-page").style.display = "block";
 								document.getElementById("messages-page").style.display = "block";
