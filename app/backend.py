@@ -491,7 +491,7 @@ def linkedin_login():
     # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     # submit_button.click()
     
-    r = session.post(driver.current_url, data=payload)
+    r = session.post("https://www.linkedin.com/uas/login-submit", data=payload)
     print(r.status_code)
     
     print(driver.current_url)
