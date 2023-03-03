@@ -236,11 +236,7 @@ def receive_link():
     
     if email in users_cookies:
         cookies = users_cookies[email]
-        from http.cookiejar import CookieJar
-
-        cookie_jar = requests.utils.cookiejar_from_dict(cookies, CookieJar())
-
-        api = Linkedin(email, password, cookies=cookie_jar)
+        api = Linkedin(email, password, cookies=cookies)
     
     # print(email, password)
     title = request.json
@@ -668,11 +664,11 @@ def linkedin_login():
                 api = Linkedin(email, password, cookies=cookie_dict)
                 
                 # Save the cookies to a file
-                cookies_file = 'linkedin_cookies.pkl'
-                user_cookies = {}
-                user_cookies[email] = cookie_dict
-                with open(cookies_file, 'wb') as f:
-                    pickle.dump(user_cookies, f)
+                # cookies_file = 'linkedin_cookies.pkl'
+                # user_cookies = {}
+                # user_cookies[email] = cookie_dict
+                # with open(cookies_file, 'wb') as f:
+                    # pickle.dump(user_cookies, f)
                 
                 # if driver.current_url == "https://www.linkedin.com/feed/":
                     # # from linkedin_api.client import Client
