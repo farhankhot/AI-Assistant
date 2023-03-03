@@ -485,10 +485,11 @@ def linkedin_login():
     password_field.send_keys(password)
     
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    submit_button.click()
+    # submit_button.click()
+    r = session.post(driver.current_url, data=payload)
+    print(r.status_code)
     
     print(driver.current_url)
-    
     
     url = driver.current_url
     
@@ -624,8 +625,6 @@ def linkedin_login():
                 
                 # r = session.post(VERIFY_URL, data=payload)
                 # r = session.post(driver.current_url, data=payload)
-                
-                
                 
                 # print(r.status_code)
                 audio_submit_button.click()
