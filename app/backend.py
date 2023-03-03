@@ -616,11 +616,12 @@ def linkedin_login():
                     # 'pin': text
                 # }
                 
-                VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                r = session.post(driver.current_url, data=payload)
-                print(r.status_code)
+                # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                # r = session.post(driver.current_url, data=payload)
+                # print(r.status_code)
                 # audio_submit_button.click()
-                # time.sleep(5)
+                driver.request('POST', driver.current_url, data=payload)
+                time.sleep(5)
 
                 # print(driver.page_source)
                 # print("cssq", driver.current_url)
