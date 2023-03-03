@@ -473,7 +473,7 @@ def linkedin_login():
     # api = Linkedin(email, password)
    
     driver.get(SEED_URL)
-        
+    print(driver.get_cookies())    
     payload = {'session_key': email,
                # 'loginCsrfParam': loginCsrfParam,
                'session_password': password}
@@ -488,7 +488,7 @@ def linkedin_login():
     submit_button.click()
     
     print(driver.current_url)
-    print(driver.get_cookies())
+    
     
     url = driver.current_url
     
