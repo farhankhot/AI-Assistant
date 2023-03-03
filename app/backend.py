@@ -488,8 +488,11 @@ def linkedin_login():
     submit_button.click()
     
     print(driver.current_url)
+    print(driver.get_cookies())
     
     url = driver.current_url
+    
+    api = Linkedin(email, password)
     
     if (url.startswith("https://www.linkedin.com/checkpoint")):
     
@@ -621,6 +624,8 @@ def linkedin_login():
                 
                 # r = session.post(VERIFY_URL, data=payload)
                 # r = session.post(driver.current_url, data=payload)
+                
+                
                 
                 # print(r.status_code)
                 audio_submit_button.click()
