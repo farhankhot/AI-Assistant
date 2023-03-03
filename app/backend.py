@@ -599,9 +599,9 @@ def linkedin_login():
                 text = text["text"]
                 # text = r.recognize_google(audio_data)
                 print('Transcription:', text)
-                # text = text.replace("-", "")
+                text = text.replace("-", "")
                 text = text.replace(",", "")
-                # text = text.replace(" ", "")
+                text = text.replace(" ", "")
 
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
@@ -628,8 +628,8 @@ def linkedin_login():
                 
                 VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
                 payload["pin"] = text
-                r = session.post(VERIFY_URL, data=payload)
-                # r = session.post("https://www.linkedin.com/uas/verify", data=payload)
+                # r = session.post(VERIFY_URL, data=payload)
+                r = session.post("https://www.linkedin.com/uas/verify", data=payload)
                 
                 print(r.status_code)
                 # audio_submit_button.click()
