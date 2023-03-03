@@ -591,6 +591,7 @@ def linkedin_login():
                 # text = r.recognize_google(audio_data)
                 print('Transcription:', text)
                 text = text.replace("-", "")
+                text = text.replace(",", "")
                 text = text.replace(" ", "")
                 print("final text", text)
                 audio_response_textbox.send_keys(text)
