@@ -230,16 +230,16 @@ def receive_link():
     email = request.json['email']
     password = request.json['password']
     
-    # api = Linkedin(email, password)
+    api = Linkedin(email, password)
     
-    cookies_file = 'linkedin_cookies.pkl'
-    with open(cookies_file, 'rb') as f:
-        users_cookies = pickle.load(f)
+    # cookies_file = 'linkedin_cookies.pkl'
+    # with open(cookies_file, 'rb') as f:
+        # users_cookies = pickle.load(f)
     
-    if email in users_cookies:
-        cookies = users_cookies[email]
-        api = Linkedin(email, password, cookies=cookies)
-    
+    # if email in users_cookies:
+        # cookies = users_cookies[email]
+        # api = Linkedin(email, password, cookies=cookies)
+       
     # print(email, password)
     title = request.json
     # print("title", title)
