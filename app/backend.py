@@ -616,10 +616,9 @@ def linkedin_login():
                     # 'pin': text
                 # }
                 
-                # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                from requests.auth import HTTPBasicAuth
-                auth = HTTPBasicAuth('farhan.crazyeyes@gmail.com', 'farhanss4M')
-                r = session.post(driver.current_url, data=payload, auth=auth)
+                VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                
+                r = session.post(VERIFY_URL, data=payload)
                 print(r.status_code)
                 # audio_submit_button.click()
                 
