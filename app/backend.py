@@ -482,25 +482,23 @@ def linkedin_login():
                'loginCsrfParam': login_csrf_param,
                'session_password': password}
                    
-    # email_field = driver.find_element(By.NAME, "session_key")
-    # password_field = driver.find_element(By.NAME, "session_password")
+    email_field = driver.find_element(By.NAME, "session_key")
+    password_field = driver.find_element(By.NAME, "session_password")
     
-    # email_field.send_keys(email)
-    # password_field.send_keys(password)
+    email_field.send_keys(email)
+    password_field.send_keys(password)
     
-    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    # submit_button.click()
+    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    submit_button.click()
     
-    r = session.post("https://www.linkedin.com/uas/login-submit", data=payload)
-    print(r.status_code)
-    
-    time.sleep(10)
-    
+    # r = session.post("https://www.linkedin.com/uas/login-submit", data=payload)
+    # print(r.status_code)
+        
     print(driver.current_url)
     
     url = driver.current_url
     
-    api = Linkedin(email, password)
+    # api = Linkedin(email, password)
     
     if (url.startswith("https://www.linkedin.com/checkpoint")):
     
@@ -629,12 +627,12 @@ def linkedin_login():
                 # }
                 
                 VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                payload["pin"] = text
+                r = session.post(VERIFY_URL, data=payload)
+                # r = session.post("https://www.linkedin.com/uas/verify", data=payload)
                 
-                # r = session.post(VERIFY_URL, data=payload)
-                # r = session.post(driver.current_url, data=payload)
-                
-                # print(r.status_code)
-                audio_submit_button.click()
+                print(r.status_code)
+                # audio_submit_button.click()
                 
                 # time.sleep(10)
 
