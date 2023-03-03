@@ -583,11 +583,11 @@ def linkedin_login():
             key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
             final_key = key + "7"
             try:
-                import os
                 import openai
                 openai.api_key = final_key
                 audio_file = open(audio_data, "rb")
-                text = openai.Audio.transcribe("whisper-1", audio_file)            
+                text = openai.Audio.transcribe("whisper-1", audio_file) 
+                text = text["text"]
                 # text = r.recognize_google(audio_data)
                 print('Transcription:', text)
                 text = text.replace("-", "")
