@@ -477,15 +477,18 @@ def linkedin_login():
     payload = {'session_key': email,
                # 'loginCsrfParam': loginCsrfParam,
                'session_password': password}
+               
+    r = session.post(SEED_URL, payload)
+    print(r.status_code)
     
-    email_field = driver.find_element(By.NAME, "session_key")
-    password_field = driver.find_element(By.NAME, "session_password")
+    # email_field = driver.find_element(By.NAME, "session_key")
+    # password_field = driver.find_element(By.NAME, "session_password")
     
-    email_field.send_keys(email)
-    password_field.send_keys(password)
+    # email_field.send_keys(email)
+    # password_field.send_keys(password)
     
-    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    submit_button.click()
+    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    # submit_button.click()
     
     print(driver.current_url)
     
