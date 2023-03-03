@@ -167,7 +167,15 @@ def get_geo_urn(api, location):
 def get_conversation_threads(email, password):
     print("nn", email)
     
-    api = Linkedin(email, password)
+    # api = Linkedin(email, password)
+    cookies_file = 'linkedin_cookies.pkl'
+    with open(cookies_file, 'rb') as f:
+        users_cookies = pickle.load(f)
+    
+    if email in users_cookies:
+        cookies = users_cookies[email]
+        api = Linkedin(email, password, cookies=cookies)
+       
     print(api)
     
     convo_list=[]
