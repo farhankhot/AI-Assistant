@@ -154,6 +154,7 @@ def get_geo_urn(api, location):
         "csrf-token": "ajax:5885116779205486121",
         "x-restli-protocol-version": "2.0.0"
     }
+    
     res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
     # , params = url_params)
 
@@ -235,7 +236,11 @@ def receive_link():
     
     if email in users_cookies:
         cookies = users_cookies[email]
-        api = Linkedin(email, password, cookies=cookies)
+        from http.cookiejar import CookieJar
+
+        cookie_jar = requests.utils.cookiejar_from_dict(cookies, CookieJar())
+
+        api = Linkedin(email, password, cookies=cookie_jar)
     
     # print(email, password)
     title = request.json
