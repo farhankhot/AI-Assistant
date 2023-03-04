@@ -155,8 +155,15 @@ def get_geo_urn(api, location):
         "x-restli-protocol-version": "2.0.0"
     }
     
-    res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
-    # , params = url_params)
+    cookies_file = 'linkedin_cookies.pkl'
+    with open(cookies_file, 'rb') as f:
+        users_cookies = pickle.load(f)
+    
+    if email in users_cookies:
+        cookies = users_cookies[email]
+    
+    res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO"
+    , cookies=cookies)
 
     # res = api._fetch(f"/me")
     # print(res.json()['elements'][0]['targetUrn'])
