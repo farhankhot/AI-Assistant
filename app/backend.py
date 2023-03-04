@@ -587,144 +587,147 @@ def linkedin_login():
         # actions.move_to_element(download_audio_button).perform()
         
         time.sleep(10) 
+        
+        screenshot = driver.get_screenshot_as_base64()
+        return jsonify(success=False, message=screenshot)
 
-        download_audio_button.click()
-        # driver.execute_script("arguments[0].click();", download_audio_button)
+        # download_audio_button.click()
+        # # driver.execute_script("arguments[0].click();", download_audio_button)
         
-        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
+        # audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
         
-        # print(driver.page_source)
+        # # print(driver.page_source)
         
-        # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
-        # print(game)
-        # screenshot = driver.get_screenshot_as_base64()
-        # return jsonify(success=False, message=screenshot)
+        # # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
+        # # print(game)
+        # # screenshot = driver.get_screenshot_as_base64()
+        # # return jsonify(success=False, message=screenshot)
         
-        # Wait for the file to finish downloading
-        # print(os.getcwd())
+        # # Wait for the file to finish downloading
+        # # print(os.getcwd())
         
-        downloads_folder = os.path.expanduser('~/')
-        downloaded_file = None
-        timeout = 10  # maximum time to wait for download to complete (in seconds)
-        start_time = time.time()
-        while time.time() < start_time + timeout:
-            # Check for any new files in the downloads folder
-            files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
-            if files:
-                # Assume the most recent file is the one we want
-                downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
-                break
-            else:
-                # Wait a bit before checking again
-                time.sleep(1)
+        # downloads_folder = os.path.expanduser('~/')
+        # downloaded_file = None
+        # timeout = 10  # maximum time to wait for download to complete (in seconds)
+        # start_time = time.time()
+        # while time.time() < start_time + timeout:
+            # # Check for any new files in the downloads folder
+            # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            # if files:
+                # # Assume the most recent file is the one we want
+                # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                # break
+            # else:
+                # # Wait a bit before checking again
+                # time.sleep(1)
 
-        # Get the URL of the downloaded file
-        if downloaded_file:
-            # url = 'file://' + os.path.abspath(downloaded_file)
-            # print('Downloaded file URL:', url)
+        # # Get the URL of the downloaded file
+        # if downloaded_file:
+            # # url = 'file://' + os.path.abspath(downloaded_file)
+            # # print('Downloaded file URL:', url)
             
-            # r = sr.Recognizer()
+            # # r = sr.Recognizer()
 
-            # # Load the audio file
-            # with sr.AudioFile(downloaded_file) as source:
-                # audio_data = r.record(source)
+            # # # Load the audio file
+            # # with sr.AudioFile(downloaded_file) as source:
+                # # audio_data = r.record(source)
 
-            # Perform speech-to-text conversion
-            key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
-            final_key = key + "7"
-            try:
-                import openai
-                openai.api_key = final_key
-                audio_file = open(os.path.abspath(downloaded_file), "rb")
-                text = openai.Audio.transcribe("whisper-1", audio_file) 
-                text = text["text"]
-                # text = r.recognize_google(audio_data)
-                print('Transcription:', text)
-                text = text.replace("-", "")
-                text = text.replace(",", "")
-                text = text.replace(" ", "")
+            # # Perform speech-to-text conversion
+            # key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
+            # final_key = key + "7"
+            # try:
+                # import openai
+                # openai.api_key = final_key
+                # audio_file = open(os.path.abspath(downloaded_file), "rb")
+                # text = openai.Audio.transcribe("whisper-1", audio_file) 
+                # text = text["text"]
+                # # text = r.recognize_google(audio_data)
+                # print('Transcription:', text)
+                # text = text.replace("-", "")
+                # text = text.replace(",", "")
+                # text = text.replace(" ", "")
 
-                print("final text", text)
-                audio_response_textbox.send_keys(text)
-                print(audio_response_textbox.get_attribute('value'))
+                # print("final text", text)
+                # audio_response_textbox.send_keys(text)
+                # print(audio_response_textbox.get_attribute('value'))
            
-                audio_submit_button = driver.find_element(By.ID, "audio_submit")
+                # audio_submit_button = driver.find_element(By.ID, "audio_submit")
                 
-                # driver.switch_to.default_content()
-                # payload = {
-                    # 'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
-                    # 'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
-                    # # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
-                    # 'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
-                    # 'language': 'en-US',
-                    # 'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
-                    # 'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
-                    # 'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
-                    # 'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
-                    # 'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
-                    # 'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
-                    # 'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
-                    # 'pin': text
-                # }
+                # # driver.switch_to.default_content()
+                # # payload = {
+                    # # 'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
+                    # # 'pageInstance': driver.find_element(By.NAME, 'pageInstance').get_attribute('value'),
+                    # # # 'resendUrl': driver.find_element(By.NAME, 'resendUrl').get_attribute('value'),
+                    # # 'challengeId': driver.find_element(By.NAME, 'challengeId').get_attribute('value'),
+                    # # 'language': 'en-US',
+                    # # 'displayTime': driver.find_element(By.NAME, 'displayTime').get_attribute('value'),
+                    # # 'challengeSource': driver.find_element(By.NAME, 'challengeSource').get_attribute('value'),
+                    # # 'requestSubmissionId': driver.find_element(By.NAME, 'requestSubmissionId').get_attribute('value'),
+                    # # 'challengeType': driver.find_element(By.NAME, 'challengeType').get_attribute('value'),
+                    # # 'challengeData': driver.find_element(By.NAME, 'challengeData').get_attribute('value'),
+                    # # 'challengeDetails': driver.find_element(By.NAME, 'challengeDetails').get_attribute('value'),
+                    # # 'failureRedirectUri': driver.find_element(By.NAME, 'failureRedirectUri').get_attribute('value'),
+                    # # 'pin': text
+                # # }
                 
-                # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
-                # payload["pin"] = text
-                # r = session.post(VERIFY_URL, data=payload)
-                # print(payload)
-                # print(r.status_code)
+                # # VERIFY_URL = 'https://www.linkedin.com/checkpoint/challenge/verify'
+                # # payload["pin"] = text
+                # # r = session.post(VERIFY_URL, data=payload)
+                # # print(payload)
+                # # print(r.status_code)
                 
-                audio_submit_button.click()
+                # audio_submit_button.click()
                 
-                time.sleep(8)
+                # time.sleep(8)
 
-                # print(driver.page_source)
-                print("cssq", driver.current_url)
+                # # print(driver.page_source)
+                # print("cssq", driver.current_url)
                 
-                # cookies = driver.get_cookies();
-                # res_cookies = requests.get(driver.current_url)
-                # cookies = res_cookies.cookies
-                # print("DDSWF", cookies) 
+                # # cookies = driver.get_cookies();
+                # # res_cookies = requests.get(driver.current_url)
+                # # cookies = res_cookies.cookies
+                # # print("DDSWF", cookies) 
                                 
-                cookie_dict = {}
-                for single_dict in driver.get_cookies():
-                    temp = single_dict["value"].strip('"')
-                    cookie_dict[single_dict["name"]] = temp
+                # cookie_dict = {}
+                # for single_dict in driver.get_cookies():
+                    # temp = single_dict["value"].strip('"')
+                    # cookie_dict[single_dict["name"]] = temp
                     
-                # print(cookie_dict)
-                # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
+                # # print(cookie_dict)
+                # # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
                 
-                api = Linkedin(email, password, cookies=cookie_dict)
+                # api = Linkedin(email, password, cookies=cookie_dict)
                 
-                # Save the cookies to a file
-                cookies_file = 'linkedin_cookies.pkl'
-                user_cookies = {}
-                user_cookies[email] = cookie_dict
-                with open(cookies_file, 'wb') as f:
-                    pickle.dump(user_cookies, f)
+                # # Save the cookies to a file
+                # cookies_file = 'linkedin_cookies.pkl'
+                # user_cookies = {}
+                # user_cookies[email] = cookie_dict
+                # with open(cookies_file, 'wb') as f:
+                    # pickle.dump(user_cookies, f)
                 
-                # if driver.current_url == "https://www.linkedin.com/feed/":
-                    # # from linkedin_api.client import Client
-                    # # client = Client(
-                        # # refresh_cookies=False,
-                        # # debug=False,
-                        # # proxies={},
-                        # # cookies_dir=None,
-                    # # )
-                    # # u = client._request_session_cookies()
-                    # # print("u", u)
-                    # # client._set_session_cookies(jsession_cookie)
-                    # api = Linkedin(email, password)
-                    # return jsonify(success=True, message="success")
-                # else:
-                    # return jsonify(success=False, message="success")
+                # # if driver.current_url == "https://www.linkedin.com/feed/":
+                    # # # from linkedin_api.client import Client
+                    # # # client = Client(
+                        # # # refresh_cookies=False,
+                        # # # debug=False,
+                        # # # proxies={},
+                        # # # cookies_dir=None,
+                    # # # )
+                    # # # u = client._request_session_cookies()
+                    # # # print("u", u)
+                    # # # client._set_session_cookies(jsession_cookie)
+                    # # api = Linkedin(email, password)
+                    # # return jsonify(success=True, message="success")
+                # # else:
+                    # # return jsonify(success=False, message="success")
                 
-                return jsonify(success=True, message="success")
+                # return jsonify(success=True, message="success")
                 
-            except sr.UnknownValueError:
-                print('Unable to transcribe audio')
+            # except sr.UnknownValueError:
+                # print('Unable to transcribe audio')
         
-        else:
-            print('File not found in downloads folder')
+        # else:
+            # print('File not found in downloads folder')
             
 
     
