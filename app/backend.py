@@ -571,12 +571,12 @@ def linkedin_login():
         # third iframe contains button to download wav file
         switch_to_audio_button = driver.find_element(By.ID, "fc_meta_audio_btn")
         switch_to_audio_button.click()
-        print("after clicking audio button", driver.page_source)
+        # print("after clicking audio button", driver.page_source)
         
-        # time.sleep(5) 
-        # download_audio_button = driver.find_element(By.ID, "audio_download")
-
-        download_audio_button = WebDriverWait(driver, 29).until(EC.element_to_be_clickable((By.ID, "audio_download")))
+        
+        download_audio_button = driver.find_element(By.ID, "audio_download")
+        time.sleep(5) 
+        # download_audio_button = WebDriverWait(driver, 29).until(EC.element_to_be_clickable((By.ID, "audio_download")))
 
         download_audio_button.click()
         
