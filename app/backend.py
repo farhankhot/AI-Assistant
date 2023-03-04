@@ -245,7 +245,7 @@ def receive_link():
     email = request.json['email']
     password = request.json['password']
     
-    api = Linkedin(email, password)
+    # api = Linkedin(email, password)
     
     cookies_file = 'linkedin_cookies.pkl'
     with open(cookies_file, 'rb') as f:
