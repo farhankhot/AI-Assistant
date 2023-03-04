@@ -528,6 +528,8 @@ def linkedin_login():
     # api = Linkedin(email, password)
     
     if (url.startswith("https://www.linkedin.com/checkpoint")):
+        
+        print(driver.page_source)
     
         payload = {
             'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
