@@ -529,7 +529,7 @@ def linkedin_login():
     
     if (url.startswith("https://www.linkedin.com/checkpoint")):
         
-        print(driver.page_source)
+        # print(driver.page_source)
     
         payload = {
             'csrfToken': driver.find_element(By.NAME, 'csrfToken').get_attribute('value'),
@@ -588,8 +588,8 @@ def linkedin_login():
         
         time.sleep(5) 
 
-        download_audio_button.click()
-
+        # download_audio_button.click()
+        driver.execute_script("arguments[0].click();", download_audio_button)
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
         
