@@ -574,10 +574,8 @@ def linkedin_login():
         # print("after clicking audio button", driver.page_source)
             
         # time.sleep(5) 
-
-        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         
-        # download_audio_button = WebDriverWait(driver, 29).until(EC.element_to_be_clickable((By.ID, "audio_download")))
+        download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
 
         download_audio_button.click()
         
