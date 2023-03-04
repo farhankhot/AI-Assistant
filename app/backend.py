@@ -579,8 +579,11 @@ def linkedin_login():
         # print(download_audio_button)
         
         # download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
+        from selenium.webdriver import ActionChains
+        actions = ActionChains(driver)
+        actions.move_to_element(download_audio_button).perform()
         
-        time.sleep(8) 
+        # time.sleep(8) 
 
         download_audio_button.click()
         
