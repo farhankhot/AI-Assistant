@@ -584,9 +584,10 @@ def linkedin_login():
         # actions = ActionChains(driver)
         # actions.move_to_element(download_audio_button).perform()
         
-        # time.sleep(8) 
+        time.sleep(5) 
 
         download_audio_button.click()
+
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
         
