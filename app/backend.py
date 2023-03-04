@@ -586,7 +586,7 @@ def linkedin_login():
         # actions = ActionChains(driver)
         # actions.move_to_element(download_audio_button).perform()
         
-        # time.sleep(5) 
+        time.sleep(5) 
 
         download_audio_button.click()
         # driver.execute_script("arguments[0].click();", download_audio_button)
