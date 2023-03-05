@@ -699,6 +699,7 @@ def linkedin_login():
                 from http.cookiejar import CookieJar
 
                 new_cookies = requests.utils.cookiejar_from_dict(cookie_dict, CookieJar())    
+                print("new_cookies backend: ", new_cookies)
                 
                 api = Linkedin(email, password, cookies=new_cookies)
                 
