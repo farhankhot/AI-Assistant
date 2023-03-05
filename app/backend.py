@@ -565,7 +565,8 @@ def linkedin_login():
         # print("html after verify_button clicked", driver.page_source)
         
         # third iframe contains button to download wav file
-        switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "fc_meta_audio_btn")))
+        switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id="fc_meta_audio_btn"]/span")))
+        
         print(switch_to_audio_button.get_attribute("style"))
         switch_to_audio_button.click()
 
