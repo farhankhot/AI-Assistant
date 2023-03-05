@@ -356,8 +356,6 @@ def get_people_interests():
     
     return jsonify(success=True, message=job_id)
     
-    
-    
 def GetCompanyInterests(request_json):
 
     email = request_json['email']
@@ -692,40 +690,42 @@ def linkedin_login():
                 # cookies = res_cookies.cookies
                 # print("DDSWF", cookies) 
                                 
-                cookie_dict = {}
-                for single_dict in driver.get_cookies():
-                    temp = single_dict["value"].strip('"')
-                    cookie_dict[single_dict["name"]] = temp
+                # cookie_dict = {}
+                # for single_dict in driver.get_cookies():
+                    # temp = single_dict["value"].strip('"')
+                    # cookie_dict[single_dict["name"]] = temp
                     
                 # print(cookie_dict)
                 # cookie_dict["JSESSIONID"] = cookie_dict["JSESSIONID"].strip('"')
                 
-                api = Linkedin(email, password, cookies=cookie_dict)
+                # api = Linkedin(email, password, cookies=cookie_dict)
                 
-                # Save the cookies to a file
-                cookies_file = 'linkedin_cookies.pkl'
-                user_cookies = {}
-                user_cookies[email] = cookie_dict
-                with open(cookies_file, 'wb') as f:
-                    pickle.dump(user_cookies, f)
+                # # Save the cookies to a file
+                # cookies_file = 'linkedin_cookies.pkl'
+                # user_cookies = {}
+                # user_cookies[email] = cookie_dict
+                # with open(cookies_file, 'wb') as f:
+                    # pickle.dump(user_cookies, f)              
                 
-                # if driver.current_url == "https://www.linkedin.com/feed/":
-                    # # from linkedin_api.client import Client
-                    # # client = Client(
-                        # # refresh_cookies=False,
-                        # # debug=False,
-                        # # proxies={},
-                        # # cookies_dir=None,
-                    # # )
-                    # # u = client._request_session_cookies()
-                    # # print("u", u)
-                    # # client._set_session_cookies(jsession_cookie)
-                    # api = Linkedin(email, password)
-                    # return jsonify(success=True, message="success")
+                if driver.current_url == "https://www.linkedin.com/feed/":
+                    from linkedin_api.client import Client
+                    client = Client(
+                        refresh_cookies=False,
+                        debug=False,
+                        proxies={},
+                        cookies_dir=None,
+                    )
+                    new_cookies = client._request_session_cookies()
+                    print("new cookies", new_cookies)
+                    api = Linkedin(email, password, cookies=new_cookies)
+
                 # else:
                     # return jsonify(success=False, message="success")
+                    
+                    return jsonify(success=True, message="success")
+
                 
-                return jsonify(success=True, message="success")
+                # return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')
