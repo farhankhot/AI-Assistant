@@ -557,8 +557,8 @@ def linkedin_login():
         
         # print("second driver", driver.page_source)
         
-        # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(third_iframe)
+        third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(third_iframe)
         # print("driver", driver.page_source)
                     
         time.sleep(2)
@@ -566,6 +566,7 @@ def linkedin_login():
         
         # third iframe contains button to download wav file
         switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "fc_meta_audio_btn")))
+        print(switch_to_audio_button.get_attribute("style"))
         switch_to_audio_button.click()
 
         # from selenium.webdriver.common.action_chains import ActionChains
