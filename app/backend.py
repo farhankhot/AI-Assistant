@@ -577,8 +577,8 @@ def linkedin_login():
         switch_to_audio_button = wait.until(EC.presence_of_element_located((By.ID, "fc_meta_audio_btn")))
         switch_to_audio_button.click()
             
-        time.sleep(5) 
-        # print("after clicking audio button", driver.page_source)
+        print("after clicking audio button", driver.page_source)
+        time.sleep(11) 
         
         download_audio_button = driver.find_element(By.ID, "audio_download")
         # print(download_audio_button)
