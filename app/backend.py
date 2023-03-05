@@ -560,16 +560,7 @@ def linkedin_login():
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
         # print("driver", driver.page_source)
-            
-        # final_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(final_iframe) 
-        # time.sleep(10)        
-        # print("final iframe source", driver.page_source)
-        
-        # verify_button = driver.find_element(By.ID, "home_children_button")
-        # # print("verify button", verify_button)
-        # verify_button.click()
-        
+                    
         time.sleep(2)
         # print("html after verify_button clicked", driver.page_source)
         
@@ -581,35 +572,13 @@ def linkedin_login():
         
         time.sleep(5)
         # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
-
-        
+    
         download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
-        # print(download_audio_button)
-        
-        # download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
-        # from selenium.webdriver import ActionChains
-        # actions = ActionChains(driver)
-        # actions.move_to_element(download_audio_button).perform()
-        
-        # time.sleep(10) 
-        
-        # screenshot = driver.get_screenshot_as_base64()
-        # return jsonify(success=False, message=screenshot)
+        # print(download_audio_button)        
 
-        # download_audio_button.click()
-        driver.execute_script("arguments[0].click();", download_audio_button)
+        download_audio_button.click()
         
-        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
-        
-        # print(driver.page_source)
-        
-        # game = wait.until(EC.presence_of_element_located((By.ID, "game")))
-        # print(game)
-        # screenshot = driver.get_screenshot_as_base64()
-        # return jsonify(success=False, message=screenshot)
-        
-        # Wait for the file to finish downloading
-        # print(os.getcwd())
+        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
         
         downloads_folder = os.path.expanduser('~/')
         downloaded_file = None
@@ -654,21 +623,12 @@ def linkedin_login():
 
                 print("final text", text)
                 
-                # audio_response_textbox.send_keys(text)
-                # print(audio_response_textbox.get_attribute('value'))
-
-                time.sleep(2)
-                
-                driver.execute_script("arguments[0].value = '{}';".format(text), audio_response_textbox)
+                audio_response_textbox.send_keys(text)
+                print(audio_response_textbox.get_attribute('value'))
            
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
-
-                time.sleep(3)
-                
-                driver.execute_script("arguments[0].click();", audio_submit_button)
                                 
-                # audio_submit_button.click()
-                
+                audio_submit_button.click()                
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
