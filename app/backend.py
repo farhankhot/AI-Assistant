@@ -567,7 +567,15 @@ def linkedin_login():
         # third iframe contains button to download wav file
         switch_to_audio_button = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "fc_meta_audio_btn")))
         # switch_to_audio_button.click()
-        driver.execute_script("arguments[0].click();", switch_to_audio_button)
+
+        from selenium.webdriver.common.action_chains import ActionChains
+
+
+        action = ActionChains(driver)
+
+        # driver.execute_script("arguments[0].click();", switch_to_audio_button)
+
+        action.move_to_element(switch_to_audio_button).click().perform()
             
         print("after clicking audio button", driver.page_source)
         
