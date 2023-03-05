@@ -657,6 +657,8 @@ def linkedin_login():
                 # audio_response_textbox.send_keys(text)
                 # print(audio_response_textbox.get_attribute('value'))
 
+                time.sleep(2)
+                
                 driver.execute_script("arguments[0].value = '{}';".format(text), audio_response_textbox)
            
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
