@@ -580,7 +580,7 @@ def linkedin_login():
         # print("after clicking audio button", driver.page_source)
         
         time.sleep(15)
-        driver.find_element(By.CLASS_NAME, "audio-ctn").click()
+        # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
 
         
         download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
@@ -596,8 +596,8 @@ def linkedin_login():
         # screenshot = driver.get_screenshot_as_base64()
         # return jsonify(success=False, message=screenshot)
 
-        download_audio_button.click()
-        # driver.execute_script("arguments[0].click();", download_audio_button)
+        # download_audio_button.click()
+        driver.execute_script("arguments[0].click();", download_audio_button)
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")
         
