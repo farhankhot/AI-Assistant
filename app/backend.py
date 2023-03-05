@@ -570,7 +570,7 @@ def linkedin_login():
         # # print("verify button", verify_button)
         # verify_button.click()
         
-        # time.sleep(3)
+        time.sleep(3)
         # print("html after verify_button clicked", driver.page_source)
         
         # third iframe contains button to download wav file
@@ -578,9 +578,9 @@ def linkedin_login():
         switch_to_audio_button.click()
             
         print("after clicking audio button", driver.page_source)
-        time.sleep(15) 
+        time.sleep(8) 
         
-        download_audio_button = driver.find_element(By.ID, "audio_download")
+        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         # print(download_audio_button)
         
         # download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
