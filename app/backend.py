@@ -707,25 +707,20 @@ def linkedin_login():
                 # with open(cookies_file, 'wb') as f:
                     # pickle.dump(user_cookies, f)              
                 
-                if driver.current_url == "https://www.linkedin.com/feed/":
-                    from linkedin_api.client import Client
-                    client = Client(
-                        refresh_cookies=False,
-                        debug=False,
-                        proxies={},
-                        cookies_dir=None,
-                    )
-                    new_cookies = client._request_session_cookies()
-                    print("new cookies", new_cookies)
-                    api = Linkedin(email, password, cookies=new_cookies)
-
-                # else:
-                    # return jsonify(success=False, message="success")
-                    
-                    return jsonify(success=True, message="success")
-
+                # if driver.current_url == "https://www.linkedin.com/feed/":
                 
-                # return jsonify(success=True, message="success")
+                from linkedin_api.client import Client
+                client = Client(
+                    refresh_cookies=False,
+                    debug=False,
+                    proxies={},
+                    cookies_dir=None,
+                )
+                new_cookies = client._request_session_cookies()
+                print("new cookies", new_cookies)
+                api = Linkedin(email, password, cookies=new_cookies)
+                              
+                return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')
