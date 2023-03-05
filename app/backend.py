@@ -580,15 +580,15 @@ def linkedin_login():
         # time.sleep(5) 
         # print("after clicking audio button", driver.page_source)
         
-        download_audio_button = driver.find_element(By.ID, "audio_download")
+        # download_audio_button = driver.find_element(By.ID, "audio_download")
         # print(download_audio_button)
         
-        # download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
+        download_audio_button = wait.until(EC.element_to_be_clickable((By.ID, "audio_download")))
         # from selenium.webdriver import ActionChains
         # actions = ActionChains(driver)
         # actions.move_to_element(download_audio_button).perform()
         
-        time.sleep(10) 
+        # time.sleep(10) 
         
         # screenshot = driver.get_screenshot_as_base64()
         # return jsonify(success=False, message=screenshot)
