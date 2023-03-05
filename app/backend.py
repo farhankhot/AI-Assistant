@@ -656,12 +656,12 @@ def linkedin_login():
                     cookie_dict[single_dict["name"]] = temp
                     
                 # print(cookie_dict)
-                from http.cookiejar import CookieJar
-
-                new_cookies = requests.utils.cookiejar_from_dict(cookie_dict, CookieJar())    
-                print("new_cookies backend: ", new_cookies)
                 
-                api = Linkedin(email, password, cookies=new_cookies)
+                # from http.cookiejar import CookieJar
+                # new_cookies = requests.utils.cookiejar_from_dict(cookie_dict, CookieJar())    
+                # print("new_cookies backend: ", new_cookies)
+                
+                api = Linkedin(email, password, cookies=cookie_dict)
                 
                 # # Save the cookies to a file
                 # cookies_file = 'linkedin_cookies.pkl'
