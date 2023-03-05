@@ -641,7 +641,10 @@ def linkedin_login():
            
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
                                 
-                audio_submit_button.click()                
+                audio_submit_button.click()           
+
+                time.sleep(5)
+                print(driver.page_source)
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
