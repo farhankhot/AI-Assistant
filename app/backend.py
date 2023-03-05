@@ -579,7 +579,7 @@ def linkedin_login():
             
         # print("after clicking audio button", driver.page_source)
         
-        # time.sleep(15)
+        time.sleep(5)
         # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
 
         
@@ -660,12 +660,13 @@ def linkedin_login():
                 driver.execute_script("arguments[0].value = '{}';".format(text), audio_response_textbox)
            
                 audio_submit_button = driver.find_element(By.ID, "audio_submit")
+
+                time.sleep(3)
                 
                 driver.execute_script("arguments[0].click();", audio_submit_button)
                                 
                 # audio_submit_button.click()
                 
-                # time.sleep(8)
 
                 # print(driver.page_source)
                 print("cssq", driver.current_url)
