@@ -159,7 +159,7 @@ def get_geo_urn(api, location):
     cookies_file = 'linkedin_cookies.pkl'
     with open(cookies_file, 'rb') as f:
         users_cookies = pickle.load(f)
-    
+    email = "farhan.crazyeyes@gmail.com"
     if email in users_cookies:
         cookies = users_cookies[email]
     
