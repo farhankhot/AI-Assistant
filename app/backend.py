@@ -579,7 +579,7 @@ def linkedin_login():
             
         # print("after clicking audio button", driver.page_source)
         
-        driver.find_element(By.CLASS, "audio-ctn").click()
+        driver.find_element(By.CLASS_NAME, "audio-ctn").click()
 
         time.sleep(8)
         
