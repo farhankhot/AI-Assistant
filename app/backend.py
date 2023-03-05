@@ -557,8 +557,8 @@ def linkedin_login():
         
         # print("second driver", driver.page_source)
         
-        third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        driver.switch_to.frame(third_iframe)
+        # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # driver.switch_to.frame(third_iframe)
         # print("driver", driver.page_source)
                     
         time.sleep(2)
