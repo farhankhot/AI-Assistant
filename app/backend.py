@@ -570,12 +570,13 @@ def linkedin_login():
             
         print("after clicking audio button", driver.page_source)
         
-        time.sleep(9)
+        time.sleep(2)
         # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
     
         download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         # print(download_audio_button)        
 
+        time.sleep(9)
         download_audio_button.click()
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
