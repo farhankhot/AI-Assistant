@@ -553,7 +553,9 @@ def linkedin_login():
         switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
         
         print(switch_to_audio_button.get_attribute("style"))
-        switch_to_audio_button.click()
+        # switch_to_audio_button.click()
+        
+        switch_to_audio_button.send_keys("\n")
 
         # from selenium.webdriver.common.action_chains import ActionChains
         # action = ActionChains(driver)
