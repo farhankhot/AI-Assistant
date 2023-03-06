@@ -577,6 +577,7 @@ def linkedin_login():
                 
         switch_to_audio_button.send_keys("\n")
     
+        time.sleep(5) 
         screenshot = driver.get_screenshot_as_base64()
         return jsonify(success=False, message=screenshot) 
         
