@@ -590,10 +590,10 @@ def linkedin_login():
         print(driver.page_source)
         
         # Press the "play button"
-        audio_play_button = wait.until(EC.presence_of_element_located((By.ID, "audio_play")))
+        audio_play_button = driver.find_element(By.ID, "audio_play")
         time.sleep(5)
         # Get the audio tag src
-        audio_tag = wait.until(EC.presence_of_element_located((By.ID, "fc_audio_el")))
+        audio_tag = driver.find_element(By.ID, "fc_audio_el")
         audio_src_b64 = audio_tag.get_attribute("src")
         print(audio_src_b64)
         import base64
