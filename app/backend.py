@@ -561,7 +561,7 @@ def linkedin_login():
         driver.switch_to.frame(third_iframe)
         # print("driver", driver.page_source)
                     
-        time.sleep(2)
+        time.sleep(10)
         # print("html after verify_button clicked", driver.page_source)
         
         # third iframe contains button to download wav file
