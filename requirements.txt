@@ -10,3 +10,4 @@ selenium==4.8.2
 SpeechRecognition==3.9.0
 git+https://github.com/farhankhot/linkedin-api.git
 gunicorn==20.1.0
+Pillow

@@ -52,6 +52,8 @@ window.onload = async function() {
 					console.log(data.success);
 					document.getElementById("ErrorContainer").appendChild(img);
 					
+					document.getElementById("ErrorContainer").appendChild(img)
+					
 					// var f = document.createElement("textbox");
 					// var captchaSubmitButton = document.createElement("button");
 					// document.getElementById("ErrorContainer").appendChild(f);

@@ -584,9 +584,20 @@ def linkedin_login():
         # print(download_audio_button)        
 
         # time.sleep(5)
+        iframe_width = image_iframe.size['width']
+        iframe_height = image_iframe.size['height']
+        iframe_x = image_iframe.location['x']
+        iframe_y = image_iframe.location['y']
+
+        screenshot = driver.get_screenshot_as_png()
+
+        # Crop the screenshot to only the contents of the iframe
+        from PIL import Image
+        screenshot = Image.open(screenshot_filename)
+        iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
         
-        screenshot = driver.get_screenshot_as_base64()
-        return jsonify(success=False, message=screenshot)
+        # screenshot = driver.get_screenshot_as_base64()
+        return jsonify(success=False, message=iframe_screenshot)
                 
         # download_audio_button.send_keys("\n")
         # # download_audio_button.click()
