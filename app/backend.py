@@ -544,18 +544,26 @@ def linkedin_login():
         
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
+        
+        image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(image_iframe)
+        
+        driver.find_element(By.ID, "home_children_button").click()
+        
+        time.sleep(5)
+        
         # print("driver", driver.page_source)
                     
         # time.sleep(15)
-        print("html after verify_button clicked", driver.page_source)
+        # print("html after verify_button clicked", driver.page_source)
         
-        # third iframe contains button to download wav file
-        switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
+        # # third iframe contains button to download wav file
+        # switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
         
-        print(switch_to_audio_button.get_attribute("style"))
-        # switch_to_audio_button.click()
+        # print(switch_to_audio_button.get_attribute("style"))
+        # # switch_to_audio_button.click()
         
-        switch_to_audio_button.send_keys("\n")
+        # switch_to_audio_button.send_keys("\n")
 
         # from selenium.webdriver.common.action_chains import ActionChains
         # action = ActionChains(driver)
@@ -565,13 +573,13 @@ def linkedin_login():
             
         # print("after clicking audio button", driver.page_source)
         
-        time.sleep(2)
+        # time.sleep(2)
         # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
     
-        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
+        # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         # print(download_audio_button)        
 
-        time.sleep(5)
+        # time.sleep(5)
         
         screenshot = driver.get_screenshot_as_base64()
         return jsonify(success=False, message=screenshot)
