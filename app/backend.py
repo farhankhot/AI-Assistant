@@ -583,6 +583,7 @@ def linkedin_login():
         # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
         
         screenshot = driver.get_screenshot_as_base64()
+        driver.switch_to.default_content()
         return jsonify(success=False, message=screenshot)  
         # ============================ IMAGE VERSION ==================================================        
         
