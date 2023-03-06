@@ -496,8 +496,9 @@ def captcha_ans():
     print("code from captcha ans: ", code)
     code = "image"+code
     
-    li_elements = driver.find_element(By.CSS_SELECTOR, 'ul.ChallengeSelectableOverlay__StyledOverlayList-sc-6lu34v-3 isfZZN > li')
-    
+    ul_element = driver.find_element(By.TAG_NAME, 'ul')
+    li_elements = ul_element.find_element(By.XPATH, './li')
+ 
     for li in li_elements:
         if code == li.get_attribute("id"):
             li.click()
