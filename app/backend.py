@@ -249,7 +249,7 @@ def receive_link():
     
     if os.path.exists(cookie_filename):
         with open(cookie_filename, "r") as infile:
-            cookie_dict = json.load(infile) 
+            cookie_dict = pickle.load(infile) 
             api = Linkedin(email, password, cookies=cookie_dict)
     else:
         print("filename does not exist")
@@ -657,7 +657,8 @@ def linkedin_login():
                 # Save cookie_dict
                 cookie_filename = "linkedin_cookies_{}.json".format(email)
                 with open(cookie_filename, "w") as f:
-                    json.dump(cookie_dict, f)
+                    # json.dump(cookie_dict, f)
+                    pickle.dump(cookie_dict, f)
                 
                 # location = 'usa'
                 # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
