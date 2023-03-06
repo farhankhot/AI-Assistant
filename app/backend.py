@@ -245,10 +245,10 @@ def receive_link():
     
     # api = Linkedin(email, password)
     
-    cookie_filename = "linkedin_cookies_{}.json".format(email)
+    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
     
     if os.path.exists(cookie_filename):
-        with open(cookie_filename, "r") as infile:
+        with open(cookie_filename, "rb") as infile:
             cookie_dict = pickle.load(infile) 
             api = Linkedin(email, password, cookies=cookie_dict)
     else:
@@ -632,6 +632,7 @@ def linkedin_login():
                 text = text.replace("-", "")
                 text = text.replace(",", "")
                 text = text.replace(" ", "")
+                text = text.replace(".", "")
 
                 print("final text", text)
                 
@@ -655,8 +656,8 @@ def linkedin_login():
                 api = Linkedin(email, password, cookies=cookie_dict)
                 
                 # Save cookie_dict
-                cookie_filename = "linkedin_cookies_{}.json".format(email)
-                with open(cookie_filename, "w") as f:
+                cookie_filename = "linkedin_cookies_{}.pickle".format(email)
+                with open(cookie_filename, "wb") as f:
                     # json.dump(cookie_dict, f)
                     pickle.dump(cookie_dict, f)
                 
