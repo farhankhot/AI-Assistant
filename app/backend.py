@@ -581,44 +581,45 @@ def linkedin_login():
                 
         switch_to_audio_button.send_keys("\n")
     
-        # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
-        # print(download_audio_button) 
+        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
+         
         time.sleep(5)        
-        # download_audio_button.send_keys("\n")
-        # # # download_audio_button.click()
+        
+        download_audio_button.click()
         
         print(driver.page_source)
         
-        # Press the "play button"
-        audio_play_button = driver.find_element(By.ID, "audio_play").click()
-        time.sleep(5)
-        # Get the audio tag src
-        audio_tag = driver.find_element(By.ID, "fc_audio_el")
-        audio_src_b64 = audio_tag.get_attribute("src")
-        print(audio_src_b64)
-        import base64
-        wav_file = open("temp.wav", "wb")
-        decode_string = base64.b64decode(audio_src_b64)
-        wav_file.write(decode_string)
+        # ================================ Pushing play button ==============================
+        # audio_play_button = driver.find_element(By.ID, "audio_play").click()
+        # time.sleep(5)
+        # # Get the audio tag src
+        # audio_tag = driver.find_element(By.ID, "fc_audio_el")
+        # audio_src_b64 = audio_tag.get_attribute("src")
+        # print(audio_src_b64)
+        # import base64
+        # downloaded_file = open("temp.wav", "wb")
+        # decode_string = base64.b64decode(audio_src_b64)
+        # downloaded_file.write(decode_string)
+        # ================================ Pushing play button ==============================
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
         
-        # downloads_folder = os.path.expanduser('~/')
-        # downloaded_file = None
-        # timeout = 10  # maximum time to wait for download to complete (in seconds)
-        # start_time = time.time()
-        # while time.time() < start_time + timeout:
-            # # Check for any new files in the downloads folder
-            # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
-            # if files:
-                # # Assume the most recent file is the one we want
-                # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
-                # break
-            # else:
-                # # Wait a bit before checking again
-                # time.sleep(1)
+        downloads_folder = os.path.expanduser('~/')
+        downloaded_file = None
+        timeout = 10  # maximum time to wait for download to complete (in seconds)
+        start_time = time.time()
+        while time.time() < start_time + timeout:
+            # Check for any new files in the downloads folder
+            files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            if files:
+                # Assume the most recent file is the one we want
+                downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                break
+            else:
+                # Wait a bit before checking again
+                time.sleep(1)
 
-        if wav_file:
+        if downloaded_file:
             
             # Perform speech-to-text conversion
             key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
