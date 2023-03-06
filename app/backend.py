@@ -494,8 +494,16 @@ def captcha_ans():
     print("new", driver.page_source)
     code = request.json['code']
     print("code from captcha ans: ", code)
+    code = "image"+code
     
-    # Get the image li's
+    li_elements = driver.find_element(By.CSS_SELECTOR, 'ul.my-class > li')
+    
+    for li in li_elements:
+        if code == li.get_attribute("id"):
+            li.click()
+    
+            time.sleep(2)
+            print(driver.current_url)
        
     # return jsonify(success=True, message="success")
 
