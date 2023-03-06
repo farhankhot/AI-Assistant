@@ -43,16 +43,54 @@ window.onload = async function() {
 				} else {
 					
 					// document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
-
+					var newTextbox = document.createElement("input");
+					newTextbox.type = "text";
 					const img = new Image();
 					var screenshot = data.message; 
 					console.log("screenshot", data.message);
 					img.src = `data:image/png;base64,${screenshot}`;
 					
-					console.log(data.success);
-					document.getElementById("ErrorContainer").appendChild(img);
+					var captchaSubmitButton = document.createElement("button");
+					captchaSubmitButton.innerHTML = "Submit code";
+					captchaSubmitButton.id = "CaptchaSubmitButton";
 					
-					document.getElementById("ErrorContainer").appendChild(img)
+					// console.log(data.success);
+					
+					document.getElementById("ErrorContainer").appendChild(img);
+					document.getElementById("ErrorContainer").appendChild(captchaSubmitButton);
+					document.getElementById("ErrorContainer").appendChild(newTextbox);
+					
+					document.getElementById("CaptchaSubmitButton").onclick = function() {
+						fetch("https://ai-assistant.herokuapp.com/captcha-ans", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								code: newTextbox.value
+							})
+						})
+						.then(response => response.json())
+						.then(data => {
+							if (data.success === true) {
+													
+								// show the messages part
+								console.log(data);
+					
+								document.getElementById("login-page").style.display = "none";
+								document.getElementById("linkedin-search-page").style.display = "block";
+								document.getElementById("messages-page").style.display = "block";
+
+								chrome.storage.local.set({
+									'LinkedinEmail': email
+								});
+								chrome.storage.local.set({
+									'LinkedinPassword': password
+								});
+							}
+							
+						});
+					}
 					
 					// var f = document.createElement("textbox");
 					// var captchaSubmitButton = document.createElement("button");

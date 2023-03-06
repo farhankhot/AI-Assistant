@@ -489,6 +489,14 @@ def send_code():
     
     return jsonify(success=True, message="success")
 
+@app.route('/captcha-ans', methods=['POST'])
+def captcha_ans():
+    print("new", driver.page_source)
+    code = request.json['code']
+    print(code)
+       
+    return jsonify(success=True, message="success")
+
 # def SendCode(driver, code=None):
     # if code is None:
         # print("new", driver.page_source)
@@ -545,22 +553,22 @@ def linkedin_login():
         third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(third_iframe)
         
-        image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         
-        iframe_width = image_iframe.size['width']
-        iframe_height = image_iframe.size['height']
-        iframe_x = image_iframe.location['x']
-        iframe_y = image_iframe.location['y']
+        # iframe_width = image_iframe.size['width']
+        # iframe_height = image_iframe.size['height']
+        # iframe_x = image_iframe.location['x']
+        # iframe_y = image_iframe.location['y']
         
-        driver.switch_to.frame(image_iframe)
-        
-        time.sleep(5)
-        
-        print(driver.page_source)
-        
-        driver.find_element(By.ID, "home_children_button").click()
+        # driver.switch_to.frame(image_iframe)
         
         time.sleep(5)
+        
+        # print(driver.page_source)
+        
+        # driver.find_element(By.ID, "home_children_button").click()
+        
+        # time.sleep(5)
         
         # print("driver", driver.page_source)
                     
@@ -568,12 +576,12 @@ def linkedin_login():
         # print("html after verify_button clicked", driver.page_source)
         
         # # third iframe contains button to download wav file
-        # switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
+        switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
         
         # print(switch_to_audio_button.get_attribute("style"))
-        # # switch_to_audio_button.click()
+        # switch_to_audio_button.click()
         
-        # switch_to_audio_button.send_keys("\n")
+        switch_to_audio_button.send_keys("\n")
 
         # from selenium.webdriver.common.action_chains import ActionChains
         # action = ActionChains(driver)
@@ -586,126 +594,126 @@ def linkedin_login():
         # time.sleep(2)
         # driver.find_element(By.CLASS_NAME, "audio-ctn").click()
     
-        # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
-        # print(download_audio_button)        
+        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
+        print(download_audio_button)        
 
-        # time.sleep(5)
+        time.sleep(5)
 
-        screenshot = driver.get_screenshot_as_png()
+        # screenshot = driver.get_screenshot_as_png()
 
-        # Crop the screenshot to only the contents of the iframe
-        from PIL import Image
-        screenshot = Image.open(screenshot_filename)
-        iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
+        # # Crop the screenshot to only the contents of the iframe
+        # from PIL import Image
+        # screenshot = Image.open(screenshot)
+        # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
         
         # screenshot = driver.get_screenshot_as_base64()
-        return jsonify(success=False, message=iframe_screenshot)
+        # return jsonify(success=False, message=iframe_screenshot)
                 
-        # download_audio_button.send_keys("\n")
+        download_audio_button.send_keys("\n")
         # # download_audio_button.click()
         
-        # audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
+        audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
         
-        # downloads_folder = os.path.expanduser('~/')
-        # downloaded_file = None
-        # timeout = 10  # maximum time to wait for download to complete (in seconds)
-        # start_time = time.time()
-        # while time.time() < start_time + timeout:
-            # # Check for any new files in the downloads folder
-            # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
-            # if files:
-                # # Assume the most recent file is the one we want
-                # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
-                # break
-            # else:
-                # # Wait a bit before checking again
-                # time.sleep(1)
+        downloads_folder = os.path.expanduser('~/')
+        downloaded_file = None
+        timeout = 10  # maximum time to wait for download to complete (in seconds)
+        start_time = time.time()
+        while time.time() < start_time + timeout:
+            # Check for any new files in the downloads folder
+            files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            if files:
+                # Assume the most recent file is the one we want
+                downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                break
+            else:
+                # Wait a bit before checking again
+                time.sleep(1)
 
-        # # Get the URL of the downloaded file
-        # if downloaded_file:
-            # # url = 'file://' + os.path.abspath(downloaded_file)
-            # # print('Downloaded file URL:', url)
+        # Get the URL of the downloaded file
+        if downloaded_file:
+            # url = 'file://' + os.path.abspath(downloaded_file)
+            # print('Downloaded file URL:', url)
             
-            # # r = sr.Recognizer()
+            # r = sr.Recognizer()
 
-            # # # Load the audio file
-            # # with sr.AudioFile(downloaded_file) as source:
-                # # audio_data = r.record(source)
+            # # Load the audio file
+            # with sr.AudioFile(downloaded_file) as source:
+                # audio_data = r.record(source)
 
-            # # Perform speech-to-text conversion
-            # key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
-            # final_key = key + "7"
-            # try:
-                # import openai
-                # openai.api_key = final_key
-                # audio_file = open(os.path.abspath(downloaded_file), "rb")
-                # text = openai.Audio.transcribe("whisper-1", audio_file) 
-                # text = text["text"]
-                # # text = r.recognize_google(audio_data)
-                # print('Transcription:', text)
-                # text = text.replace("-", "")
-                # text = text.replace(",", "")
-                # text = text.replace(" ", "")
+            # Perform speech-to-text conversion
+            key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
+            final_key = key + "7"
+            try:
+                import openai
+                openai.api_key = final_key
+                audio_file = open(os.path.abspath(downloaded_file), "rb")
+                text = openai.Audio.transcribe("whisper-1", audio_file) 
+                text = text["text"]
+                # text = r.recognize_google(audio_data)
+                print('Transcription:', text)
+                text = text.replace("-", "")
+                text = text.replace(",", "")
+                text = text.replace(" ", "")
 
-                # print("final text", text)
+                print("final text", text)
                 
-                # audio_response_textbox.send_keys(text)
-                # print(audio_response_textbox.get_attribute('value'))
+                audio_response_textbox.send_keys(text)
+                print(audio_response_textbox.get_attribute('value'))
            
-                # audio_submit_button = driver.find_element(By.ID, "audio_submit")
+                audio_submit_button = driver.find_element(By.ID, "audio_submit")
                                 
-                # audio_submit_button.click()           
+                audio_submit_button.click()           
 
-                # time.sleep(5)
-                # # print(driver.page_source)
+                time.sleep(5)
+                # print(driver.page_source)
 
-                # # print(driver.page_source)
-                # print("cssq", driver.current_url)
+                # print(driver.page_source)
+                print("cssq", driver.current_url)
                 
-                # # cookies = driver.get_cookies();
-                # # res_cookies = requests.get(driver.current_url)
-                # # cookies = res_cookies.cookies
-                # # print("DDSWF", cookies) 
+                # cookies = driver.get_cookies();
+                # res_cookies = requests.get(driver.current_url)
+                # cookies = res_cookies.cookies
+                # print("DDSWF", cookies) 
                                 
-                # cookie_dict = {}
-                # for single_dict in driver.get_cookies():
-                    # temp = single_dict["value"].strip('"')
-                    # cookie_dict[single_dict["name"]] = temp
+                cookie_dict = {}
+                for single_dict in driver.get_cookies():
+                    temp = single_dict["value"].strip('"')
+                    cookie_dict[single_dict["name"]] = temp
                     
-                # # print(cookie_dict)
+                # print(cookie_dict)
                 
-                # # from http.cookiejar import CookieJar
-                # # new_cookies = requests.utils.cookiejar_from_dict(cookie_dict, CookieJar())    
-                # # print("new_cookies backend: ", new_cookies)
+                # from http.cookiejar import CookieJar
+                # new_cookies = requests.utils.cookiejar_from_dict(cookie_dict, CookieJar())    
+                # print("new_cookies backend: ", new_cookies)
                 
-                # api = Linkedin(email, password, cookies=cookie_dict)
+                api = Linkedin(email, password, cookies=cookie_dict)
                 
-                # # # Save the cookies to a file
-                # # cookies_file = 'linkedin_cookies.pkl'
-                # # user_cookies = {}
-                # # user_cookies[email] = cookie_dict
-                # # with open(cookies_file, 'wb') as f:
-                    # # pickle.dump(user_cookies, f)              
+                # # Save the cookies to a file
+                # cookies_file = 'linkedin_cookies.pkl'
+                # user_cookies = {}
+                # user_cookies[email] = cookie_dict
+                # with open(cookies_file, 'wb') as f:
+                    # pickle.dump(user_cookies, f)              
                 
-                # # if driver.current_url == "https://www.linkedin.com/feed/":                
-                # # from linkedin_api.client import Client
-                # # client = Client(
-                    # # refresh_cookies=False,
-                    # # debug=False,
-                    # # proxies={},
-                    # # cookies_dir=None,
-                # # )
-                # # new_cookies = client._request_session_cookies()
-                # # print("new cookies", new_cookies)
-                # # api = Linkedin(email, password, cookies=new_cookies)
+                # if driver.current_url == "https://www.linkedin.com/feed/":                
+                # from linkedin_api.client import Client
+                # client = Client(
+                    # refresh_cookies=False,
+                    # debug=False,
+                    # proxies={},
+                    # cookies_dir=None,
+                # )
+                # new_cookies = client._request_session_cookies()
+                # print("new cookies", new_cookies)
+                # api = Linkedin(email, password, cookies=new_cookies)
                               
-                # # return jsonify(success=True, message="success")
+                # return jsonify(success=True, message="success")
                 
-            # except sr.UnknownValueError:
-                # print('Unable to transcribe audio')
+            except sr.UnknownValueError:
+                print('Unable to transcribe audio')
         
-        # else:
-            # print('File not found in downloads folder')
+        else:
+            print('File not found in downloads folder')
             
 
     
