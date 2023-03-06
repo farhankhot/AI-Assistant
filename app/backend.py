@@ -576,7 +576,8 @@ def linkedin_login():
         # screenshot = driver.get_screenshot_as_base64()
         # return jsonify(success=False, message=screenshot)
                 
-        download_audio_button.click()
+        download_audio_button.send_keys("\n")
+        # download_audio_button.click()
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
         
