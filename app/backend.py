@@ -662,6 +662,9 @@ def linkedin_login():
                 location = 'usa'
                 res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
                 print("yay", res)
+                geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+                geo_urn = re.search("\d+", geo_urn).group()
+                print(geo_urn)
                 # return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
