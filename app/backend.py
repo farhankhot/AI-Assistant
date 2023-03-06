@@ -548,6 +548,8 @@ def linkedin_login():
         image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         driver.switch_to.frame(image_iframe)
         
+        time.sleep(5)
+        
         print(driver.page_source)
         
         driver.find_element(By.ID, "home_children_button").click()
