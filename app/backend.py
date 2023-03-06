@@ -546,6 +546,12 @@ def linkedin_login():
         driver.switch_to.frame(third_iframe)
         
         image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        
+        iframe_width = image_iframe.size['width']
+        iframe_height = image_iframe.size['height']
+        iframe_x = image_iframe.location['x']
+        iframe_y = image_iframe.location['y']
+        
         driver.switch_to.frame(image_iframe)
         
         time.sleep(5)
@@ -584,10 +590,6 @@ def linkedin_login():
         # print(download_audio_button)        
 
         # time.sleep(5)
-        iframe_width = image_iframe.size['width']
-        iframe_height = image_iframe.size['height']
-        iframe_x = image_iframe.location['x']
-        iframe_y = image_iframe.location['y']
 
         screenshot = driver.get_screenshot_as_png()
 
