@@ -665,6 +665,7 @@ def linkedin_login():
                 # geo_urn = re.search("\d+", geo_urn).group()
                 # print(geo_urn)
                 # return jsonify(success=True, message="success")
+                data = q.enqueue(GetProfile, api, title, 103644278, False)
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')
