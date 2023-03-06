@@ -659,7 +659,9 @@ def linkedin_login():
                     cookie_dict[single_dict["name"]] = temp
                     
                 api = Linkedin(email, password, cookies=cookie_dict)
-                                              
+                
+                res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+                print("yay", res)
                 # return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
