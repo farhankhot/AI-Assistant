@@ -249,18 +249,20 @@ def receive_link():
 
     email = request.json['email']
     password = request.json['password']
+    # print(email, password)
     
     # api = Linkedin(email, password)
     
-    cookies_file = 'linkedin_cookies.pkl'
-    with open(cookies_file, 'rb') as f:
-        users_cookies = pickle.load(f)
+    cookie_filename = "linkedin_cookies_{}.json".format(email)
     
-    if email in users_cookies:
-        cookies = users_cookies[email]
-        api = Linkedin(email, password, cookies=cookies)
-       
-    # print(email, password)
+    if os.path.exists(cookie_filename):
+        with open(cookie_filename, "r") as infile:
+            cookie_dict = json.load(infile) 
+            api = Linkedin(email, password, cookies=cookie_dict)
+    else:
+        print("filename does not exist")
+        api = Linkedin(email, password)
+        
     title = request.json
     # print("title", title)
     
@@ -659,12 +661,18 @@ def linkedin_login():
                     cookie_dict[single_dict["name"]] = temp
                     
                 api = Linkedin(email, password, cookies=cookie_dict)
-                location = 'usa'
-                res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
-                print("yay", res)
-                geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
-                geo_urn = re.search("\d+", geo_urn).group()
-                print(geo_urn)
+                
+                # Save cookie_dict
+                cookie_filename = "linkedin_cookies_{}.json".format(email)
+                with open(cookie_filename, "w") as f:
+                    json.dump(cookie_dict, f)
+                
+                # location = 'usa'
+                # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+                # print("yay", res)
+                # geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+                # geo_urn = re.search("\d+", geo_urn).group()
+                # print(geo_urn)
                 # return jsonify(success=True, message="success")
                 
             except sr.UnknownValueError:
