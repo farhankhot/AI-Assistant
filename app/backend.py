@@ -583,7 +583,7 @@ def linkedin_login():
     
         # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         # print(download_audio_button) 
-        # time.sleep(5)        
+        time.sleep(5)        
         # download_audio_button.send_keys("\n")
         # # # download_audio_button.click()
         
