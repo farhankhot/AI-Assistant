@@ -587,7 +587,7 @@ def linkedin_login():
         # download_audio_button.send_keys("\n")
         # # # download_audio_button.click()
         
-        print("yay")
+        print(driver.page_source)
         
         # Press the "play button"
         audio_play_button = wait.until(EC.presence_of_element_located((By.ID, "audio_play")))
