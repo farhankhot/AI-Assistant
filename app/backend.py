@@ -167,17 +167,14 @@ def get_geo_urn(api, location):
 def get_conversation_threads(email, password):
     print("nn", email)
     
-    cookies_file = 'linkedin_cookies.pkl'
+    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
     
-    if os.path.exists(cookies_file):
-
-        with open(cookies_file, 'rb') as f:
-            users_cookies = pickle.load(f)
-        
-        if email in users_cookies:
-            cookies = users_cookies[email]
-            api = Linkedin(email, password, cookies=cookies)
+    if os.path.exists(cookie_filename):
+        with open(cookie_filename, "rb") as infile:
+            cookie_dict = pickle.load(infile) 
+            api = Linkedin(email, password, cookies=cookie_dict)
     else:
+        print("filename does not exist")
         api = Linkedin(email, password)    
     
     print(api)
