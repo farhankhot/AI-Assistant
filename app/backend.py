@@ -115,7 +115,19 @@ def get_values_for_key(key, dictionary):
     
     # return final_topics
 
-def GetProfile(api, search_params, location, mutual_connections_boolean):
+# def GetProfile(api, search_params, location, mutual_connections_boolean):
+def GetProfile(email, password, search_params, location, mutual_connections_boolean):
+
+    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
+    
+    if os.path.exists(cookie_filename):
+        with open(cookie_filename, "rb") as infile:
+            cookie_dict = pickle.load(infile) 
+            api = Linkedin(email, password, cookies=cookie_dict)
+    else:
+        print("filename does not exist")
+        api = Linkedin(email, password)
+
     print("location", location)
     
     list_of_people = api.search_people(keyword_title = search_params['title'],
@@ -241,16 +253,6 @@ def receive_link():
     # print(email, password)
     
     # api = Linkedin(email, password)
-    
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
-    
-    if os.path.exists(cookie_filename):
-        with open(cookie_filename, "rb") as infile:
-            cookie_dict = pickle.load(infile) 
-            api = Linkedin(email, password, cookies=cookie_dict)
-    else:
-        print("filename does not exist")
-        api = Linkedin(email, password)
         
     title = request.json
     # print("title", title)
@@ -260,9 +262,13 @@ def receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
+        # data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
+        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
+
     else:
-        data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
+        # data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
+        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
+
     # print(data)
     # time.sleep(150)
     job_id = data.get_id()
@@ -285,8 +291,6 @@ def job_status():
     # email = request.json['email']
     # password = request.json['password']
     # api = Linkedin(email, password)
-    
-    
 
     # public_id = request.json
     # # print("get_interests", public_id['publicId'])
@@ -507,10 +511,7 @@ def linkedin_login():
     
     submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
     submit_button.click()
-    
-    # r = session.post("https://www.linkedin.com/uas/login-submit", data=payload)
-    # print(r.status_code)
-        
+            
     print(driver.current_url)
     
     url = driver.current_url
@@ -567,6 +568,10 @@ def linkedin_login():
         # ============================ IMAGE VERSION ==================================================        
         
         #==================== SOUND VERSION =================================================
+        
+        # TODO: CASE WHERE NEW CAPTCHA APPEARS WITHOUT A DOWNLOAD BUTTON, ONLY PLAY BUTTON
+        #       DIFFERENT TYPES OF QUESTIONS ASKED 
+        
         # third iframe contains button to download wav file
         switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
                 
@@ -665,7 +670,6 @@ def linkedin_login():
                 # geo_urn = re.search("\d+", geo_urn).group()
                 # print(geo_urn)
                 # return jsonify(success=True, message="success")
-                data = q.enqueue(GetProfile, api, "CEO", 103644278, False)
                 
             except sr.UnknownValueError:
                 print('Unable to transcribe audio')
