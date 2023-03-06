@@ -590,7 +590,7 @@ def linkedin_login():
         print(driver.page_source)
         
         # Press the "play button"
-        audio_play_button = driver.find_element(By.ID, "audio_play")
+        audio_play_button = driver.find_element(By.ID, "audio_play").click()
         time.sleep(5)
         # Get the audio tag src
         audio_tag = driver.find_element(By.ID, "fc_audio_el")
