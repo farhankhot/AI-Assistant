@@ -762,6 +762,8 @@ def save_cookie():
     cookie_filename = "linkedin_cookies_{}.pickle".format(email)
     with open(cookie_filename, "wb") as f:
         pickle.dump(cookie_dict, f)
+        
+    return jsonify(success=True, message="success")
 
 
 @app.route('/linkedin-login', methods=['POST'])
