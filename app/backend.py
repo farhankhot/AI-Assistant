@@ -546,16 +546,7 @@ def job_status():
     
     # return jsonify(success=True, message=data)
     
-def GetPeopleInterests(request_json):
-
-    email = request_json['email']
-    password = request_json['password']
-    
-    cookies_list = request.json['cookie']
-    cookie_dict = {}
-    for single_dict in cookies_list:
-        temp = single_dict["value"].strip('"')
-        cookie_dict[single_dict["name"]] = temp
+def GetPeopleInterests(email, password, cookie_dict):
     
     api = Linkedin(email, password, cookies=cookie_dict)
 
@@ -598,7 +589,16 @@ def GetPeopleInterests(request_json):
 @app.route('/get-people-interests', methods=['POST'])
 def get_people_interests():
 
-    data = q.enqueue(GetPeopleInterests, request.json)
+    email = request_json['email']
+    password = request_json['password']
+    
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+
+    data = q.enqueue(GetPeopleInterests, email, password, cookie_dict)
     
     job_id = data.get_id()
     
