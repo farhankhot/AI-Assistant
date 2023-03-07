@@ -371,9 +371,11 @@ def get_values_for_key(key, dictionary):
     
     # return final_topics
 
-def GetProfile(api, search_params, location, mutual_connections_boolean):
+def GetProfile(email, password, search_params, location, mutual_connections_boolean):
 
     print("location", location)
+    
+    api = Linkedin(email, password, cookies=cookie_dict)
     
     list_of_people = api.search_people(keyword_title = search_params['title'],
     regions = [location if location != '' else ''],
@@ -406,12 +408,6 @@ def SendConnect(api, profile_id, text):
     print(error_boolean)
 
 def get_geo_urn(api, location):
-    url_params = {
-        "accept": "application/vnd.linkedin.normalized+json+2.1",
-        "accept-language": "en-US,en;q=0.9,ml;q=0.8",
-        "csrf-token": "ajax:5885116779205486121",
-        "x-restli-protocol-version": "2.0.0"
-    }
         
     res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
 
@@ -489,7 +485,7 @@ def receive_link():
     password = request.json['password']
     # print(email, password)
     
-    api = Linkedin(email, password, cookies=cookie_dict)
+    # api = Linkedin(email, password, cookies=cookie_dict)
         
     title = request.json
     # print("title", title)
@@ -499,7 +495,8 @@ def receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
+        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
+        # data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
 
     else:
         data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
