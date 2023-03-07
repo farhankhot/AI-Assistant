@@ -658,7 +658,7 @@ def get_convo_threads():
 
     email = request.json['email']
     password = request.json['password']
-    cookie_dict = request.json['cookie']
+    cookie_dict = request.json['cookie'][0]
     
     print(cookie_dict)
     print(type(cookie_dict))
