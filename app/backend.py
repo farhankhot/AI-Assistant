@@ -35,13 +35,18 @@ chrome_options.add_argument('--headless')
 chrome_options.add_argument('disable-dev-shm-usage')
 chrome_options.add_argument('window-size=1920x1480')
 
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+desired_capabilities = DesiredCapabilities.CHROME.copy()
+desired_capabilities['acceptInsecureCerts'] = True
+
 prefs = {"download.default_directory": r"~/",
         "directory_upgrade": True}
 
 chrome_options.add_experimental_option("prefs", prefs)
 
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
-driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options)
+driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options,
+desired_capabilities=desired_capabilities)
 
 async def UseBingAI(prompt):
     
