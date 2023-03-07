@@ -546,11 +546,10 @@ def job_status():
     
     # return jsonify(success=True, message=data)
     
-def GetPeopleInterests(email, password, cookie_dict):
+def GetPeopleInterests(email, password, cookie_dict, profile_urn):
     
     api = Linkedin(email, password, cookies=cookie_dict)
-
-    profile_urn = request_json['profileUrn']
+    
     # print(profile_urn)
 
     person_interests = api._fetch(f"/graphql?includeWebMetadata=True&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
@@ -598,7 +597,9 @@ def get_people_interests():
         temp = single_dict["value"].strip('"')
         cookie_dict[single_dict["name"]] = temp
 
-    data = q.enqueue(GetPeopleInterests, email, password, cookie_dict)
+    profile_urn = request.json['profileUrn']
+    
+    data = q.enqueue(GetPeopleInterests, email, password, cookie_dict, profile_urn)
     
     job_id = data.get_id()
     
