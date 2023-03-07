@@ -748,6 +748,7 @@ def captcha_ans():
 def save_cookie():
     
     email = request.json['email']
+    password = request.json['password'] 
     cookies_list = request.json['cookie']    
     
     cookie_dict = {}
