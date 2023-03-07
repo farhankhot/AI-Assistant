@@ -658,12 +658,13 @@ def get_convo_threads():
 
     email = request.json['email']
     password = request.json['password']
-    cookie_dict = request.json['cookie'][0]
+    cookie_dict = request.json['cookie']
     
-    print(cookie_dict)
-    print(type(cookie_dict))
+    cookie_dict = dict(zip(range(len(cookie_dict)), cookie_dict))
     
-    print(email)
+    # print(cookie_dict)
+    # print(type(cookie_dict))
+    # print(email)
     
     # api = Linkedin(email, password)
     # print("api", api)
