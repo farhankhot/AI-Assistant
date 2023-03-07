@@ -551,7 +551,13 @@ def GetPeopleInterests(request_json):
     email = request_json['email']
     password = request_json['password']
     
-    api = Linkedin(email, password)
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+    
+    api = Linkedin(email, password, cookies=cookie_dict)
 
     profile_urn = request_json['profileUrn']
     # print(profile_urn)
@@ -602,7 +608,14 @@ def GetCompanyInterests(request_json):
 
     email = request_json['email']
     password = request_json['password']
-    api = Linkedin(email, password)
+    
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+    
+    api = Linkedin(email, password, cookies=cookie_dict)
 
     public_id = request_json
     profile_urn = request_json['profileUrn']
@@ -689,8 +702,14 @@ def get_convo_messages():
 
     email = request.json['email']
     password = request.json['password']
-    api = Linkedin(email, password)
     
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+
+    api = Linkedin(email, password, cookies=cookie_dict)
 
     profile_urn = request.json['profileUrn']
     # print(profile_urn)
@@ -704,7 +723,13 @@ def send_connect():
 
     email = request.json['email']
     password = request.json['password']
-    api = Linkedin(email, password)
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+
+    api = Linkedin(email, password, cookies=cookie_dict)
 
     profile_id = request.json['profileId']
     text = request.json['text']
@@ -717,7 +742,14 @@ def send_message():
 
     email = request.json['email']
     password = request.json['password']
-    api = Linkedin(email, password)
+    
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+    
+    api = Linkedin(email, password, cookies=cookie_dict)
 
     profile_id = request.json['profileId']
     print(profile_id)
@@ -726,40 +758,6 @@ def send_message():
     data = api.send_message(message_body = text, recipients=[profile_id])
     print(data)
     return jsonify(success=True, message='sent message')
-
-@app.route('/send-code', methods=['POST'])
-def send_code():
-    print("new", driver.page_source)
-    code = request.json['code']
-    print(code)
-    
-    code_textbox = driver.find_element(By.ID, "input__email_verification_pin")
-    code_textbox.send_keys(code)
-    
-    code_submit_button = driver.find_element(By.ID, "email-pin-submit-button")
-    code_submit_button.click()
-    
-    return jsonify(success=True, message="success")
-
-@app.route('/captcha-ans', methods=['POST'])
-def captcha_ans():
-    time.sleep(6)
-    print("new", driver.page_source)
-    code = request.json['code']
-    print("code from captcha ans: ", code)
-    code = "image"+code
-    
-    # Get the image li's
-    li_elements = driver.find_element(By.CSS_SELECTOR, 'ul.my-class > li')
-    
-    for li in li_elements:
-        if code == li.get_attribute("id"):
-            li.click()
-    
-            time.sleep(2)
-            print(driver.current_url)
-       
-    # return jsonify(success=True, message="success")
 
 @app.route('/save-cookie', methods=['POST'])
 def save_cookie():
@@ -775,221 +773,256 @@ def save_cookie():
     
     # TODO: TRY CATCH HERE
     api = Linkedin(email, password, cookies=cookie_dict)
-    
+
+    # ================== NOT NEEDED, SAVING IN LOCAL STORAGE ==================
     # Save cookie_dict
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
-    with open(cookie_filename, "wb") as f:
-        pickle.dump(cookie_dict, f)
+    # cookie_filename = "linkedin_cookies_{}.pickle".format(email)
+    # with open(cookie_filename, "wb") as f:
+        # pickle.dump(cookie_dict, f)
+    # ================== NOT NEEDED, SAVING IN LOCAL STORAGE ==================
         
     return jsonify(success=True, message="success")
 
+# @app.route('/send-code', methods=['POST'])
+# def send_code():
+    # print("new", driver.page_source)
+    # code = request.json['code']
+    # print(code)
+    
+    # code_textbox = driver.find_element(By.ID, "input__email_verification_pin")
+    # code_textbox.send_keys(code)
+    
+    # code_submit_button = driver.find_element(By.ID, "email-pin-submit-button")
+    # code_submit_button.click()
+    
+    # return jsonify(success=True, message="success")
 
-@app.route('/linkedin-login', methods=['POST'])
-def linkedin_login():
+# @app.route('/captcha-ans', methods=['POST'])
+# def captcha_ans():
+    # time.sleep(6)
+    # print("new", driver.page_source)
+    # code = request.json['code']
+    # print("code from captcha ans: ", code)
+    # code = "image"+code
     
-    email = request.json['email']
-    password = request.json['password']    
+    # # Get the image li's
+    # li_elements = driver.find_element(By.CSS_SELECTOR, 'ul.my-class > li')
     
-    # api = Linkedin(email, password)
-    api = Linkedin(email, password, cookies= cookie_dict)
+    # for li in li_elements:
+        # if code == li.get_attribute("id"):
+            # li.click()
     
-    location = 'usa'
-    res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
-    print("yay", res)
-    geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
-    geo_urn = re.search("\d+", geo_urn).group()
-    print(geo_urn)
-    
-   
-    # driver.get(SEED_URL)
-    
-    # # print(driver.get_cookies())    
-    
-    # login_csrf_param = driver.find_element(By.NAME, "loginCsrfParam").get_attribute('value')   
+            # time.sleep(2)
+            # print(driver.current_url)
+       
+    # # return jsonify(success=True, message="success")
 
-    # payload = {'session_key': email,
-               # 'loginCsrfParam': login_csrf_param,
-               # 'session_password': password}
-                   
-    # email_field = driver.find_element(By.NAME, "session_key")
-    # password_field = driver.find_element(By.NAME, "session_password")
+# @app.route('/linkedin-login', methods=['POST'])
+# def linkedin_login():
     
-    # email_field.send_keys(email)
-    # password_field.send_keys(password)
-    
-    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    # submit_button.click()
-            
-    # print(driver.current_url)
-    
-    # url = driver.current_url
+    # email = request.json['email']
+    # password = request.json['password']    
     
     # # api = Linkedin(email, password)
+    # api = Linkedin(email, password, cookies= cookie_dict)
     
-    # if (url.startswith("https://www.linkedin.com/checkpoint")):
-        
-        # # print(driver.page_source)
-        
-        # wait = WebDriverWait(driver, timeout=29)  
-        # captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(captcha_iframe)
-        
-        # second_iframe = driver.find_element(By.TAG_NAME, "iframe")
-        # driver.switch_to.frame(second_iframe)
-        
-        # # print("second driver", driver.page_source)
-        
-        # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        # driver.switch_to.frame(third_iframe)
-        
-        # # ============================ IMAGE VERSION ==================================================
-        # image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        
-        # iframe_width = image_iframe.size['width']
-        # iframe_height = image_iframe.size['height']
-        # iframe_x = image_iframe.location['x']
-        # iframe_y = image_iframe.location['y']
-        
-        # driver.switch_to.frame(image_iframe)
-        
-        # time.sleep(5)
-        
-        # # print(driver.page_source)
-        
-        # driver.find_element(By.ID, "home_children_button").click()
-        
-        # time.sleep(2)
-        
-        # # print("driver", driver.page_source)
-                    
-        # # print("html after verify_button clicked", driver.page_source)
-        
-        # # screenshot = driver.get_screenshot_as_png()
+    # location = 'usa'
+    # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+    # print("yay", res)
+    # geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+    # geo_urn = re.search("\d+", geo_urn).group()
+    # print(geo_urn)
+    
+   
+    # # driver.get(SEED_URL)
+    
+    # # # print(driver.get_cookies())    
+    
+    # # login_csrf_param = driver.find_element(By.NAME, "loginCsrfParam").get_attribute('value')   
 
-        # # # Crop the screenshot to only the contents of the iframe
-        # # from PIL import Image
-        # # screenshot = Image.open(screenshot)
-        # # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
-        
-        # screenshot = driver.get_screenshot_as_base64()
-        # driver.switch_to.default_content()
-        # return jsonify(success=False, message=screenshot)  
-        # ============================ IMAGE VERSION ==================================================        
-        
-        # # ==================== SOUND VERSION =================================================
-        # # TODO: CASE WHERE NEW CAPTCHA APPEARS WITHOUT A DOWNLOAD BUTTON, ONLY PLAY BUTTON
-              # # DIFFERENT TYPES OF QUESTIONS ASKED 
-        
-        # # third iframe contains button to download wav file
-        # switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
-                
-        # switch_to_audio_button.send_keys("\n")
+    # # payload = {'session_key': email,
+               # # 'loginCsrfParam': login_csrf_param,
+               # # 'session_password': password}
+                   
+    # # email_field = driver.find_element(By.NAME, "session_key")
+    # # password_field = driver.find_element(By.NAME, "session_password")
     
-        # time.sleep(5) 
+    # # email_field.send_keys(email)
+    # # password_field.send_keys(password)
+    
+    # # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    # # submit_button.click()
+            
+    # # print(driver.current_url)
+    
+    # # url = driver.current_url
+    
+    # # # api = Linkedin(email, password)
+    
+    # # if (url.startswith("https://www.linkedin.com/checkpoint")):
+        
+        # # # print(driver.page_source)
+        
+        # # wait = WebDriverWait(driver, timeout=29)  
+        # # captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # # driver.switch_to.frame(captcha_iframe)
+        
+        # # second_iframe = driver.find_element(By.TAG_NAME, "iframe")
+        # # driver.switch_to.frame(second_iframe)
+        
+        # # # print("second driver", driver.page_source)
+        
+        # # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # # driver.switch_to.frame(third_iframe)
+        
+        # # # ============================ IMAGE VERSION ==================================================
+        # # image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        
+        # # iframe_width = image_iframe.size['width']
+        # # iframe_height = image_iframe.size['height']
+        # # iframe_x = image_iframe.location['x']
+        # # iframe_y = image_iframe.location['y']
+        
+        # # driver.switch_to.frame(image_iframe)
+        
+        # # time.sleep(5)
+        
+        # # # print(driver.page_source)
+        
+        # # driver.find_element(By.ID, "home_children_button").click()
+        
+        # # time.sleep(2)
+        
+        # # # print("driver", driver.page_source)
+                    
+        # # # print("html after verify_button clicked", driver.page_source)
+        
+        # # # screenshot = driver.get_screenshot_as_png()
+
+        # # # # Crop the screenshot to only the contents of the iframe
+        # # # from PIL import Image
+        # # # screenshot = Image.open(screenshot)
+        # # # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
         
         # # screenshot = driver.get_screenshot_as_base64()
-        # # return jsonify(success=False, message=screenshot) 
+        # # driver.switch_to.default_content()
+        # # return jsonify(success=False, message=screenshot)  
+        # # ============================ IMAGE VERSION ==================================================        
         
-        # # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
+        # # # ==================== SOUND VERSION =================================================
+        # # # TODO: CASE WHERE NEW CAPTCHA APPEARS WITHOUT A DOWNLOAD BUTTON, ONLY PLAY BUTTON
+              # # # DIFFERENT TYPES OF QUESTIONS ASKED 
         
-        # # time.sleep(5)                
-        
-        # # download_audio_button.click()
-        
-        # print(driver.page_source)
-        
-        # # ================================ Pushing play button ==============================
-        # audio_play_button = driver.find_element(By.ID, "audio_play").click()
-        # time.sleep(5)
-        # # Get the audio tag src
-        # audio_tag = driver.find_element(By.ID, "fc_audio_el")
-        # audio_src_b64 = audio_tag.get_attribute("src")
-        # print(audio_src_b64)
-        # import base64
-        # downloaded_file = open("temp.wav", "wb")
-        # decode_string = base64.b64decode(audio_src_b64)
-        # downloaded_file.write(decode_string)
-        # print(downloaded_file)
-        # # ================================ Pushing play button ==============================
-        
-        # audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
-        
-        # downloads_folder = os.path.expanduser('~/')
-        # downloaded_file = None
-        # timeout = 10  # maximum time to wait for download to complete (in seconds)
-        # start_time = time.time()
-        # while time.time() < start_time + timeout:
-            # # Check for any new files in the downloads folder
-            # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
-            # if files:
-                # # Assume the most recent file is the one we want
-                # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
-                # break
-            # else:
-                # # Wait a bit before checking again
-                # time.sleep(1)
-
-        # if downloaded_file:
-            
-            # # Perform speech-to-text conversion
-            # key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
-            # final_key = key + "7"
-            # try:
-                # import openai
-                # openai.api_key = final_key
-                # audio_file = open(os.path.abspath(downloaded_file), "rb")
-                # text = openai.Audio.transcribe("whisper-1", audio_file) 
-                # text = text["text"]
-                # # text = r.recognize_google(audio_data)
-                # print('Transcription:', text)
-                # text = text.replace("-", "")
-                # text = text.replace(",", "")
-                # text = text.replace(" ", "")
-                # text = text.replace(".", "")
-
-                # print("final text", text)
+        # # # third iframe contains button to download wav file
+        # # switch_to_audio_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fc_meta_audio_btn"]')))
                 
-                # audio_response_textbox.send_keys(text)
-                # print(audio_response_textbox.get_attribute('value'))
-           
-                # audio_submit_button = driver.find_element(By.ID, "audio_submit")
-                                
-                # audio_submit_button.click()           
-
-                # time.sleep(5)
-                # # print(driver.page_source)
-
-                # print("cssq", driver.current_url)
-                                                
-                # cookie_dict = {}
-                # for single_dict in driver.get_cookies():
-                    # temp = single_dict["value"].strip('"')
-                    # cookie_dict[single_dict["name"]] = temp
-                    
-                # api = Linkedin(email, password, cookies=cookie_dict)
-                
-                # # Save cookie_dict
-                # cookie_filename = "linkedin_cookies_{}.pickle".format(email)
-                # with open(cookie_filename, "wb") as f:
-                    # # json.dump(cookie_dict, f)
-                    # pickle.dump(cookie_dict, f)
-                
-                # # location = 'usa'
-                # # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
-                # # print("yay", res)
-                # # geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
-                # # geo_urn = re.search("\d+", geo_urn).group()
-                # # print(geo_urn)
-                # # return jsonify(success=True, message="success")
-                
-            # except sr.UnknownValueError:
-                # print('Unable to transcribe audio')
-        
-        # else:
-            # print('File not found in downloads folder')
-        # # ==================== SOUND VERSION =================================================
+        # # switch_to_audio_button.send_keys("\n")
     
-    return jsonify(success=True, message="success")
+        # # time.sleep(5) 
+        
+        # # # screenshot = driver.get_screenshot_as_base64()
+        # # # return jsonify(success=False, message=screenshot) 
+        
+        # # # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
+        
+        # # # time.sleep(5)                
+        
+        # # # download_audio_button.click()
+        
+        # # print(driver.page_source)
+        
+        # # # ================================ Pushing play button ==============================
+        # # audio_play_button = driver.find_element(By.ID, "audio_play").click()
+        # # time.sleep(5)
+        # # # Get the audio tag src
+        # # audio_tag = driver.find_element(By.ID, "fc_audio_el")
+        # # audio_src_b64 = audio_tag.get_attribute("src")
+        # # print(audio_src_b64)
+        # # import base64
+        # # downloaded_file = open("temp.wav", "wb")
+        # # decode_string = base64.b64decode(audio_src_b64)
+        # # downloaded_file.write(decode_string)
+        # # print(downloaded_file)
+        # # # ================================ Pushing play button ==============================
+        
+        # # audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
+        
+        # # downloads_folder = os.path.expanduser('~/')
+        # # downloaded_file = None
+        # # timeout = 10  # maximum time to wait for download to complete (in seconds)
+        # # start_time = time.time()
+        # # while time.time() < start_time + timeout:
+            # # # Check for any new files in the downloads folder
+            # # files = [f for f in os.listdir(downloads_folder) if f.endswith('.wav')]
+            # # if files:
+                # # # Assume the most recent file is the one we want
+                # # downloaded_file = os.path.join(downloads_folder, max(files, key=os.path.getctime))
+                # # break
+            # # else:
+                # # # Wait a bit before checking again
+                # # time.sleep(1)
+
+        # # if downloaded_file:
+            
+            # # # Perform speech-to-text conversion
+            # # key = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68"
+            # # final_key = key + "7"
+            # # try:
+                # # import openai
+                # # openai.api_key = final_key
+                # # audio_file = open(os.path.abspath(downloaded_file), "rb")
+                # # text = openai.Audio.transcribe("whisper-1", audio_file) 
+                # # text = text["text"]
+                # # # text = r.recognize_google(audio_data)
+                # # print('Transcription:', text)
+                # # text = text.replace("-", "")
+                # # text = text.replace(",", "")
+                # # text = text.replace(" ", "")
+                # # text = text.replace(".", "")
+
+                # # print("final text", text)
+                
+                # # audio_response_textbox.send_keys(text)
+                # # print(audio_response_textbox.get_attribute('value'))
+           
+                # # audio_submit_button = driver.find_element(By.ID, "audio_submit")
+                                
+                # # audio_submit_button.click()           
+
+                # # time.sleep(5)
+                # # # print(driver.page_source)
+
+                # # print("cssq", driver.current_url)
+                                                
+                # # cookie_dict = {}
+                # # for single_dict in driver.get_cookies():
+                    # # temp = single_dict["value"].strip('"')
+                    # # cookie_dict[single_dict["name"]] = temp
+                    
+                # # api = Linkedin(email, password, cookies=cookie_dict)
+                
+                # # # Save cookie_dict
+                # # cookie_filename = "linkedin_cookies_{}.pickle".format(email)
+                # # with open(cookie_filename, "wb") as f:
+                    # # # json.dump(cookie_dict, f)
+                    # # pickle.dump(cookie_dict, f)
+                
+                # # # location = 'usa'
+                # # # res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+                # # # print("yay", res)
+                # # # geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+                # # # geo_urn = re.search("\d+", geo_urn).group()
+                # # # print(geo_urn)
+                # # # return jsonify(success=True, message="success")
+                
+            # # except sr.UnknownValueError:
+                # # print('Unable to transcribe audio')
+        
+        # # else:
+            # # print('File not found in downloads folder')
+        # # # ==================== SOUND VERSION =================================================
+    
+    # return jsonify(success=True, message="success")
 
 @app.route("/")
 def home_view():
