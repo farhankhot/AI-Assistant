@@ -589,8 +589,8 @@ def GetPeopleInterests(email, password, cookie_dict):
 @app.route('/get-people-interests', methods=['POST'])
 def get_people_interests():
 
-    email = request_json['email']
-    password = request_json['password']
+    email = request.json['email']
+    password = request.json['password']
     
     cookies_list = request.json['cookie']
     cookie_dict = {}
