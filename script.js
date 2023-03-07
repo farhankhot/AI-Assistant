@@ -372,6 +372,7 @@ window.onload = async function() {
 										body: JSON.stringify({
 											email: email,
 											password: password,
+											cookie: cookie,
 											profileUrn: profileUrn
 										})
 									})
@@ -444,6 +445,7 @@ window.onload = async function() {
 										body: JSON.stringify({
 											email: email,
 											password: password,
+											cookie: cookie,
 											profileUrn: profileUrn
 										})
 									})
@@ -555,6 +557,7 @@ window.onload = async function() {
 											body: JSON.stringify({
 												email: email,
 												password: password,
+												cookie: cookie,
 												profileId: profileId,
 												text: document.getElementById("my-textarea").value
 											})
@@ -611,6 +614,7 @@ window.onload = async function() {
 										body: JSON.stringify({
 											email: email,
 											password: password,
+											cookie: cookie,
 											profileUrn: profileUrn
 										})
 									})
@@ -683,6 +687,7 @@ window.onload = async function() {
 										body: JSON.stringify({
 											email: email,
 											password: password,
+											cookie: cookie,
 											profileUrn: profileUrn
 										})
 									})
@@ -795,6 +800,7 @@ window.onload = async function() {
 											body: JSON.stringify({
 												email: email,
 												password: password,
+												cookie: cookie,
 												profileId: profileId,
 												text: document.getElementById("my-textarea").value
 											})
@@ -875,6 +881,7 @@ window.onload = async function() {
 								body: JSON.stringify({
 									email: email,
 									password: password,
+									cookie: cookie,
 									profileUrn: button.id
 								})
 							})
@@ -913,6 +920,7 @@ window.onload = async function() {
 											body: JSON.stringify({
 												email: email,
 												password: password,
+												cookie: cookie,
 												publicId: button.id
 											})
 										})
@@ -986,6 +994,7 @@ window.onload = async function() {
 											body: JSON.stringify({
 												email: email,
 												password: password,
+												cookie: cookie,
 												profileId: button.id,
 												text: new_textarea.value
 											})
