@@ -658,9 +658,14 @@ def get_convo_threads():
 
     email = request.json['email']
     password = request.json['password']
-    cookie_dict = request.json['cookie']
+    cookies_list = request.json['cookie']
     
-    cookie_dict = dict(zip(range(len(cookie_dict)), cookie_dict))
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+    
+    # cookie_dict = dict(zip(range(len(cookie_dict)), cookie_dict))
     
     # print(cookie_dict)
     # print(type(cookie_dict))
