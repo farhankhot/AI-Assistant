@@ -487,12 +487,18 @@ def receive_link():
 
     email = request.json['email']
     password = request.json['password']
-    cookie_dict = request.json['cookie']
+    
     # print(email, password)
     
     # cookie_filename = "linkedin_cookies_{}.pickle".format(email)    
     # with open(cookie_filename, "rb") as infile:
         # cookie_dict = pickle.load(infile)
+    
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
     
     api = Linkedin(email, password, cookies=cookie_dict)
         
