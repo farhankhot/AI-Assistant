@@ -514,7 +514,7 @@ def receive_link():
         # data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
 
     else:
-        data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
+        data = q.enqueue(GetProfile, email, password, cookie_dict, title, '', mutual_connections_boolean)
         
     # print(data)
     # time.sleep(150)
