@@ -31,7 +31,7 @@ session = requests.Session()
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
-# chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 chrome_options.add_argument('disable-dev-shm-usage')
 chrome_options.add_argument('window-size=1920x1480')
 
@@ -514,82 +514,341 @@ def linkedin_login():
     
     email = request.json['email']
     password = request.json['password']    
+    cookies_list = [
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1712716185.471855,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "G_ENABLED_IDPS",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "google"
+    },
+    {
+        "domain": ".linkedin.com",
+        "expirationDate": 1709692200.726415,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "bcookie",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "\"v=2&8ac1832a-1a62-40b1-8feb-836eaeaef11f\""
+    },
+    {
+        "domain": "www.linkedin.com",
+        "expirationDate": 1678309394.355053,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "fid",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "AQEiYoDdgkUr9AAAAYae_IEC3x5bzU00hYI2U0uD-km_8WndTQr3atuxbAxFhsaxFT1mn8EofhBz7Q"
+    },
+    {
+        "domain": "www.linkedin.com",
+        "expirationDate": 1693708178,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "g_state",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "{\"i_l\":3,\"i_p\":1678760978978}"
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1709692200.726354,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "li_at",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AQEDAReEU6IAnGyYAAABhrnnetIAAAGG3fP-0lYAc8O01hCt_wRtE-nShHjyZm_inTYnD9HgQ-BvXSO0TPnMBmcATdNmvpmU2HB7PpQFVLKJn0vUec9NUc7jTAaMGW7L7jdVs1KUfXRRK7TN6dMuXVIg"
+    },
+    {
+        "domain": ".linkedin.com",
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "lang",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": true,
+        "storeId": null,
+        "value": "v=2&lang=en-us"
+    },
+    {
+        "domain": ".linkedin.com",
+        "expirationDate": 1678242600.890006,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "lidc",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "\"b=OB30:s=O:r=O:a=O:p=O:g=3526:u=10:x=1:i=1678156200:t=1678242600:v=2:sig=AQFdAG0wtgLrbvEobVI6nOPhmfaNiG7Y\""
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1709692200.726434,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "bscookie",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "\"v=1&202301191743020e425572-9697-4266-8d06-e5bfd24ae794AQG0b_kpGiEXydi0cGvMlrGaQ6KvPyzZ\""
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1685932200.726405,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "JSESSIONID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "\"ajax:4076532646350810552\""
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1709692200.726277,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "li_rm",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AQGaQ1AkJKJX1gAAAYazomBRfil0bK-ooeEbqRebyOm2vZtfNqUJfwNRTLR8pxe2e2sVGcd3ai_2WzvgDgtf9eyCM-GmKmRQGvVl3G8U-epeNTsM1oczOJ5g"
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1693704601,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "li_theme",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "light"
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1693704601,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "li_theme_set",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "app"
+    },
+    {
+        "domain": ".linkedin.com",
+        "expirationDate": 1685932200.726369,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "liap",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "true"
+    },
+    {
+        "domain": "www.linkedin.com",
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "PLAY_LANG",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": true,
+        "storeId": null,
+        "value": "en"
+    },
+    {
+        "domain": "www.linkedin.com",
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "PLAY_SESSION",
+        "path": "/",
+        "sameSite": "lax",
+        "secure": true,
+        "session": true,
+        "storeId": null,
+        "value": "eyJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InNlc3Npb25faWQiOiJiNzFhMjU1ZS04YzU5LTRmYTctYjAzZC05ODQwNzJjZTRiNzR8MTY3Njk1MTAxOCIsImFsbG93bGlzdCI6Int9IiwicmVjZW50bHktc2VhcmNoZWQiOiIiLCJyZWZlcnJhbC11cmwiOiJodHRwczovL3d3dy5saW5rZWRpbi5jb20vZGV2ZWxvcGVycy9hcHBzL25ldz9zcmM9b3Itc2VhcmNoJnZlaD13d3cuZ29vZ2xlLmNvbSIsImFpZCI6IiIsIlJOVC1pZCI6InwwIiwicmVjZW50bHktdmlld2VkIjoiNTQ4MzYwfDEzNDEzODd8NTIyOTM1fDUxMjQwNSIsIkNQVC1pZCI6IsOrR0nDrV46TMKowoDDsDE7Ti12VyIsImZsb3dUcmFja2luZ0lkIjoiR29rdXBOdHNSYjJNcmlUei9VWm5nUT09IiwiZXhwZXJpZW5jZSI6ImVudGl0eSIsImlzX25hdGl2ZSI6ImZhbHNlIiwidHJrIjoiIn0sIm5iZiI6MTY3Njk1MzI3NiwiaWF0IjoxNjc2OTUzMjc2fQ.QWV2AriMTimBGvDdnirV4cvb8F-S39vfogz-AF9Hufg"
+    },
+    {
+        "domain": ".linkedin.com",
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "sdsc",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": true,
+        "storeId": null,
+        "value": "1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D"
+    },
+    {
+        "domain": ".www.linkedin.com",
+        "expirationDate": 1679362201,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "timezone",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "America/New_York"
+    },
+    {
+        "domain": ".linkedin.com",
+        "expirationDate": 1680744602,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "UserMatchHistory",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AQKhbmYv6v4RjwAAAYa554JBBK31KtqudlqDZL_43uzc5uCaMT5zs7Mn07uXW93z5dDFPJb1QZnpGcm6Mkqj02Dy87GxwL0ZBOWWa2xi244YNZDm_zNqNiSAVzk0I7GbDwbZ2eBhQlDLX0OYZbHTjWhfLFxkXg0x5vAACRN3IqNUkRXfGPfsr9csvgnUI4_Ul6Y1jNnB19Edl31007UJo6KBvEluXjPlqAdS6dlyBeieTVkKbhX9kSkkGwpRYXCxQVmdo47Gzw"
+    },
+    {
+        "domain": ".linkedin.com",
+        "expirationDate": 1712702472.149992,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "visit",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "v=1&M"
+    }
+    ]
+    
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
     
     # api = Linkedin(email, password)
+    api = Linkedin(email, password, cookies= cookie_dict)
+    
+    location = 'usa'
+    res = api._fetch(f"/typeahead/hitsV2?keywords={location}&origin=OTHER&q=type&queryContext=List(geoVersion-%3E3,bingGeoSubTypeFilters-%3EMARKET_AREA%7CCOUNTRY_REGION%7CADMIN_DIVISION_1%7CCITY)&type=GEO")
+    print("yay", res)
+    geo_urn = res.json()['elements'][0]['targetUrn'] # Output: urn:li:fs_geo:103644278
+    geo_urn = re.search("\d+", geo_urn).group()
+    print(geo_urn)
+    
    
-    driver.get(SEED_URL)
+    # driver.get(SEED_URL)
     
-    # print(driver.get_cookies())    
+    # # print(driver.get_cookies())    
     
-    login_csrf_param = driver.find_element(By.NAME, "loginCsrfParam").get_attribute('value')   
+    # login_csrf_param = driver.find_element(By.NAME, "loginCsrfParam").get_attribute('value')   
 
-    payload = {'session_key': email,
-               'loginCsrfParam': login_csrf_param,
-               'session_password': password}
+    # payload = {'session_key': email,
+               # 'loginCsrfParam': login_csrf_param,
+               # 'session_password': password}
                    
-    email_field = driver.find_element(By.NAME, "session_key")
-    password_field = driver.find_element(By.NAME, "session_password")
+    # email_field = driver.find_element(By.NAME, "session_key")
+    # password_field = driver.find_element(By.NAME, "session_password")
     
-    email_field.send_keys(email)
-    password_field.send_keys(password)
+    # email_field.send_keys(email)
+    # password_field.send_keys(password)
     
-    submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
-    submit_button.click()
+    # submit_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large")
+    # submit_button.click()
             
-    print(driver.current_url)
+    # print(driver.current_url)
     
-    url = driver.current_url
+    # url = driver.current_url
     
-    # api = Linkedin(email, password)
+    # # api = Linkedin(email, password)
     
-    if (url.startswith("https://www.linkedin.com/checkpoint")):
+    # if (url.startswith("https://www.linkedin.com/checkpoint")):
         
-        # print(driver.page_source)
+        # # print(driver.page_source)
         
-        wait = WebDriverWait(driver, timeout=29)  
-        captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        driver.switch_to.frame(captcha_iframe)
+        # wait = WebDriverWait(driver, timeout=29)  
+        # captcha_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # driver.switch_to.frame(captcha_iframe)
         
-        second_iframe = driver.find_element(By.TAG_NAME, "iframe")
-        driver.switch_to.frame(second_iframe)
+        # second_iframe = driver.find_element(By.TAG_NAME, "iframe")
+        # driver.switch_to.frame(second_iframe)
         
-        # print("second driver", driver.page_source)
+        # # print("second driver", driver.page_source)
         
-        third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-        driver.switch_to.frame(third_iframe)
+        # third_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # driver.switch_to.frame(third_iframe)
         
-        # ============================ IMAGE VERSION ==================================================
-        image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        # # ============================ IMAGE VERSION ==================================================
+        # image_iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
         
-        iframe_width = image_iframe.size['width']
-        iframe_height = image_iframe.size['height']
-        iframe_x = image_iframe.location['x']
-        iframe_y = image_iframe.location['y']
+        # iframe_width = image_iframe.size['width']
+        # iframe_height = image_iframe.size['height']
+        # iframe_x = image_iframe.location['x']
+        # iframe_y = image_iframe.location['y']
         
-        driver.switch_to.frame(image_iframe)
+        # driver.switch_to.frame(image_iframe)
         
-        time.sleep(5)
+        # time.sleep(5)
         
-        # print(driver.page_source)
+        # # print(driver.page_source)
         
-        driver.find_element(By.ID, "home_children_button").click()
+        # driver.find_element(By.ID, "home_children_button").click()
         
-        time.sleep(2)
+        # time.sleep(2)
         
-        # print("driver", driver.page_source)
+        # # print("driver", driver.page_source)
                     
-        # print("html after verify_button clicked", driver.page_source)
+        # # print("html after verify_button clicked", driver.page_source)
         
-        # screenshot = driver.get_screenshot_as_png()
+        # # screenshot = driver.get_screenshot_as_png()
 
-        # # Crop the screenshot to only the contents of the iframe
-        # from PIL import Image
-        # screenshot = Image.open(screenshot)
-        # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
+        # # # Crop the screenshot to only the contents of the iframe
+        # # from PIL import Image
+        # # screenshot = Image.open(screenshot)
+        # # iframe_screenshot = screenshot.crop((iframe_x, iframe_y, iframe_x + iframe_width, iframe_y + iframe_height))
         
-        screenshot = driver.get_screenshot_as_base64()
-        driver.switch_to.default_content()
-        return jsonify(success=False, message=screenshot)  
+        # screenshot = driver.get_screenshot_as_base64()
+        # driver.switch_to.default_content()
+        # return jsonify(success=False, message=screenshot)  
         # ============================ IMAGE VERSION ==================================================        
         
         # # ==================== SOUND VERSION =================================================
