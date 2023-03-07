@@ -602,25 +602,26 @@ def linkedin_login():
         # screenshot = driver.get_screenshot_as_base64()
         # return jsonify(success=False, message=screenshot) 
         
-        download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
-         
-        time.sleep(5)        
+        # download_audio_button = wait.until(EC.presence_of_element_located((By.ID, "audio_download")))
         
-        download_audio_button.click()
+        # time.sleep(5)                
         
-        print(driver.page_source)
+        # download_audio_button.click()
+        
+        # print(driver.page_source)
         
         # ================================ Pushing play button ==============================
-        # audio_play_button = driver.find_element(By.ID, "audio_play").click()
-        # time.sleep(5)
-        # # Get the audio tag src
-        # audio_tag = driver.find_element(By.ID, "fc_audio_el")
-        # audio_src_b64 = audio_tag.get_attribute("src")
-        # print(audio_src_b64)
-        # import base64
-        # downloaded_file = open("temp.wav", "wb")
-        # decode_string = base64.b64decode(audio_src_b64)
-        # downloaded_file.write(decode_string)
+        audio_play_button = driver.find_element(By.ID, "audio_play").click()
+        time.sleep(5)
+        # Get the audio tag src
+        audio_tag = driver.find_element(By.ID, "fc_audio_el")
+        audio_src_b64 = audio_tag.get_attribute("src")
+        print(audio_src_b64)
+        import base64
+        downloaded_file = open("temp.wav", "wb")
+        decode_string = base64.b64decode(audio_src_b64)
+        downloaded_file.write(decode_string)
+        print(downloaded_file)
         # ================================ Pushing play button ==============================
         
         audio_response_textbox = driver.find_element(By.ID, "audio_response_field")        
