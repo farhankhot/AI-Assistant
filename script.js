@@ -10,9 +10,39 @@ window.onload = async function() {
 	document.getElementById("GetLinkedinCookiesButton").addEventListener("click", function() {
 		// Assume current tab has Linkedin homepage
 		chrome.cookies.getAll({"url": "https://www.linkedin.com/feed/"}, function(cookie) {
-			for (var i = 0; i < cookie.length; i++){
-				console.log(cookie[i]);
-			}
+			
+			// for (var i = 0; i < cookie.length; i++){
+				// console.log(cookie[i]);
+			// }
+			
+			// Send to backend.py and save with username
+			fetch("https://ai-assistant.herokuapp.com/save-cookie", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					email: email,
+					cookie: cookie
+				})
+			})
+			.then(response => response.json())
+			.then(data => {
+
+				// Show the messages part
+				document.getElementById("login-page").style.display = "none";
+				document.getElementById("linkedin-search-page").style.display = "block";
+				document.getElementById("messages-page").style.display = "block";
+
+				chrome.storage.local.set({
+					'LinkedinEmail': email
+				});
+				chrome.storage.local.set({
+					'LinkedinPassword': password
+				});
+				
+			});
+			
 		});
 	});
 
