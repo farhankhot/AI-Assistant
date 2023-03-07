@@ -371,18 +371,7 @@ def get_values_for_key(key, dictionary):
     
     # return final_topics
 
-# def GetProfile(api, search_params, location, mutual_connections_boolean):
-def GetProfile(email, password, search_params, location, mutual_connections_boolean):
-
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
-    
-    if os.path.exists(cookie_filename):
-        with open(cookie_filename, "rb") as infile:
-            cookie_dict = pickle.load(infile) 
-            api = Linkedin(email, password, cookies=cookie_dict)
-    else:
-        print("filename does not exist")
-        api = Linkedin(email, password)
+def GetProfile(api, search_params, location, mutual_connections_boolean):
 
     print("location", location)
     
@@ -435,15 +424,7 @@ def get_geo_urn(api, location):
 def get_conversation_threads(email, password):
     print("nn", email)
     
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)
-    
-    if os.path.exists(cookie_filename):
-        with open(cookie_filename, "rb") as infile:
-            cookie_dict = pickle.load(infile) 
-            api = Linkedin(email, password, cookies=cookie_dict)
-    else:
-        print("filename does not exist")
-        api = Linkedin(email, password)    
+    api = Linkedin(email, password, cookies=cookie_dict)
     
     print(api)
     
