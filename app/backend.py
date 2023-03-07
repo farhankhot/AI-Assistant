@@ -485,7 +485,7 @@ def receive_link():
     password = request.json['password']
     # print(email, password)
     
-    # api = Linkedin(email, password, cookies=cookie_dict)
+    api = Linkedin(email, password, cookies=cookie_dict)
         
     title = request.json
     # print("title", title)
