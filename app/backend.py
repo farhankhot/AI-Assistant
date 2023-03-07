@@ -605,21 +605,9 @@ def get_people_interests():
     
     return jsonify(success=True, message=job_id)
     
-def GetCompanyInterests(request_json):
-
-    email = request_json['email']
-    password = request_json['password']
-    
-    cookies_list = request.json['cookie']
-    cookie_dict = {}
-    for single_dict in cookies_list:
-        temp = single_dict["value"].strip('"')
-        cookie_dict[single_dict["name"]] = temp
+def GetCompanyInterests(email, password, cookie_dict, public_id, profile_urn):
     
     api = Linkedin(email, password, cookies=cookie_dict)
-
-    public_id = request_json
-    profile_urn = request_json['profileUrn']
     
     person_interests = api._fetch(f"/graphql?includeWebMetadata=True&variables=(profileUrn:urn%3Ali%3Afsd_profile%3A{profile_urn},sectionType:interests,tabIndex:1,locale:en_US)&&queryId=voyagerIdentityDashProfileComponents.38247e27f7b9b2ecbd8e8452e3c1a02c")
     person_interests = person_interests.json()
@@ -652,7 +640,19 @@ def GetCompanyInterests(request_json):
 @app.route('/get-company-interests', methods=['POST'])
 def get_company_interests():
 
-    data = q.enqueue(GetCompanyInterests, request.json)
+    email = request.json['email']
+    password = request.json['password']
+    
+    cookies_list = request.json['cookie']
+    cookie_dict = {}
+    for single_dict in cookies_list:
+        temp = single_dict["value"].strip('"')
+        cookie_dict[single_dict["name"]] = temp
+    
+    public_id = request.json
+    profile_urn = request.json['profileUrn']
+
+    data = q.enqueue(GetCompanyInterests, email, password, cookie_dict, public_id, profile_urn)
     
     job_id = data.get_id()
     
