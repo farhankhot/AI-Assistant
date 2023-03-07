@@ -48,6 +48,257 @@ chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
 driver = webdriver.Chrome(executable_path='./chromedriver', chrome_options=chrome_options,
 desired_capabilities=desired_capabilities)
 
+cookies_list = [
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1712716185.471855,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "G_ENABLED_IDPS",
+    "path": "/",
+    "sameSite": None,
+    "secure": False,
+    "session": False,
+    "storeId": None,
+    "value": "google"
+},
+{
+    "domain": ".linkedin.com",
+    "expirationDate": 1709692200.726415,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "bcookie",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "\"v=2&8ac1832a-1a62-40b1-8feb-836eaeaef11f\""
+},
+{
+    "domain": "www.linkedin.com",
+    "expirationDate": 1678309394.355053,
+    "hostOnly": True,
+    "httpOnly": False,
+    "name": "fid",
+    "path": "/",
+    "sameSite": None,
+    "secure": False,
+    "session": False,
+    "storeId": None,
+    "value": "AQEiYoDdgkUr9AAAAYae_IEC3x5bzU00hYI2U0uD-km_8WndTQr3atuxbAxFhsaxFT1mn8EofhBz7Q"
+},
+{
+    "domain": "www.linkedin.com",
+    "expirationDate": 1693708178,
+    "hostOnly": True,
+    "httpOnly": False,
+    "name": "g_state",
+    "path": "/",
+    "sameSite": None,
+    "secure": False,
+    "session": False,
+    "storeId": None,
+    "value": "{\"i_l\":3,\"i_p\":1678760978978}"
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1709692200.726354,
+    "hostOnly": False,
+    "httpOnly": True,
+    "name": "li_at",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "AQEDAReEU6IAnGyYAAABhrnnetIAAAGG3fP-0lYAc8O01hCt_wRtE-nShHjyZm_inTYnD9HgQ-BvXSO0TPnMBmcATdNmvpmU2HB7PpQFVLKJn0vUec9NUc7jTAaMGW7L7jdVs1KUfXRRK7TN6dMuXVIg"
+},
+{
+    "domain": ".linkedin.com",
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "lang",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": True,
+    "storeId": None,
+    "value": "v=2&lang=en-us"
+},
+{
+    "domain": ".linkedin.com",
+    "expirationDate": 1678242600.890006,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "lidc",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "\"b=OB30:s=O:r=O:a=O:p=O:g=3526:u=10:x=1:i=1678156200:t=1678242600:v=2:sig=AQFdAG0wtgLrbvEobVI6nOPhmfaNiG7Y\""
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1709692200.726434,
+    "hostOnly": False,
+    "httpOnly": True,
+    "name": "bscookie",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "\"v=1&202301191743020e425572-9697-4266-8d06-e5bfd24ae794AQG0b_kpGiEXydi0cGvMlrGaQ6KvPyzZ\""
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1685932200.726405,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "JSESSIONID",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "\"ajax:4076532646350810552\""
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1709692200.726277,
+    "hostOnly": False,
+    "httpOnly": True,
+    "name": "li_rm",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "AQGaQ1AkJKJX1gAAAYazomBRfil0bK-ooeEbqRebyOm2vZtfNqUJfwNRTLR8pxe2e2sVGcd3ai_2WzvgDgtf9eyCM-GmKmRQGvVl3G8U-epeNTsM1oczOJ5g"
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1693704601,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "li_theme",
+    "path": "/",
+    "sameSite": None,
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "light"
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1693704601,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "li_theme_set",
+    "path": "/",
+    "sameSite": None,
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "app"
+},
+{
+    "domain": ".linkedin.com",
+    "expirationDate": 1685932200.726369,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "liap",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "True"
+},
+{
+    "domain": "www.linkedin.com",
+    "hostOnly": True,
+    "httpOnly": False,
+    "name": "PLAY_LANG",
+    "path": "/",
+    "sameSite": None,
+    "secure": False,
+    "session": True,
+    "storeId": None,
+    "value": "en"
+},
+{
+    "domain": "www.linkedin.com",
+    "hostOnly": True,
+    "httpOnly": True,
+    "name": "PLAY_SESSION",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": True,
+    "session": True,
+    "storeId": None,
+    "value": "eyJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InNlc3Npb25faWQiOiJiNzFhMjU1ZS04YzU5LTRmYTctYjAzZC05ODQwNzJjZTRiNzR8MTY3Njk1MTAxOCIsImFsbG93bGlzdCI6Int9IiwicmVjZW50bHktc2VhcmNoZWQiOiIiLCJyZWZlcnJhbC11cmwiOiJodHRwczovL3d3dy5saW5rZWRpbi5jb20vZGV2ZWxvcGVycy9hcHBzL25ldz9zcmM9b3Itc2VhcmNoJnZlaD13d3cuZ29vZ2xlLmNvbSIsImFpZCI6IiIsIlJOVC1pZCI6InwwIiwicmVjZW50bHktdmlld2VkIjoiNTQ4MzYwfDEzNDEzODd8NTIyOTM1fDUxMjQwNSIsIkNQVC1pZCI6IsOrR0nDrV46TMKowoDDsDE7Ti12VyIsImZsb3dUcmFja2luZ0lkIjoiR29rdXBOdHNSYjJNcmlUei9VWm5nUT09IiwiZXhwZXJpZW5jZSI6ImVudGl0eSIsImlzX25hdGl2ZSI6ImZhbHNlIiwidHJrIjoiIn0sIm5iZiI6MTY3Njk1MzI3NiwiaWF0IjoxNjc2OTUzMjc2fQ.QWV2AriMTimBGvDdnirV4cvb8F-S39vfogz-AF9Hufg"
+},
+{
+    "domain": ".linkedin.com",
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "sdsc",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": True,
+    "storeId": None,
+    "value": "1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D"
+},
+{
+    "domain": ".www.linkedin.com",
+    "expirationDate": 1679362201,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "timezone",
+    "path": "/",
+    "sameSite": None,
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "America/New_York"
+},
+{
+    "domain": ".linkedin.com",
+    "expirationDate": 1680744602,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "UserMatchHistory",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "AQKhbmYv6v4RjwAAAYa554JBBK31KtqudlqDZL_43uzc5uCaMT5zs7Mn07uXW93z5dDFPJb1QZnpGcm6Mkqj02Dy87GxwL0ZBOWWa2xi244YNZDm_zNqNiSAVzk0I7GbDwbZ2eBhQlDLX0OYZbHTjWhfLFxkXg0x5vAACRN3IqNUkRXfGPfsr9csvgnUI4_Ul6Y1jNnB19Edl31007UJo6KBvEluXjPlqAdS6dlyBeieTVkKbhX9kSkkGwpRYXCxQVmdo47Gzw"
+},
+{
+    "domain": ".linkedin.com",
+    "expirationDate": 1712702472.149992,
+    "hostOnly": False,
+    "httpOnly": False,
+    "name": "visit",
+    "path": "/",
+    "sameSite": "no_restriction",
+    "secure": True,
+    "session": False,
+    "storeId": None,
+    "value": "v=1&M"
+}
+]
+    
+cookie_dict = {}
+for single_dict in cookies_list:
+    temp = single_dict["value"].strip('"')
+    cookie_dict[single_dict["name"]] = temp
+
 async def UseBingAI(prompt):
     
     # Get actual location of cookie.json here
@@ -514,256 +765,6 @@ def linkedin_login():
     
     email = request.json['email']
     password = request.json['password']    
-    cookies_list = [
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1712716185.471855,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "G_ENABLED_IDPS",
-        "path": "/",
-        "sameSite": None,
-        "secure": False,
-        "session": False,
-        "storeId": None,
-        "value": "google"
-    },
-    {
-        "domain": ".linkedin.com",
-        "expirationDate": 1709692200.726415,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "bcookie",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "\"v=2&8ac1832a-1a62-40b1-8feb-836eaeaef11f\""
-    },
-    {
-        "domain": "www.linkedin.com",
-        "expirationDate": 1678309394.355053,
-        "hostOnly": True,
-        "httpOnly": False,
-        "name": "fid",
-        "path": "/",
-        "sameSite": None,
-        "secure": False,
-        "session": False,
-        "storeId": None,
-        "value": "AQEiYoDdgkUr9AAAAYae_IEC3x5bzU00hYI2U0uD-km_8WndTQr3atuxbAxFhsaxFT1mn8EofhBz7Q"
-    },
-    {
-        "domain": "www.linkedin.com",
-        "expirationDate": 1693708178,
-        "hostOnly": True,
-        "httpOnly": False,
-        "name": "g_state",
-        "path": "/",
-        "sameSite": None,
-        "secure": False,
-        "session": False,
-        "storeId": None,
-        "value": "{\"i_l\":3,\"i_p\":1678760978978}"
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1709692200.726354,
-        "hostOnly": False,
-        "httpOnly": True,
-        "name": "li_at",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "AQEDAReEU6IAnGyYAAABhrnnetIAAAGG3fP-0lYAc8O01hCt_wRtE-nShHjyZm_inTYnD9HgQ-BvXSO0TPnMBmcATdNmvpmU2HB7PpQFVLKJn0vUec9NUc7jTAaMGW7L7jdVs1KUfXRRK7TN6dMuXVIg"
-    },
-    {
-        "domain": ".linkedin.com",
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "lang",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": True,
-        "storeId": None,
-        "value": "v=2&lang=en-us"
-    },
-    {
-        "domain": ".linkedin.com",
-        "expirationDate": 1678242600.890006,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "lidc",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "\"b=OB30:s=O:r=O:a=O:p=O:g=3526:u=10:x=1:i=1678156200:t=1678242600:v=2:sig=AQFdAG0wtgLrbvEobVI6nOPhmfaNiG7Y\""
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1709692200.726434,
-        "hostOnly": False,
-        "httpOnly": True,
-        "name": "bscookie",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "\"v=1&202301191743020e425572-9697-4266-8d06-e5bfd24ae794AQG0b_kpGiEXydi0cGvMlrGaQ6KvPyzZ\""
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1685932200.726405,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "JSESSIONID",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "\"ajax:4076532646350810552\""
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1709692200.726277,
-        "hostOnly": False,
-        "httpOnly": True,
-        "name": "li_rm",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "AQGaQ1AkJKJX1gAAAYazomBRfil0bK-ooeEbqRebyOm2vZtfNqUJfwNRTLR8pxe2e2sVGcd3ai_2WzvgDgtf9eyCM-GmKmRQGvVl3G8U-epeNTsM1oczOJ5g"
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1693704601,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "li_theme",
-        "path": "/",
-        "sameSite": None,
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "light"
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1693704601,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "li_theme_set",
-        "path": "/",
-        "sameSite": None,
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "app"
-    },
-    {
-        "domain": ".linkedin.com",
-        "expirationDate": 1685932200.726369,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "liap",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "True"
-    },
-    {
-        "domain": "www.linkedin.com",
-        "hostOnly": True,
-        "httpOnly": False,
-        "name": "PLAY_LANG",
-        "path": "/",
-        "sameSite": None,
-        "secure": False,
-        "session": True,
-        "storeId": None,
-        "value": "en"
-    },
-    {
-        "domain": "www.linkedin.com",
-        "hostOnly": True,
-        "httpOnly": True,
-        "name": "PLAY_SESSION",
-        "path": "/",
-        "sameSite": "lax",
-        "secure": True,
-        "session": True,
-        "storeId": None,
-        "value": "eyJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InNlc3Npb25faWQiOiJiNzFhMjU1ZS04YzU5LTRmYTctYjAzZC05ODQwNzJjZTRiNzR8MTY3Njk1MTAxOCIsImFsbG93bGlzdCI6Int9IiwicmVjZW50bHktc2VhcmNoZWQiOiIiLCJyZWZlcnJhbC11cmwiOiJodHRwczovL3d3dy5saW5rZWRpbi5jb20vZGV2ZWxvcGVycy9hcHBzL25ldz9zcmM9b3Itc2VhcmNoJnZlaD13d3cuZ29vZ2xlLmNvbSIsImFpZCI6IiIsIlJOVC1pZCI6InwwIiwicmVjZW50bHktdmlld2VkIjoiNTQ4MzYwfDEzNDEzODd8NTIyOTM1fDUxMjQwNSIsIkNQVC1pZCI6IsOrR0nDrV46TMKowoDDsDE7Ti12VyIsImZsb3dUcmFja2luZ0lkIjoiR29rdXBOdHNSYjJNcmlUei9VWm5nUT09IiwiZXhwZXJpZW5jZSI6ImVudGl0eSIsImlzX25hdGl2ZSI6ImZhbHNlIiwidHJrIjoiIn0sIm5iZiI6MTY3Njk1MzI3NiwiaWF0IjoxNjc2OTUzMjc2fQ.QWV2AriMTimBGvDdnirV4cvb8F-S39vfogz-AF9Hufg"
-    },
-    {
-        "domain": ".linkedin.com",
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "sdsc",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": True,
-        "storeId": None,
-        "value": "1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D"
-    },
-    {
-        "domain": ".www.linkedin.com",
-        "expirationDate": 1679362201,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "timezone",
-        "path": "/",
-        "sameSite": None,
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "America/New_York"
-    },
-    {
-        "domain": ".linkedin.com",
-        "expirationDate": 1680744602,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "UserMatchHistory",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "AQKhbmYv6v4RjwAAAYa554JBBK31KtqudlqDZL_43uzc5uCaMT5zs7Mn07uXW93z5dDFPJb1QZnpGcm6Mkqj02Dy87GxwL0ZBOWWa2xi244YNZDm_zNqNiSAVzk0I7GbDwbZ2eBhQlDLX0OYZbHTjWhfLFxkXg0x5vAACRN3IqNUkRXfGPfsr9csvgnUI4_Ul6Y1jNnB19Edl31007UJo6KBvEluXjPlqAdS6dlyBeieTVkKbhX9kSkkGwpRYXCxQVmdo47Gzw"
-    },
-    {
-        "domain": ".linkedin.com",
-        "expirationDate": 1712702472.149992,
-        "hostOnly": False,
-        "httpOnly": False,
-        "name": "visit",
-        "path": "/",
-        "sameSite": "no_restriction",
-        "secure": True,
-        "session": False,
-        "storeId": None,
-        "value": "v=1&M"
-    }
-    ]
-    
-    cookie_dict = {}
-    for single_dict in cookies_list:
-        temp = single_dict["value"].strip('"')
-        cookie_dict[single_dict["name"]] = temp
     
     # api = Linkedin(email, password)
     api = Linkedin(email, password, cookies= cookie_dict)
