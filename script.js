@@ -45,12 +45,15 @@ window.onload = async function() {
 				chrome.storage.local.set({
 					'LinkedinPassword': password
 				});
-				
+				chrome.storage.local.set({
+					'LinkedinCookie': cookie
+				});
 			});
 			
 		});
 	});
-
+	
+	/*
 	document.getElementById("SubmitButton").addEventListener("click", function() {
 
 		var email = document.getElementById("email").value;
@@ -182,7 +185,7 @@ window.onload = async function() {
 					
 				}
 			});
-	});
+	});*/
 
 	var emailResult = await chrome.storage.local.get(['LinkedinEmail']);
 	
@@ -191,6 +194,9 @@ window.onload = async function() {
 	var email = emailResult.LinkedinEmail;
 	var passwordResult = await chrome.storage.local.get(['LinkedinPassword']);
 	var password = passwordResult.LinkedinPassword;
+	
+	var linkedinCookieResult = await chrome.storage.local.get(['LinkedinCookie']);
+	var cookie = linkedinCookieResult.LinkedinCookie;
 	
 	// console.log(email, password);
 
@@ -269,6 +275,7 @@ window.onload = async function() {
 				body: JSON.stringify({
 					email: email,
 					password: password,
+					cookie: cookie,
 					title: title,
 					location: location,
 					currentCompany: currentCompany,
@@ -823,7 +830,8 @@ window.onload = async function() {
 				},
 				body: JSON.stringify({
 					email: email,
-					password: password
+					password: password,
+					cookie: cookie
 				})
 			})
 			.then(response => response.json())

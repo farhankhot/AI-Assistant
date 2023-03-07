@@ -371,13 +371,13 @@ def get_values_for_key(key, dictionary):
     
     # return final_topics
 
-def GetProfile(email, password, search_params, location, mutual_connections_boolean):
+def GetProfile(email, password, cookie_dict, search_params, location, mutual_connections_boolean):
 
     print("location", location)
     
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)    
-    with open(cookie_filename, "rb") as infile:
-        cookie_dict = pickle.load(infile)
+    # cookie_filename = "linkedin_cookies_{}.pickle".format(email)    
+    # with open(cookie_filename, "rb") as infile:
+        # cookie_dict = pickle.load(infile)
     
     api = Linkedin(email, password, cookies=cookie_dict)
     
@@ -421,7 +421,7 @@ def get_geo_urn(api, location):
     geo_urn = re.search("\d+", geo_urn).group()
     return geo_urn
 
-def get_conversation_threads(email, password):
+def get_conversation_threads(email, password, cookie_dict):
     print("nn", email)
     
     api = Linkedin(email, password, cookies=cookie_dict)
@@ -487,11 +487,12 @@ def receive_link():
 
     email = request.json['email']
     password = request.json['password']
+    cookie_dict = request.json['cookie']
     # print(email, password)
     
-    cookie_filename = "linkedin_cookies_{}.pickle".format(email)    
-    with open(cookie_filename, "rb") as infile:
-        cookie_dict = pickle.load(infile)
+    # cookie_filename = "linkedin_cookies_{}.pickle".format(email)    
+    # with open(cookie_filename, "rb") as infile:
+        # cookie_dict = pickle.load(infile)
     
     api = Linkedin(email, password, cookies=cookie_dict)
         
@@ -503,7 +504,7 @@ def receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
+        data = q.enqueue(GetProfile, email, password, cookie_dict, title, location_geo_urn, mutual_connections_boolean)
         # data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
 
     else:
@@ -657,11 +658,12 @@ def get_convo_threads():
 
     email = request.json['email']
     password = request.json['password']
+    cookie_dict = request.json['cookie']
     print(email)
     
     # api = Linkedin(email, password)
     # print("api", api)
-    data = get_conversation_threads(email, password)
+    data = get_conversation_threads(email, password, cookie_dict)
     print("da", data)
     
     return jsonify(success=True, message=data)
@@ -669,7 +671,6 @@ def get_convo_threads():
 @app.route('/get-convo-messages', methods=['POST'])
 def get_convo_messages():
 
-    
     email = request.json['email']
     password = request.json['password']
     api = Linkedin(email, password)
