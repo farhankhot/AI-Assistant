@@ -19,7 +19,7 @@
      "service_worker": "background.js"
   },
   
-  "permissions": ["activeTab", "scripting", "storage", "identity", "downloads", "contextMenus", "alarms"],
+  "permissions": ["activeTab", "scripting", "storage", "identity", "downloads", "contextMenus", "alarms", "cookies"],
   
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline' https://apis.google.com;"
