@@ -486,7 +486,7 @@ def send_code():
 
 @app.route('/captcha-ans', methods=['POST'])
 def captcha_ans():
-    time.sleep(3)
+    time.sleep(6)
     print("new", driver.page_source)
     code = request.json['code']
     print("code from captcha ans: ", code)
