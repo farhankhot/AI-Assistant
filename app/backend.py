@@ -489,7 +489,7 @@ def receive_link():
     password = request.json['password']
     # print(email, password)
     
-    # api = Linkedin(email, password)
+    api = Linkedin(email, password, cookies=cookie_dict)
         
     title = request.json
     # print("title", title)
@@ -499,13 +499,11 @@ def receive_link():
     
     if location != '':
         location_geo_urn = get_geo_urn(api, location)
-        # data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
-        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
+        data = q.enqueue(GetProfile, api, title, location_geo_urn, mutual_connections_boolean)
 
     else:
-        # data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
-        data = q.enqueue(GetProfile, email, password, title, location_geo_urn, mutual_connections_boolean)
-
+        data = q.enqueue(GetProfile, api, title, '', mutual_connections_boolean)
+        
     # print(data)
     # time.sleep(150)
     job_id = data.get_id()
