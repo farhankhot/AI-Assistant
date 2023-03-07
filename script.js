@@ -6,6 +6,15 @@
 // Error handling
 
 window.onload = async function() {
+	
+	document.getElementById("GetLinkedinCookiesButton").addEventListener("click", function() {
+		// Assume current tab has Linkedin homepage
+		chrome.cookies.getAll({"url": "https://www.linkedin.com/feed/"}, function(cookie) {
+			for (var i = 0; i < cookie.length; i++){
+				console.log(cookie[i]);
+			}
+		});
+	});
 
 	document.getElementById("SubmitButton").addEventListener("click", function() {
 
