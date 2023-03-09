@@ -1,9 +1,10 @@
 // TODO:
-// Google news integration with interests
 // New Message
 // Back Button
 // Clean functions
 // Error handling
+
+// THIS WORKS, IS SLOW, BUT IT WORKS. AFTER THIS WILL BE THE MIGRATION TO REACT
 
 window.onload = async function() {
 	
