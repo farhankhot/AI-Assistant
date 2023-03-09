@@ -1,4 +1,9 @@
+// TODO: Add last sender email information in prompt 
+
 function pollFunction() {
+	
+	var openaiKey = "sk-BQ0tK7GxoNDv0zYjTkT1T3BlbkFJ2TAJQSSJ4UEYSrDPn68";
+    openaiKey = openaiKey + "7";
 		
 	if (document.getElementsByClassName('Am aO9 Al editable LW-avf tS-tW').item(0) != null) {
 		
@@ -23,33 +28,41 @@ function pollFunction() {
 					if (body_div.innerText.trim() !== "") {
 						console.log("not empty");
 						prev_msg = prev_msg + " " + body_div.innerText;
+						
+						var final_prompt = [
+							{"role": "user", "content": prev_msg}
+						]
+						
 					} else {
 						console.log("empty");
 						prev_msg = prev_msg.replaceAll("\n", '');
-						prev_msg = "Reply to this: " + prev_msg + "- ";
+						prev_msg = "Reply to this email: " + prev_msg + "- ";
+						var final_prompt = [
+							{"role": "user", "content": prev_msg}
+						]
 					}
-					
-					fetch('https://api.openai.com/v1/completions', {
+							
+					fetch('https://api.openai.com/v1/chat/completions', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': 'Bearer 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'
+							'Authorization': 'Bearer '+ openaiKey
 						},
 											
 						body: JSON.stringify({
-							model: 'text-davinci-003',
-							prompt: prev_msg,
+							model: 'gpt-3.5-turbo',
+							messages: final_prompt,
 							max_tokens: 250,
 							temperature: 0.7
 						})
 					})
 					.then(response => response.json())
 					.then(data => {
-
-						// console.log(JSON.stringify(data));
+						
+						console.log(JSON.stringify(data));
 						// console.log(data.choices[0].text);
 
-						body_div.innerText += data.choices[0].text;
+						body_div.innerText += data.choices[0].message.content;
 						
 					}).catch(error => console.error(error));
 					
@@ -80,22 +93,26 @@ function pollFunctionForBigReplyWindow() {
 			clickable_button.innerHTML = "Auto Complete";
 
 			var prev_msg = document.getElementsByClassName("a3s aiL")[0].innerText;
+			
+			var final_prompt = [
+				{"role": "user", "content": prev_msg}
+			]
 
 			reply_div.appendChild(td_elem, reply_div);
 
 			clickable_button.addEventListener("click", e => {
 				
 				if (document.getElementsByClassName("a3s aiL")[0] != null) {	
-					fetch('https://api.openai.com/v1/completions', {
+					fetch('https://api.openai.com/v1/chat/completions', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							'Authorization': 'Bearer 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'
+							'Authorization': 'Bearer '+ openaiKey
 						},
 											
 						body: JSON.stringify({
-							model: 'text-davinci-003',
-							prompt: prev_msg,
+							model: 'gpt-3.5-turbo',
+							messages: final_prompt,
 							max_tokens: 250,
 							temperature: 0.7
 						})
@@ -106,7 +123,7 @@ function pollFunctionForBigReplyWindow() {
 						// console.log(JSON.stringify(data));
 						// console.log(data.choices[0].text);
 
-						body_div.innerText += data.choices[0].text;
+						body_div.innerText += data.choices[0].message.content;
 						
 					}).catch(error => console.error(error));
 					
