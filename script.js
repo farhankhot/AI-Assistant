@@ -1,10 +1,86 @@
-// TODO:
-// New Message
-// Back Button
-// Clean functions
-// Error handling
+import React, {useState, useEffect} from "react";
 
-// THIS WORKS, IS SLOW, BUT IT WORKS. AFTER THIS WILL BE THE MIGRATION TO REACT
+function linkedInCookie() {
+	
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+	const [cookie, setCookie] = useState("")
+	
+	useEffect(() => {
+		
+		async function getLocalStorage() {
+		
+			const emailResult = await chrome.storage.local.get(["linkedInEmail"]);
+			const passwordResult = await chrome.storage.local.get(["linkedInPassword"]);
+			const linkedinCookieResult = await chrome.storage.local.get(["linkedInCookie"]);
+			
+			setEmail(emailResult.linkedInEmail || "");
+			setPassword(passwordResult.linkedInPassword || "");
+			setCookie(linkedinCookieResult.linkedInCookie || "");
+		}
+		getLocalStorage();
+	}, []);
+	
+	const handleLinkedinCookie = () => {
+		
+		chrome.cookies.getAll({ url: "https://www.linkedin.com/feed/" }, (cookie) => {
+			
+			fetch("https://ai-assistant.herokuapp.com/save-cookie", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+					password,
+					cookie: cookie,
+				})
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				chrome.storage.local.set({ linkedInEmail: email });
+				chrome.storage.local.set({ linkedInPassword: password });
+				chrome.storage.local.set({ linkedInCookie: cookie });
+
+				setEmail(email);
+				setPassword(password);
+				setCookie(cookie);
+			  
+			});
+		});
+	
+	};
+	
+	return (
+		<>
+		{email === "" || password === "" ? (
+			<div id="loginPage">
+				
+				<input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+				<input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+				<button id = "linkedInCookieButton" onClick={handleLinkedinCookie}>
+					Get LinkedIn Cookies
+				</button>
+			
+			</div>
+			
+		) : (
+			<div id="linkedinSearchPage">
+				<input type="text" id="title" placeholder="Enter a title">
+				<input type="text" id="location" placeholder="Location">
+				<input type="text" id="currentCompany" placeholder="Current Company">
+				<input type="checkbox" id="mutualConnectionsBoolean">
+				<label for="mutualConnectionsBoolean">Get Mutual Connections?</label>
+				<button id="profileInfoButton">Get info</button>
+			</div>
+		)}
+		</>
+		
+	);
+
+
+}
 
 window.onload = async function() {
 	
@@ -13,13 +89,9 @@ window.onload = async function() {
 		var email = document.getElementById("email").value;
 		var password = document.getElementById("password").value;
 		
-		// Assume current tab has Linkedin homepage
+		// Assumes the user has already logged in to LinkedIn on the browser
 		chrome.cookies.getAll({"url": "https://www.linkedin.com/feed/"}, function(cookie) {
-			
-			// for (var i = 0; i < cookie.length; i++){
-				// console.log(cookie[i]);
-			// }
-			
+						
 			// Send to backend.py and save with username
 			fetch("https://ai-assistant.herokuapp.com/save-cookie", {
 				method: "POST",
@@ -54,145 +126,10 @@ window.onload = async function() {
 		});
 	});
 	
-	/*
-	document.getElementById("SubmitButton").addEventListener("click", function() {
-
-		var email = document.getElementById("email").value;
-		var password = document.getElementById("password").value;
-		// alert(email);
-		// alert(password);
-
-		fetch("https://ai-assistant.herokuapp.com/linkedin-login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					email: email,
-					password: password
-				})
-			})
-			.then(response => response.json())
-			.then(data => {
-
-				if (data.success === true) {
-
-					// show the messages part
-					document.getElementById("login-page").style.display = "none";
-					document.getElementById("linkedin-search-page").style.display = "block";
-					document.getElementById("messages-page").style.display = "block";
-
-					chrome.storage.local.set({
-						'LinkedinEmail': email
-					});
-					chrome.storage.local.set({
-						'LinkedinPassword': password
-					});
-				} else {
-					
-					// document.getElementById("ErrorContainer").innerHTML = "Invalid login info. Please try again";
-					var newTextbox = document.createElement("input");
-					newTextbox.type = "text";
-					const img = new Image();
-					var screenshot = data.message; 
-					console.log("screenshot", data.message);
-					img.src = `data:image/png;base64,${screenshot}`;
-					
-					var captchaSubmitButton = document.createElement("button");
-					captchaSubmitButton.innerHTML = "Submit code";
-					captchaSubmitButton.id = "CaptchaSubmitButton";
-					
-					// console.log(data.success);
-					
-					document.getElementById("ErrorContainer").appendChild(img);
-					document.getElementById("ErrorContainer").appendChild(captchaSubmitButton);
-					document.getElementById("ErrorContainer").appendChild(newTextbox);
-					
-					document.getElementById("CaptchaSubmitButton").onclick = function() {
-						fetch("https://ai-assistant.herokuapp.com/captcha-ans", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								code: newTextbox.value
-							})
-						})
-						.then(response => response.json())
-						.then(data => {
-							if (data.success === true) {
-													
-								// show the messages part
-								console.log(data);
-					
-								document.getElementById("login-page").style.display = "none";
-								document.getElementById("linkedin-search-page").style.display = "block";
-								document.getElementById("messages-page").style.display = "block";
-
-								chrome.storage.local.set({
-									'LinkedinEmail': email
-								});
-								chrome.storage.local.set({
-									'LinkedinPassword': password
-								});
-							}
-							
-						});
-					}
-					
-					// var f = document.createElement("textbox");
-					// var captchaSubmitButton = document.createElement("button");
-					// document.getElementById("ErrorContainer").appendChild(f);
-					
-					// var codeInputBox = document.createElement("input");
-					// codeInputBox.type = "text";
-					// document.getElementById("ErrorContainer").appendChild(codeInputBox);
-					// var codeSubmitButton = document.createElement("button");
-					// codeSubmitButton.innerHTML = "Submit code";
-					// codeSubmitButton.id = "CodeSubmitButton";
-					// document.getElementById("ErrorContainer").appendChild(codeSubmitButton);
-					
-					// document.getElementById("CodeSubmitButton").onclick = function() {
-						// fetch("https://ai-assistant.herokuapp.com/send-code", {
-							// method: "POST",
-							// headers: {
-								// "Content-Type": "application/json"
-							// },
-							// body: JSON.stringify({
-								// code: codeInputBox.value
-							// })
-						// })
-						// .then(response => response.json())
-						// .then(data => {
-							// if (data.success === true) {
-													
-								// // show the messages part
-								// console.log(data);
-					
-								// document.getElementById("login-page").style.display = "none";
-								// document.getElementById("linkedin-search-page").style.display = "block";
-								// document.getElementById("messages-page").style.display = "block";
-
-								// chrome.storage.local.set({
-									// 'LinkedinEmail': email
-								// });
-								// chrome.storage.local.set({
-									// 'LinkedinPassword': password
-								// });
-							// }
-							
-						// });
-					// }
-					
-				}
-			});
-	});*/
-
 	var emailResult = await chrome.storage.local.get(['LinkedinEmail']);
-	
 	// console.log(emailResult);
-	
 	var email = emailResult.LinkedinEmail;
+	
 	var passwordResult = await chrome.storage.local.get(['LinkedinPassword']);
 	var password = passwordResult.LinkedinPassword;
 	
@@ -213,40 +150,6 @@ window.onload = async function() {
 		document.getElementById("linkedin-search-page").style.display = "block";
 		document.getElementById("messages-page").style.display = "block";
 	}
-
-	/*const textareas = document.querySelectorAll("textarea");
-
-	// Loop through each textarea/div
-	textareas.forEach(textarea => {
-		// Create a new button
-		const button = document.createElement("button");
-		button.innerHTML = "AutoComplete";
-
-		// Add event listener for when the button is clicked
-		button.addEventListener("click", e => {
-			// Do something when the button is clicked (e.g. check grammar)
-			chrome.runtime.sendMessage({ message: textarea.value});
-			chrome.runtime.onMessage.addListener(
-			  function(request, sender, sendResponse) {
-				textarea.value += request.message;
-			  });
-		});
-
-		// Add event listener for when the textarea/div is focused
-		textarea.addEventListener("focus", e => {
-			// Append the button to the textarea/div
-			textarea.parentNode.insertBefore(button, textarea);
-
-		});
-
-		textarea.addEventListener("blur", e => {
-			// Check if button is clicked or not
-			if(!button.click){
-			  // Remove the button from the textarea/div
-			  button.remove();
-			}
-		});
-	});*/
 	
 	document.getElementById("ProfileInfoButton").onclick = function() {
 
@@ -1011,7 +914,3 @@ window.onload = async function() {
 			});
 	}
 };
-
-// chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
-
-// });

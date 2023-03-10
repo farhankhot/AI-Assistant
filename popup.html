@@ -8,96 +8,105 @@
 				background-image: linear-gradient(to right, #8360c3, #2ebf91);
 			}
 
-			#rounded-div {
-				border: 2px solid white;
-				border-radius: 10px;
-				width: 150px;
-				padding: 15px;
-				text-align: center;
-				margin: 0 auto;
-			}
+			<!-- #rounded-div { -->
+				<!-- border: 2px solid white; -->
+				<!-- border-radius: 10px; -->
+				<!-- width: 150px; -->
+				<!-- padding: 15px; -->
+				<!-- text-align: center; -->
+				<!-- margin: 0 auto; -->
+			<!-- } -->
 
-			#linkedin-page {
-				display: none;
-			}
+			<!-- #linkedin-page { -->
+				<!-- display: none; -->
+			<!-- } -->
 
-			#start-page {
-				display: none;
-			}
+			<!-- #start-page { -->
+				<!-- display: none; -->
+			<!-- } -->
 
-			#linkedin-search-page {
-				display: none;
-			}
+			<!-- #linkedin-search-page { -->
+				<!-- display: none; -->
+			<!-- } -->
 
-			#messages-page {
-				display: none;
-			}
+			<!-- #messages-page { -->
+				<!-- display: none; -->
+			<!-- } -->
 		</style>
 	</head>
 	<body>
-		<div id="login-page">
-			<h1 style="color:white;">MAKE SURE YOU ARE LOGGED IN TO LINKEDIN BEFORE CLICKING GET COOKIES</h1>
-			<form id="login-form" action="" method="post">
-				<label for="email">Email:</label>
-				<input type="text" id="email" name="email" required>
-				<br>
-				<br>
-				<label for="password">Password:</label>
-				<input type="password" id="password" name="password" required>
-				<br>
-				<br>				
-			</form>
+
+		<!-- <div id="login-page"> -->
+			<!-- <h1 style="color:white;">MAKE SURE YOU ARE LOGGED IN TO LINKEDIN BEFORE CLICKING GET COOKIES</h1> -->
+			<!-- <form id="login-form" action="" method="post"> -->
+				<!-- <label for="email">Email:</label> -->
+				<!-- <input type="text" id="email" name="email" required> -->
+				<!-- <br> -->
+				<!-- <br> -->
+				<!-- <label for="password">Password:</label> -->
+				<!-- <input type="password" id="password" name="password" required> -->
+				<!-- <br> -->
+				<!-- <br>				 -->
+			<!-- </form> -->
 			
-			<button id="GetLinkedinCookiesButton">Get Cookies</button>
-			<div id="ErrorContainer"></div>
-		</div>
-		<div id="start-page">
-			<div>
-				<h1 style="color:white; font-size: 15px; text-align: center">AutoTune is ON</h1>
-			</div>
-			<br>
-			<div id="rounded-div">
-				<h1 id="CheckCurrentModel" style="color:white; font-size: 15px; text-align: center">Current model trained on: </h1>
-				<h2 id="CurrentModelDate" style="color:white; font-size: 13px; text-align: center">23rd January '23</h2>
-			</div>
-			<br>
-		</div>
-		<div id="messages-page">
-			<button id="MessagesButton">Messages</button>
-			<div id="ThreadsContainer"></div>
-			<div id="MessagesContainer">
-				<div id="InterestsContainer"></div>
-				<div id="PeopleInterestsContainer"></div>
-				<div id="CompanyInterestsContainer"></div>
-			</div>
-		</div>
-		<div id="linkedin-search-page">
-			<input type="text" id="title" placeholder="Enter a title">
-			<br>
-			<input type="text" id="Location" placeholder="Location">
-			<br>
-			<input type="text" id="CurrentCompany" placeholder="Current Company">
-			<br>
-			<input type="checkbox" id="MutualConnectionsBoolean">
-			<label for="MutualConnectionsBoolean">Get Mutual Connections?</label>
-			<button id="ProfileInfoButton">Get info</button>
-		</div>
-		<div id="linkedin-page">
-			<ul id="list"></ul>
-			<h1 id="name"></h1>
-			<h1 id="title"></h1>
-			<textarea id="my-textarea"></textarea>
-			<button id="InterestsButton" disabled >Interests</button>
-			<button id="PeopleInterestsButton">Get People Interests</button>
-			<button id="CompanyInterestsButton">Get Company Interests</button>
-			<button id="GenerateConnectNoteButton">Generate Connect Note</button>
-			<div id="CheckboxContainer"></div>
-			<div id="PeopleInterestsContainer"></div>
-			<div id="CompanyInterestsContainer"></div>
-			<button id="next-button">Next</button>
-			<button id="send-button">Send</button>
-		</div>
-		<!--<button id="ProfileInfoButton">Get people's profile from list</button> -->
+			<!-- <button id="GetLinkedinCookiesButton">Get Cookies</button> -->
+			<!-- <div id="ErrorContainer"></div> -->
+		<!-- </div> -->
+		<!-- <div id="start-page"> -->
+			<!-- <div> -->
+				<!-- <h1 style="color:white; font-size: 15px; text-align: center">AutoTune is ON</h1> -->
+			<!-- </div> -->
+			<!-- <br> -->
+			<!-- <div id="rounded-div"> -->
+				<!-- <h1 id="CheckCurrentModel" style="color:white; font-size: 15px; text-align: center">Current model trained on: </h1> -->
+				<!-- <h2 id="CurrentModelDate" style="color:white; font-size: 13px; text-align: center">23rd January '23</h2> -->
+			<!-- </div> -->
+			<!-- <br> -->
+		<!-- </div> -->
+		<!-- <div id="messages-page"> -->
+			<!-- <button id="MessagesButton">Messages</button> -->
+			<!-- <div id="ThreadsContainer"></div> -->
+			<!-- <div id="MessagesContainer"> -->
+				<!-- <div id="InterestsContainer"></div> -->
+				<!-- <div id="PeopleInterestsContainer"></div> -->
+				<!-- <div id="CompanyInterestsContainer"></div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div id="linkedin-search-page"> -->
+			<!-- <input type="text" id="title" placeholder="Enter a title"> -->
+			<!-- <br> -->
+			<!-- <input type="text" id="Location" placeholder="Location"> -->
+			<!-- <br> -->
+			<!-- <input type="text" id="CurrentCompany" placeholder="Current Company"> -->
+			<!-- <br> -->
+			<!-- <input type="checkbox" id="MutualConnectionsBoolean"> -->
+			<!-- <label for="MutualConnectionsBoolean">Get Mutual Connections?</label> -->
+			<!-- <button id="ProfileInfoButton">Get info</button> -->
+		<!-- </div> -->
+		<!-- <div id="linkedin-page"> -->
+			<!-- <ul id="list"></ul> -->
+			<!-- <h1 id="name"></h1> -->
+			<!-- <h1 id="title"></h1> -->
+			<!-- <textarea id="my-textarea"></textarea> -->
+			<!-- <button id="InterestsButton" disabled >Interests</button> -->
+			<!-- <button id="PeopleInterestsButton">Get People Interests</button> -->
+			<!-- <button id="CompanyInterestsButton">Get Company Interests</button> -->
+			<!-- <button id="GenerateConnectNoteButton">Generate Connect Note</button> -->
+			<!-- <div id="CheckboxContainer"></div> -->
+			<!-- <div id="PeopleInterestsContainer"></div> -->
+			<!-- <div id="CompanyInterestsContainer"></div> -->
+			<!-- <button id="next-button">Next</button> -->
+			<!-- <button id="send-button">Send</button> -->
+		<!-- </div> -->
+		
+		
+		<div id="root"></div>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		
 		<script src="script.js"></script>
 	</body>
 </html>
