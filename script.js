@@ -1,86 +1,86 @@
-import React, {useState, useEffect} from "react";
+// import React, {useState, useEffect} from "react";
 
-function linkedInCookie() {
+// function linkedInCookie() {
 	
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [cookie, setCookie] = useState("")
+// 	const [email, setEmail] = useState("")
+// 	const [password, setPassword] = useState("")
+// 	const [cookie, setCookie] = useState("")
 	
-	useEffect(() => {
+// 	useEffect(() => {
 		
-		async function getLocalStorage() {
+// 		async function getLocalStorage() {
 		
-			const emailResult = await chrome.storage.local.get(["linkedInEmail"]);
-			const passwordResult = await chrome.storage.local.get(["linkedInPassword"]);
-			const linkedinCookieResult = await chrome.storage.local.get(["linkedInCookie"]);
+// 			const emailResult = await chrome.storage.local.get(["linkedInEmail"]);
+// 			const passwordResult = await chrome.storage.local.get(["linkedInPassword"]);
+// 			const linkedinCookieResult = await chrome.storage.local.get(["linkedInCookie"]);
 			
-			setEmail(emailResult.linkedInEmail || "");
-			setPassword(passwordResult.linkedInPassword || "");
-			setCookie(linkedinCookieResult.linkedInCookie || "");
-		}
-		getLocalStorage();
-	}, []);
+// 			setEmail(emailResult.linkedInEmail || "");
+// 			setPassword(passwordResult.linkedInPassword || "");
+// 			setCookie(linkedinCookieResult.linkedInCookie || "");
+// 		}
+// 		getLocalStorage();
+// 	}, []);
 	
-	const handleLinkedinCookie = () => {
+// 	const handleLinkedinCookie = () => {
 		
-		chrome.cookies.getAll({ url: "https://www.linkedin.com/feed/" }, (cookie) => {
+// 		chrome.cookies.getAll({ url: "https://www.linkedin.com/feed/" }, (cookie) => {
 			
-			fetch("https://ai-assistant.herokuapp.com/save-cookie", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					email,
-					password,
-					cookie: cookie,
-				})
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				chrome.storage.local.set({ linkedInEmail: email });
-				chrome.storage.local.set({ linkedInPassword: password });
-				chrome.storage.local.set({ linkedInCookie: cookie });
+// 			fetch("https://ai-assistant.herokuapp.com/save-cookie", {
+// 				method: "POST",
+// 				headers: {
+// 					"Content-Type": "application/json",
+// 				},
+// 				body: JSON.stringify({
+// 					email,
+// 					password,
+// 					cookie: cookie,
+// 				})
+// 			})
+// 			.then((response) => response.json())
+// 			.then((data) => {
+// 				chrome.storage.local.set({ linkedInEmail: email });
+// 				chrome.storage.local.set({ linkedInPassword: password });
+// 				chrome.storage.local.set({ linkedInCookie: cookie });
 
-				setEmail(email);
-				setPassword(password);
-				setCookie(cookie);
+// 				setEmail(email);
+// 				setPassword(password);
+// 				setCookie(cookie);
 			  
-			});
-		});
+// 			});
+// 		});
 	
-	};
+// 	};
 	
-	return (
-		<>
-		{email === "" || password === "" ? (
-			<div id="loginPage">
+// 	return (
+// 		<>
+// 		{email === "" || password === "" ? (
+// 			<div id="loginPage">
 				
-				<input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-				<input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+// 				<input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+// 				<input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-				<button id = "linkedInCookieButton" onClick={handleLinkedinCookie}>
-					Get LinkedIn Cookies
-				</button>
+// 				<button id = "linkedInCookieButton" onClick={handleLinkedinCookie}>
+// 					Get LinkedIn Cookies
+// 				</button>
 			
-			</div>
+// 			</div>
 			
-		) : (
-			<div id="linkedinSearchPage">
-				<input type="text" id="title" placeholder="Enter a title">
-				<input type="text" id="location" placeholder="Location">
-				<input type="text" id="currentCompany" placeholder="Current Company">
-				<input type="checkbox" id="mutualConnectionsBoolean">
-				<label for="mutualConnectionsBoolean">Get Mutual Connections?</label>
-				<button id="profileInfoButton">Get info</button>
-			</div>
-		)}
-		</>
+// 		) : (
+// 			<div id="linkedinSearchPage">
+// 				<input type="text" id="title" placeholder="Enter a title">
+// 				<input type="text" id="location" placeholder="Location">
+// 				<input type="text" id="currentCompany" placeholder="Current Company">
+// 				<input type="checkbox" id="mutualConnectionsBoolean">
+// 				<label for="mutualConnectionsBoolean">Get Mutual Connections?</label>
+// 				<button id="profileInfoButton">Get info</button>
+// 			</div>
+// 		)}
+// 		</>
 		
-	);
+// 	);
 
 
-}
+// }
 
 window.onload = async function() {
 	
